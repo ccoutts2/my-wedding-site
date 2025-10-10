@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client"
+  output   = "src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String          @id @default(cuid())
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  email                String          @unique
+  givenName            String
+  familyName           String
+  hasGuests            Boolean
+  RSVP                 Boolean
+  isAccepted           Boolean
+  diet                 DietaryOptions?
+  hasAllergies         Boolean?
+  allergiesDescription String?
+  musicSelection       String
+  type                 GuestType       @default(DAY)
+  guest                Guest[]
+}
+
+model Guest {
+  id                   Int             @id @default(autoincrement())
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  givenName            String
+  familyName           String
+  isAccepted           Boolean
+  diet                 DietaryOptions?
+  hasAllergies         Boolean?
+  allergiesDescription String?
+  musicSelection       String
+  type                 GuestType       @default(DAY)
+  userId               String
+  belongsTo            User            @relation(fields: [userId], references: [id])
+}
+
+enum DietaryOptions {
+  MEAT
+  VEGETARIAN
+  VEGAN
+}
+
+enum GuestType {
+  DAY
+  NIGHT
+}
