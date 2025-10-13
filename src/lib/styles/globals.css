@@ -1,0 +1,73 @@
+@layer reset, globals;
+
+@import './fonts.scss' layer(globals);
+
+@layer reset {
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+}
+
+@layer globals {
+	.visually-hidden {
+		clip-path: inset(50%);
+		clip: rect(0 0 0 0);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	}
+
+	body {
+		font-weight: 400;
+		min-height: 100vh;
+		position: relative;
+		font-family: HelveticaProRoman;
+		letter-spacing: 1px;
+	}
+
+	h2 {
+		font-size: clamp(2.5rem, 3vw, 4rem) !important;
+		font-weight: 400;
+	}
+
+	h3 {
+		font-size: clamp(1.75rem, 3vw, 2.5rem) !important;
+		font-weight: 400;
+	}
+
+	p {
+		font-size: 1rem;
+		font-weight: 400;
+		letter-spacing: normal;
+	}
+
+	form > * {
+		font-size: 1rem;
+		font-weight: 400;
+		letter-spacing: normal;
+	}
+
+	a {
+		color: inherit;
+		text-decoration: underline;
+	}
+
+	button {
+		color: inherit;
+		border: none;
+		padding: 0;
+		font: inherit;
+		cursor: pointer;
+		outline: inherit;
+	}
+
+	.sticky {
+		min-height: 100vh;
+		position: sticky;
+		top: 0;
+	}
+}

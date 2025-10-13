@@ -2,7 +2,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import '$lib/styles/globals.css';
 
-	let { children, data } = $props();
+	let { children } = $props();
 </script>
 
 <svelte:head>
@@ -13,12 +13,8 @@
 	<nav>
 		<ul>
 			<li>Our Story</li>
-			{#if data.adminUser}
-				<li>Add Guests</li>
-				<li>View Guests</li>
-			{:else}
-				<li>RSVP</li>
-			{/if}
+			<li>Add Guests</li>
+			<li>View Guests</li>
 		</ul>
 	</nav>
 </header>

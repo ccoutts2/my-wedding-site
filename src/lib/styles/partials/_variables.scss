@@ -1,0 +1,51 @@
+@use 'sass:math';
+
+// Breakpoints
+
+$breakpoint--mobile: math.div(576, 16) + rem;
+$breakpoint--tablet: math.div(768, 16) + rem;
+$breakpoint--desktop: math.div(1280, 16) + rem;
+
+// Max content width
+
+$content--max-width: math.div(1384, 16) + rem;
+$content--max-width--lg: math.div(1512, 16) + rem;
+
+// Website Colours
+$color--light-pink: #f6cbbd;
+$color--green: #3d6044;
+$color--salmon: #a74d4a;
+
+$color--sun: #ffebd8;
+$color--orange: #ff5c28;
+$color--sunset: #f9dec6;
+
+$color--sky: #c6d7e7;
+$color--blue: #1d6396;
+$color--sea: #aec7de;
+
+$color--sand: #e5cbbb;
+$color--tan: #ca6f57;
+$color--hazelnut: #deb9a2;
+
+$color--button: #ffffff;
+
+// App Routes
+$color--app--primary: $color--light-pink;
+$color--app--text: $color--green;
+$color--app--icon: $color--salmon;
+
+// Guest Routes
+$color--guest--primary: $color--sun;
+$color--guest--text: $color--orange;
+$color--guest--icon: $color--sunset;
+
+// Auth Routes
+$color--auth--primary: $color--sky;
+$color--auth--text: $color--blue;
+$color--auth--icon: $color--sea;
+
+// Admin Rutes
+$color--admin--primary: $color--sand;
+$color--admin--text: $color--tan;
+$color--admin--icon: $color--hazelnut;
