@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-  output   = "src/generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -21,7 +21,7 @@ model User {
   diet                 DietaryOptions?
   hasAllergies         Boolean?
   allergiesDescription String?
-  musicSelection       String
+  musicSelection       String?
   type                 GuestType       @default(DAY)
   guest                Guest[]
 }
@@ -36,7 +36,7 @@ model Guest {
   diet                 DietaryOptions?
   hasAllergies         Boolean?
   allergiesDescription String?
-  musicSelection       String
+  musicSelection       String?
   type                 GuestType       @default(DAY)
   userId               String
   belongsTo            User            @relation(fields: [userId], references: [id])

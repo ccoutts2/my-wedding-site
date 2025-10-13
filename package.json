@@ -3,7 +3,14 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
+	"prisma": {
+		"seed": "tsx prisma/seed.ts"
+	},
 	"scripts": {
+		"postinstall": "prisma generate",
+		"db:generate": "npx prisma generate",
+		"db:migrate": "npx prisma migrate dev",
+		"db:seed": "npx prisma db seed",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -16,6 +23,7 @@
 	"devDependencies": {
 		"@eslint/compat": "^1.4.0",
 		"@eslint/js": "^9.36.0",
+		"@faker-js/faker": "^10.0.0",
 		"@sveltejs/adapter-vercel": "^5.10.2",
 		"@sveltejs/kit": "^2.43.2",
 		"@sveltejs/vite-plugin-svelte": "^6.2.0",
