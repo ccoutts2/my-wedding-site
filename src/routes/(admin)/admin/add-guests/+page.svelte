@@ -18,9 +18,9 @@
 		];
 	};
 
-	// const deleteGuestInput = (index: number) => {
-	// 	$form.additionalGuests = $form.additionalGuests.filter((_, i) => i !== index);
-	// };
+	const deleteGuestInput = (index: number) => {
+		$form.additionalGuests = $form.additionalGuests.filter((_, i) => i !== index);
+	};
 
 	$effect(() => {
 		if ($form.hasGuests === 'no' && $form.additionalGuests.length > 0) {
@@ -149,6 +149,25 @@
 								bind:value={$form.additionalGuests[i].familyName}
 							/>
 						</div>
+						<button
+							type="button"
+							onclick={() => deleteGuestInput(i)}
+							aria-label="Add another guest"
+						>
+							<svg
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+							>
+								<path d="M5 12h14" />
+							</svg>
+						</button>
 					</fieldset>
 				{/each}
 			</div>
