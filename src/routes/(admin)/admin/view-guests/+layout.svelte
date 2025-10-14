@@ -12,6 +12,11 @@
 
 	let searchTerm: string = $state(data.query ?? '');
 
+	const sorting: {
+		orderBy: string;
+		ascending: boolean;
+	} = $derived(data.sorting);
+
 	// Func to search for results upon input change, with debounce
 
 	const handleInput: EventHandler<Event, HTMLInputElement> = ({ currentTarget }) => {
@@ -33,16 +38,9 @@
 >
 	<search>
 		<form data-sveltekit-keepfocus data-sveltekit-noscroll>
-			<label class="flex flex-col gap-2" for="q">
-				<span class="block font-semibold capitalize">Search for guests</span>
-				<input
-					class="grow rounded border-none"
-					type="search"
-					name="q"
-					id="q"
-					bind:value={searchTerm}
-					oninput={handleInput}
-				/>
+			<label for="q">
+				<span>Search for guests</span>
+				<input type="search" name="q" id="q" bind:value={searchTerm} oninput={handleInput} />
 			</label>
 		</form>
 	</search>
@@ -53,10 +51,46 @@
 				<caption>Guests invited to our wedding.</caption>
 				<thead>
 					<tr>
-						<th scope="col">Name</th>
+						<th scope="col"
+							><form>
+								<input type="hidden" name="orderBy" value="givenName" />
+								<input type="hidden" name="asc" value={sorting.ascending ? 'false' : 'true'} />
+								<button type="submit">
+									<span>Name</span>
+									{#if sorting.orderBy === 'givenName'}
+										{sorting.ascending ? '^' : '⌄'}
+									{/if}
+								</button>
+							</form>
+						</th>
 						<th scope="col">Replied</th>
-						<th scope="col">RSVP</th>
-						<th scope="col">Diet</th>
+						<th scope="col"
+							><form>
+								<input type="hidden" name="orderBy" value="isAccepted" />
+								<input type="hidden" name="asc" value={sorting.ascending ? 'false' : 'true'} />
+								<button type="submit">
+									<span>RSVP</span>
+									{#if sorting.orderBy === 'isAccepted'}
+										{sorting.ascending ? '^' : '⌄'}
+									{/if}
+								</button>
+							</form></th
+						>
+						<th scope="col"
+							><form>
+								<input type="hidden" name="orderBy" value="diet" />
+								<input
+									type="hidden"
+									name="asc"
+									value={sorting.ascending ? 'false' : 'true'}
+								/><button type="submit">
+									<span>Diet</span>
+									{#if sorting.orderBy === 'diet'}
+										{sorting.ascending ? '^' : '⌄'}
+									{/if}
+								</button>
+							</form></th
+						>
 						<th scope="col">Allergies</th>
 						<th scope="col">Type</th>
 						<th scope="col">Plus 1</th>
@@ -67,7 +101,7 @@
 						<tr class="ViewGuests__guestRow">
 							<th scope="row" class="ViewGuests__row">
 								{`${givenName} ${familyName}`}
-								<a href={`/admin/view-guests/${id}`}
+								<a href={`/admin/view-guests/${id}`} data-sveltekit-noscroll
 									><span class="visually-hidden">View {givenName}</span></a
 								>
 							</th>
