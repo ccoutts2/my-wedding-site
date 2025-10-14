@@ -22,10 +22,12 @@
 				</thead>
 				<tbody>
 					{#each data.users as user}
-						<tr>
-							<th scope="row">
+						<tr class="ViewGuests__guestRow">
+							<th scope="row" class="ViewGuests__row">
 								{`${user.givenName} ${user.familyName}`}
-								<a href={`/view-guests/${user.id}`}>View</a>
+								<a href={`/admin/view-guests/${user.id}`}
+									><span class="visually-hidden">View {user.givenName}</span></a
+								>
 							</th>
 							<td>{user.RSVP}</td>
 							<td>{user.isAccepted}</td>
@@ -40,3 +42,21 @@
 		</div>
 	{/if}
 </main>
+
+<style lang="scss">
+	.ViewGuests {
+		&__guestRow {
+			position: relative;
+
+			&:hover {
+				background-color: cadetblue;
+			}
+
+			a::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+			}
+		}
+	}
+</style>
