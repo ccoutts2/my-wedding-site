@@ -4,7 +4,7 @@
 
 	let { data }: PageProps = $props();
 
-	const user = data.user;
+	const { user } = data;
 </script>
 
 <main
@@ -36,18 +36,18 @@
 
 		{#if user.hasGuests}
 			<h2>Guest</h2>
-			{#each user.guest as guest}
+			{#each user.guest as { givenName, familyName, type, isAccepted, diet, allergiesDescription, musicSelection }}
 				<article>
 					<h3>
-						{guest.givenName}
-						{guest.familyName}
+						{givenName}
+						{familyName}
 					</h3>
 					<ul>
-						<li>{guest.type} guest</li>
-						<li>RSVP: {guest.isAccepted}</li>
-						<li>Dietary requirements: {guest.diet}</li>
-						<li>Further dietary requirements: {guest.allergiesDescription}</li>
-						<li>Music choice: {guest.musicSelection}</li>
+						<li>{type} guest</li>
+						<li>RSVP: {isAccepted}</li>
+						<li>Dietary requirements: {diet}</li>
+						<li>Further dietary requirements: {allergiesDescription}</li>
+						<li>Music choice: {musicSelection}</li>
 					</ul>
 				</article>
 			{/each}
