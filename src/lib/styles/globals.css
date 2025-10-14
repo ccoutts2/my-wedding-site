@@ -1,16 +1,14 @@
-@layer reset, globals;
+@layer globals;
 
 @import './fonts.scss' layer(globals);
 
-@layer reset {
+@layer globals {
 	* {
 		box-sizing: border-box;
 		margin: 0;
 		padding: 0;
 	}
-}
 
-@layer globals {
 	.visually-hidden {
 		clip-path: inset(50%);
 		clip: rect(0 0 0 0);
@@ -24,18 +22,22 @@
 	body {
 		font-weight: 400;
 		min-height: 100vh;
-		position: relative;
 		font-family: HelveticaProRoman;
-		letter-spacing: 1px;
+		font-size: 1rem;
 	}
 
 	h2 {
-		font-size: clamp(2.5rem, 3vw, 4rem) !important;
+		font-size: clamp(3rem, 3vw, 4.5rem);
+		font-weight: 400;
+	}
+
+	h2 {
+		font-size: clamp(2.5rem, 3vw, 4rem);
 		font-weight: 400;
 	}
 
 	h3 {
-		font-size: clamp(1.75rem, 3vw, 2.5rem) !important;
+		font-size: clamp(1.75rem, 3vw, 2.5rem);
 		font-weight: 400;
 	}
 

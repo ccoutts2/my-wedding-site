@@ -53,6 +53,13 @@
 					<tr>
 						<th scope="col"
 							><form>
+								<input
+									type="hidden"
+									name="q"
+									id="q"
+									bind:value={searchTerm}
+									oninput={handleInput}
+								/>
 								<input type="hidden" name="orderBy" value="givenName" />
 								<input type="hidden" name="asc" value={sorting.ascending ? 'false' : 'true'} />
 								<button type="submit">
@@ -66,6 +73,13 @@
 						<th scope="col">Replied</th>
 						<th scope="col"
 							><form>
+								<input
+									type="hidden"
+									name="q"
+									id="q"
+									bind:value={searchTerm}
+									oninput={handleInput}
+								/>
 								<input type="hidden" name="orderBy" value="isAccepted" />
 								<input type="hidden" name="asc" value={sorting.ascending ? 'false' : 'true'} />
 								<button type="submit">
@@ -78,6 +92,13 @@
 						>
 						<th scope="col"
 							><form>
+								<input
+									type="hidden"
+									name="q"
+									id="q"
+									bind:value={searchTerm}
+									oninput={handleInput}
+								/>
 								<input type="hidden" name="orderBy" value="diet" />
 								<input
 									type="hidden"
