@@ -3,10 +3,6 @@ import { redirect } from '@sveltejs/kit';
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
 	if (!cookies.get('allowed')) {
-		throw redirect(302, '/auth/login');
-	}
-
-	if (cookies.get('user_email')) {
-		throw redirect(302, '/rsvp');
+		throw redirect(302, '/');
 	}
 };
