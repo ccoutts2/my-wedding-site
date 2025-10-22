@@ -9,6 +9,6 @@
 
 <form method="POST" use:enhance>
 	<label for="password"> Enter password </label>
-	<input id="password" name="password" bind:value={$form.password} />
+	<input type="password" id="password" name="password" bind:value={$form.password} required />
 	<button type="submit">Enter</button>
 </form>

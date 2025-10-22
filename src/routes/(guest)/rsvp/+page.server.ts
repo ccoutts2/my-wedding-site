@@ -6,23 +6,79 @@ import { zod4 } from 'sveltekit-superforms/adapters';
 import { z } from 'zod/v4';
 import { DietaryOptions } from '../../../generated/prisma/enums';
 
-const schema = z.object({
-	acceptance: z.string().min(1, 'Please select an option.'),
-	meal: z.enum(DietaryOptions),
-	allergies: z.string().min(1, 'Please select an option.'),
-	allergiesDescription: z.string().optional(),
-	musicSelection: z.string().min(1, 'Please tell us!'),
-	guestResponses: z
-		.object({
-			id: z.number(),
-			meal: z.enum(DietaryOptions),
-			acceptance: z.string().min(1, 'Please select an option.'),
-			allergies: z.string().min(1, 'Please select an option.'),
-			allergiesDescription: z.string().optional(),
-			musicSelection: z.string().min(1, 'Please tell us!')
-		})
-		.array()
-});
+const schema = z
+	.object({
+		acceptance: z.string().min(1, 'Please select an option.'),
+		meal: z.enum(DietaryOptions).optional(),
+		allergies: z.string().optional(),
+		allergiesDescription: z.string().optional(),
+		music: z.string().optional(),
+		guestResponses: z
+			.object({
+				id: z.number(),
+				meal: z.enum(DietaryOptions).optional(),
+				acceptance: z.string().min(1, 'Please select an option.'),
+				allergies: z.string().optional(),
+				allergiesDescription: z.string().optional(),
+				music: z.string().optional()
+			})
+			.array()
+	})
+	.superRefine((data, ctx) => {
+		if (data.acceptance === 'yes') {
+			if (!data.meal) {
+				ctx.addIssue({
+					code: 'custom',
+					message: 'Please select a meal option.',
+					path: ['meal']
+				});
+			}
+
+			if (!data.allergies) {
+				ctx.addIssue({
+					code: 'custom',
+					message: 'Please select an option.',
+					path: ['allergies']
+				});
+			}
+
+			if (!data.music) {
+				ctx.addIssue({
+					code: 'custom',
+					message: 'Please tell us!',
+					path: ['music']
+				});
+			}
+		}
+
+		data.guestResponses.map((guest, i) => {
+			if (guest.acceptance === 'yes') {
+				if (!guest.meal) {
+					ctx.addIssue({
+						code: 'custom',
+						message: 'Please select a meal option.',
+						path: ['guestResponses', i, 'meal']
+					});
+				}
+
+				if (!guest.allergies) {
+					ctx.addIssue({
+						code: 'custom',
+						message: 'Please select an option.',
+						path: ['guestResponses', i, 'allergies']
+					});
+				}
+
+				if (!guest.music) {
+					ctx.addIssue({
+						code: 'custom',
+						message: 'Please tell us!',
+						path: ['guestResponses', i, 'music']
+					});
+				}
+			}
+		});
+	});
 
 export const load: PageServerLoad = async ({ cookies }) => {
 	const email = cookies.get('user_email');
@@ -55,7 +111,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
 		meal: DietaryOptions.MEAT,
 		allergies: '',
 		allergiesDescription: '',
-		musicSelection: ''
+		music: ''
 	}));
 
 	const form = await superValidate({ guestResponses }, zod4(schema), {
@@ -65,11 +121,12 @@ export const load: PageServerLoad = async ({ cookies }) => {
 	return {
 		user,
 		form,
-		guestResponses
+		guestResponses,
+		additionalGuests
 	};
 };
 
-const actions = {
+export const actions = {
 	default: async ({ request, cookies }) => {
 		const form = await superValidate(request, zod4(schema));
 		const email = cookies.get('user_email');
@@ -82,7 +139,7 @@ const actions = {
 		}
 
 		try {
-			const user = await prisma.user.update({
+			await prisma.user.update({
 				where: { email },
 				include: { guest: true },
 				data: {
@@ -91,7 +148,7 @@ const actions = {
 					diet: form.data.meal,
 					hasAllergies: form.data.allergies === 'yes',
 					allergiesDescription: form.data.allergiesDescription,
-					musicSelection: form.data.musicSelection
+					musicSelection: form.data.music
 				}
 			});
 
@@ -103,7 +160,7 @@ const actions = {
 						diet: response.meal,
 						hasAllergies: response.allergies === 'yes',
 						allergiesDescription: response.allergiesDescription,
-						musicSelection: response.musicSelection
+						musicSelection: response.music
 					}
 				});
 			}
@@ -123,7 +180,7 @@ const actions = {
 
 		return message(form, {
 			status: 'success',
-			text: 'You ave successfully submitted your RSVP form.'
+			text: "Thanks for RSVP'ing!"
 		});
 	}
 } satisfies Actions;
