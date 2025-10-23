@@ -173,7 +173,7 @@
 					<input
 						type="radio"
 						name="acceptance[{i}]"
-						id="acceptance-no"
+						id="acceptance-{i}-no"
 						class="toggle-guest"
 						required={$form.guestResponses[i].acceptance === 'yes'}
 						value="no"

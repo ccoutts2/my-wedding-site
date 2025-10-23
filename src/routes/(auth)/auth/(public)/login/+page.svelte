@@ -4,11 +4,27 @@
 
 	let { data }: PageProps = $props();
 
+	let isPasswordVisible: boolean = $state(false);
+
 	const { form, enhance, message, errors } = superForm(data.form);
+
+	const showPassword = () => {
+		isPasswordVisible = !isPasswordVisible;
+	};
 </script>
 
 <form method="POST" use:enhance>
-	<label for="password"> Enter password </label>
-	<input type="password" id="password" name="password" bind:value={$form.password} required />
+	<div>
+		<label for="password"> Enter password </label>
+		<input
+			type={isPasswordVisible ? 'text' : 'password'}
+			id="password"
+			name="password"
+			bind:value={$form.password}
+			required
+		/>
+		<button type="button" onclick={showPassword}>Reveal</button>
+	</div>
+
 	<button type="submit">Enter</button>
 </form>

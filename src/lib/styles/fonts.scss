@@ -3,22 +3,62 @@
 	src: url('/assets/fonts/font.woff2') format('woff2');
 }
 
-// @font-face {
-// 	font-family: 'HankenGrotesk-Regular';
-// 	src: url('/assets/fonts/HankenGrotesk-Regular.ttf') format('truetype');
-// }
+@font-face {
+	font-family: 'PP Neue Montreal';
+	src:
+		url('/assets/fonts/PPNeueMontreal-Bold.woff2') format('woff2'),
+		url('/assets/fonts/PPNeueMontreal-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
 
-// @font-face {
-// 	font-family: 'HankenGrotesk-SemiBold';
-// 	src: url('/assets/fonts/HankenGrotesk-SemiBold.ttf') format('truetype');
-// }
+@font-face {
+	font-family: 'PP Neue Montreal';
+	src:
+		url('/assets/fonts/PPNeueMontreal-SemiBolditalic.woff2') format('woff2'),
+		url('/assets/fonts/PPNeueMontreal-SemiBolditalic.woff') format('woff');
+	font-weight: 600;
+	font-style: italic;
+	font-display: swap;
+}
 
-// @font-face {
-// 	font-family: 'HankenGrotesk-Bold';
-// 	src: url('/assets/fonts/HankenGrotesk-Bold.ttf') format('truetype');
-// }
+@font-face {
+	font-family: 'PP Neue Montreal';
+	src:
+		url('/assets/fonts/PPNeueMontreal-Medium.woff2') format('woff2'),
+		url('/assets/fonts/PPNeueMontreal-Medium.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
 
-// @font-face {
-// 	font-family: 'Cyrene';
-// 	src: url('/assets/fonts/Cyrene+Regular+Advanced.otf') format('truetype');
-// }
+@font-face {
+	font-family: 'PP Neue Montreal Book';
+	src:
+		url('/assets/fonts/PPNeueMontreal-Book.woff2') format('woff2'),
+		url('/assets/fonts/PPNeueMontreal-Book.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'PP Neue Montreal';
+	src:
+		url('/assets/fonts/PPNeueMontreal-Italic.woff2') format('woff2'),
+		url('/assets/fonts/PPNeueMontreal-Italic.woff') format('woff');
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'PP Neue Montreal';
+	src:
+		url('/assets/fonts/PPNeueMontreal-Thin.woff2') format('woff2'),
+		url('/assets/fonts/PPNeueMontreal-Thin.woff') format('woff');
+	font-weight: 100;
+	font-style: normal;
+	font-display: swap;
+}

@@ -20,36 +20,37 @@
 	}
 
 	body {
-		font-weight: 400;
+		font-weight: normal;
 		min-height: 100vh;
-		font-family: HelveticaProRoman;
+		font-family: PP Neue Montreal;
 		font-size: 1rem;
+		line-height: 1.1;
 	}
 
 	h2 {
 		font-size: clamp(3rem, 3vw, 4.5rem);
-		font-weight: 400;
+		font-weight: normal;
 	}
 
 	h2 {
 		font-size: clamp(2.5rem, 3vw, 4rem);
-		font-weight: 400;
+		font-weight: normal;
 	}
 
 	h3 {
 		font-size: clamp(1.75rem, 3vw, 2.5rem);
-		font-weight: 400;
+		font-weight: normal;
 	}
 
 	p {
 		font-size: 1rem;
-		font-weight: 400;
+		font-weight: normal;
 		letter-spacing: normal;
 	}
 
 	form > * {
 		font-size: 1rem;
-		font-weight: 400;
+		font-weight: normal;
 		letter-spacing: normal;
 	}
 
