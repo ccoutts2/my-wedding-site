@@ -5,13 +5,15 @@ import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod4 } from 'sveltekit-superforms/adapters';
 import { z } from 'zod/v4';
 import { error } from 'console';
+import { GuestType } from '../../../../../generated/prisma/enums';
 
 const schema = z.object({
 	id: z.string().optional(),
 	email: z.email().optional(),
 	givenName: z.string().optional(),
 	familyName: z.string().optional(),
-	hasGuests: z.boolean().optional()
+	hasGuests: z.string().min(1, 'Please select an option.').optional(),
+	type: z.enum(GuestType).optional()
 });
 
 export const load: PageServerLoad = async ({ params, request }) => {
@@ -64,5 +66,42 @@ export const actions = {
 		}
 
 		throw redirect(302, '/admin/view-guests');
+	},
+
+	edit: async ({ request, params }) => {
+		const userId = params.id;
+		const form = await superValidate(request, zod4(schema));
+
+		if (!form.valid) {
+			return message(form, {
+				status: 'invalid',
+				text: 'Form was invalid. Please check the form for errors'
+			});
+		}
+
+		try {
+			await prisma.user.update({
+				where: {
+					id: userId
+				},
+				data: {
+					email: form.data.email,
+					hasGuests: form.data.hasGuests === 'yes',
+					type: form.data.type
+				}
+			});
+		} catch (error) {
+			console.log(error);
+			return message(
+				form,
+				{
+					status: 'error',
+					text: 'Something went wrong. Please try again.'
+				},
+				{
+					status: 500
+				}
+			);
+		}
 	}
 } satisfies Actions;
