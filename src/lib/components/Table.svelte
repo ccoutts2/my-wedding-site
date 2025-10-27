@@ -1,12 +1,23 @@
 <script lang="ts">
+	import StringTune, { StringSplit, StringProgress } from '@fiddle-digital/string-tune';
+	import { onMount } from 'svelte';
 	let { users, sorting, searchTerm, handleInput } = $props();
+
+	onMount(() => {
+		const stringModule = StringTune.getInstance();
+
+		stringModule.use(StringSplit);
+		stringModule.use(StringProgress, { mode: 'scroll' });
+
+		stringModule.start(60);
+	});
 </script>
 
 <div class="ViewGuests">
 	<table class="ViewGuests__table">
 		<caption class="visually-hidden">Guests invited to our wedding.</caption>
 		<thead>
-			<tr class="ViewGuests__headerRow">
+			<tr class="ViewGuests__headerRow" data-string="progress" data-string-key="--progress">
 				<th scope="col"
 					><form>
 						<input type="hidden" name="q" id="q" bind:value={searchTerm} oninput={handleInput} />
@@ -55,7 +66,7 @@
 		</thead>
 		<tbody class="ViewGuests__tableBody">
 			{#each users as { id, givenName, familyName, RSVP, isAccepted, diet, hasAllergies, type, hasGuests }}
-				<tr class="ViewGuests__tableRow">
+				<tr data-string="progress" data-string-key="--progress" class="ViewGuests__tableRow">
 					<th scope="row" class="ViewGuests__nameCell">
 						{`${givenName} ${familyName}`}
 						<a href={`/admin/view-guests/${id}`} data-sveltekit-noscroll
@@ -81,6 +92,7 @@
 		&__table {
 			border-collapse: collapse;
 			width: 100%;
+			margin-bottom: 50vh;
 		}
 
 		&__headerRow {
@@ -147,5 +159,10 @@
 				opacity: 0.8;
 			}
 		}
+	}
+
+	.ViewGuests__headerRow,
+	.ViewGuests__tableRow {
+		opacity: (calc(var(--progress) * 8));
 	}
 </style>
