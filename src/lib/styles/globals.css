@@ -3,10 +3,98 @@
 @import './fonts.scss' layer(globals);
 
 @layer globals {
-	* {
+	/* Box sizing rules */
+	*,
+	*::before,
+	*::after {
 		box-sizing: border-box;
 		margin: 0;
 		padding: 0;
+	}
+
+	/* Prevent font size inflation */
+	html {
+		-moz-text-size-adjust: none;
+		-webkit-text-size-adjust: none;
+		text-size-adjust: none;
+	}
+
+	/* Remove default margin in favour of better control in authored CSS */
+	body,
+	h1,
+	h2,
+	h3,
+	h4,
+	p,
+	figure,
+	blockquote,
+	dl,
+	dd {
+		margin-block-end: 0;
+	}
+
+	/* Remove list styles on ul, ol elements with a list role and menu, which suggests default styling will be removed */
+	ul[role='list'],
+	ol[role='list'],
+	menu {
+		list-style: none;
+	}
+
+	/* Set core body defaults */
+	body {
+		min-height: 100vh;
+		line-height: 1.5;
+	}
+
+	/* Set shorter line heights on headings and interactive elements */
+	h1,
+	h2,
+	h3,
+	h4,
+	button,
+	input,
+	label {
+		line-height: 1.1;
+	}
+
+	/* Balance text wrapping on headings */
+	h1,
+	h2,
+	h3,
+	h4 {
+		text-wrap: balance;
+	}
+
+	/* A elements that don't have a class get default styles */
+	a:not([class]) {
+		text-decoration-skip-ink: auto;
+		color: currentColor;
+	}
+
+	/* Make images easier to work with */
+	img,
+	picture {
+		max-width: 100%;
+		display: block;
+	}
+
+	/* Inherit fonts for inputs and buttons */
+	input,
+	button,
+	textarea,
+	select {
+		font-family: inherit;
+		font-size: inherit;
+	}
+
+	/* Make sure textareas without a rows attribute are not tiny */
+	textarea:not([rows]) {
+		min-height: 10em;
+	}
+
+	/* Anything that has been anchored to should have extra scroll margin */
+	:target {
+		scroll-margin-block: 5ex;
 	}
 
 	.visually-hidden {
@@ -20,55 +108,19 @@
 	}
 
 	body {
-		font-weight: normal;
-		min-height: 100vh;
+		background-color: #e6e7e8;
 		font-family: PP Neue Montreal;
 		font-size: 1rem;
+		font-weight: normal;
 		line-height: 1.1;
-	}
-
-	h2 {
-		font-size: clamp(3rem, 3vw, 4.5rem);
-		font-weight: normal;
-	}
-
-	h2 {
-		font-size: clamp(2.5rem, 3vw, 4rem);
-		font-weight: normal;
-	}
-
-	h3 {
-		font-size: clamp(1.75rem, 3vw, 2.5rem);
-		font-weight: normal;
-	}
-
-	p {
-		font-size: 1rem;
-		font-weight: normal;
-	}
-
-	form > * {
-		font-size: 1rem;
-		font-weight: normal;
-	}
-
-	a {
-		color: inherit;
-		text-decoration: underline;
+		min-height: 100vh;
 	}
 
 	button {
-		color: inherit;
-		border: none;
-		padding: 0;
-		font: inherit;
+		border: 0;
 		cursor: pointer;
-		outline: inherit;
-	}
-
-	.sticky {
-		min-height: 100vh;
-		position: sticky;
-		top: 0;
+		font-family: inherit;
+		font-size: 100%;
+		padding: 0;
 	}
 }

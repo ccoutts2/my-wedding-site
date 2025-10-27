@@ -31,11 +31,14 @@
 			form.requestSubmit();
 		}, DEBOUNCE_TIME_IN_MS);
 	};
+
+	const isModalOpen = $derived(
+		page.route.id === '/(admin)/admin/view-guests/[id]' ||
+			page.route.id === '/(admin)/admin/view-guests/[id]/edit'
+	);
 </script>
 
-<main
-	class="ViewGuestsLayout {page.route.id === '/(admin)/admin/view-guests/[id]' ? 'show-modal' : ''}"
->
+<main class="ViewGuestsLayout {isModalOpen ? 'show-modal' : ''}">
 	<search>
 		<form data-sveltekit-keepfocus data-sveltekit-noscroll>
 			<label for="q">
@@ -46,7 +49,7 @@
 	</search>
 
 	{#if data.users}
-		<div class="ViewGuests__overflow">
+		<div class="ViewGuests">
 			<table class="ViewGuests__table">
 				<caption>Guests invited to our wedding.</caption>
 				<thead>
@@ -146,12 +149,20 @@
 	.ViewGuestsLayout {
 		position: relative;
 
+		&.show-modal {
+			overflow: hidden;
+
+			.ViewGuests {
+				overflow: hidden;
+			}
+		}
+
 		&.show-modal::after {
 			content: '';
-			position: fixed;
-			inset: 0;
 			background: rgba(0, 0, 0, 0.2);
-			z-index: 1;
+			inset: 0;
+			position: fixed;
+			z-index: -5;
 		}
 	}
 
@@ -165,8 +176,8 @@
 
 			a::after {
 				content: '';
-				position: absolute;
 				inset: 0;
+				position: absolute;
 			}
 		}
 	}

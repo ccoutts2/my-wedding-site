@@ -45,6 +45,8 @@
 		"zod": "^4.1.12"
 	},
 	"dependencies": {
+		"@fiddle-digital/string-tune": "^1.1.33",
+		"@lucide/svelte": "^0.547.0",
 		"@neondatabase/serverless": "^1.0.2",
 		"@prisma/client": "^6.17.0",
 		"@prisma/extension-accelerate": "^2.0.2",
