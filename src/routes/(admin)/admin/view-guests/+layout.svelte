@@ -3,6 +3,8 @@
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 	import type { EventHandler } from 'svelte/elements';
+	import Table from '$lib/components/Table.svelte';
+	import SearchInput from '$lib/components/form/SearchInput.svelte';
 
 	let { children, data }: { children: Snippet; data: LayoutData } = $props();
 
@@ -39,107 +41,10 @@
 </script>
 
 <main class="ViewGuestsLayout {isModalOpen ? 'show-modal' : ''}">
-	<search>
-		<form data-sveltekit-keepfocus data-sveltekit-noscroll>
-			<label for="q">
-				<span>Search for guests</span>
-				<input type="search" name="q" id="q" bind:value={searchTerm} oninput={handleInput} />
-			</label>
-		</form>
-	</search>
+	<SearchInput {searchTerm} {handleInput} />
 
 	{#if data.users}
-		<div class="ViewGuests">
-			<table class="ViewGuests__table">
-				<caption>Guests invited to our wedding.</caption>
-				<thead>
-					<tr>
-						<th scope="col"
-							><form>
-								<input
-									type="hidden"
-									name="q"
-									id="q"
-									bind:value={searchTerm}
-									oninput={handleInput}
-								/>
-								<input type="hidden" name="orderBy" value="givenName" />
-								<input type="hidden" name="asc" value={sorting.ascending ? 'false' : 'true'} />
-								<button type="submit">
-									<span>Name</span>
-									{#if sorting.orderBy === 'givenName'}
-										{sorting.ascending ? '^' : '⌄'}
-									{/if}
-								</button>
-							</form>
-						</th>
-						<th scope="col">Replied</th>
-						<th scope="col"
-							><form>
-								<input
-									type="hidden"
-									name="q"
-									id="q"
-									bind:value={searchTerm}
-									oninput={handleInput}
-								/>
-								<input type="hidden" name="orderBy" value="isAccepted" />
-								<input type="hidden" name="asc" value={sorting.ascending ? 'false' : 'true'} />
-								<button type="submit">
-									<span>RSVP</span>
-									{#if sorting.orderBy === 'isAccepted'}
-										{sorting.ascending ? '^' : '⌄'}
-									{/if}
-								</button>
-							</form></th
-						>
-						<th scope="col"
-							><form>
-								<input
-									type="hidden"
-									name="q"
-									id="q"
-									bind:value={searchTerm}
-									oninput={handleInput}
-								/>
-								<input type="hidden" name="orderBy" value="diet" />
-								<input
-									type="hidden"
-									name="asc"
-									value={sorting.ascending ? 'false' : 'true'}
-								/><button type="submit">
-									<span>Diet</span>
-									{#if sorting.orderBy === 'diet'}
-										{sorting.ascending ? '^' : '⌄'}
-									{/if}
-								</button>
-							</form></th
-						>
-						<th scope="col">Allergies</th>
-						<th scope="col">Type</th>
-						<th scope="col">Plus 1</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each data.users as { id, givenName, familyName, RSVP, isAccepted, diet, hasAllergies, type, hasGuests }}
-						<tr class="ViewGuests__guestRow">
-							<th scope="row" class="ViewGuests__row">
-								{`${givenName} ${familyName}`}
-								<a href={`/admin/view-guests/${id}`} data-sveltekit-noscroll
-									><span class="visually-hidden">View {givenName}</span></a
-								>
-							</th>
-							<td>{RSVP}</td>
-							<td>{isAccepted}</td>
-							<td>{diet}</td>
-							<td>{hasAllergies}</td>
-							<td>{type}</td>
-							<td>{hasGuests}</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div>
+		<Table users={data.users} {sorting} {searchTerm} {handleInput} />
 	{/if}
 
 	{@render children?.()}
@@ -147,13 +52,18 @@
 
 <style lang="scss">
 	.ViewGuestsLayout {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		padding: 1rem;
 		position: relative;
 
 		&.show-modal {
 			overflow: hidden;
 
-			.ViewGuests {
+			:global(.ViewGuests) {
 				overflow: hidden;
+				pointer-events: none;
 			}
 		}
 
@@ -163,22 +73,6 @@
 			inset: 0;
 			position: fixed;
 			z-index: -5;
-		}
-	}
-
-	.ViewGuests {
-		&__guestRow {
-			position: relative;
-
-			&:hover {
-				background-color: cadetblue;
-			}
-
-			a::after {
-				content: '';
-				inset: 0;
-				position: absolute;
-			}
 		}
 	}
 </style>
