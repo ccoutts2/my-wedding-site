@@ -1,15 +1,5 @@
 <script lang="ts">
-	import StringTune, { StringProgress } from '@fiddle-digital/string-tune';
-	import { onMount } from 'svelte';
 	let { users, sorting, searchTerm, handleInput } = $props();
-
-	onMount(() => {
-		const stringModule = StringTune.getInstance();
-
-		stringModule.use(StringProgress, { mode: 'scroll' });
-
-		stringModule.start(60);
-	});
 </script>
 
 <div class="ViewGuests">

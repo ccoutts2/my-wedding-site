@@ -1,11 +1,8 @@
 <script lang="ts">
-	import StringTune, { StringMagnetic, StringParallax } from '@fiddle-digital/string-tune';
 	import { fly } from 'svelte/transition';
 	import type { PageProps } from './$types';
 
 	import { quartInOut } from 'svelte/easing';
-
-	import { onMount } from 'svelte';
 
 	import { ChevronLeft } from '@lucide/svelte';
 	import UserCard from '$lib/components/cards/UserCard.svelte';
@@ -14,13 +11,6 @@
 	let { data }: PageProps = $props();
 
 	const { user } = data;
-
-	onMount(() => {
-		const instance = StringTune.getInstance();
-		instance.use(StringParallax);
-		instance.use(StringMagnetic);
-		instance.start(60);
-	});
 </script>
 
 <main
