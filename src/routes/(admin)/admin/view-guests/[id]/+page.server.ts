@@ -53,7 +53,7 @@ export const actions = {
 		throw redirect(302, '/admin/view-guests');
 	},
 
-	deleteGuest: async ({ request, params }) => {
+	deleteGuest: async ({ request }) => {
 		const formData = await request.formData();
 		const guestIdFromForm = formData.get('guestId');
 

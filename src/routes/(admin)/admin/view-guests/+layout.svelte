@@ -4,7 +4,7 @@
 	import type { LayoutData } from './$types';
 	import type { EventHandler } from 'svelte/elements';
 	import Table from '$lib/components/Table.svelte';
-	import SearchInput from '$lib/components/form/SearchInput.svelte';
+	import SearchInput from '$lib/components/form/SearchField.svelte';
 
 	let { children, data }: { children: Snippet; data: LayoutData } = $props();
 
@@ -46,9 +46,9 @@
 	{#if data.users}
 		<Table users={data.users} {sorting} {searchTerm} {handleInput} />
 	{/if}
-
-	{@render children?.()}
 </main>
+
+{@render children?.()}
 
 <style lang="scss">
 	.ViewGuestsLayout {

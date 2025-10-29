@@ -39,7 +39,6 @@ export const actions = {
 		});
 
 		if (!form.valid) {
-			console.log(form.errors);
 			return message(form, {
 				status: 'invalid',
 				message: 'Form is invalid. Please check the form for errors.'

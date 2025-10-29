@@ -5,13 +5,11 @@
 
 	import { quartInOut } from 'svelte/easing';
 
-	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
 
-	import { ChevronLeft, Pencil, Trash } from '@lucide/svelte';
+	import { ChevronLeft } from '@lucide/svelte';
 	import UserCard from '$lib/components/cards/UserCard.svelte';
 	import UserCardHeader from '$lib/components/cards/UserCardHeader.svelte';
-	import { fa } from 'zod/v4/locales';
 
 	let { data }: PageProps = $props();
 
@@ -27,8 +25,8 @@
 
 <main
 	class="UserProfile"
-	in:fly={{ y: '100%', duration: 700, easing: quartInOut, opacity: 1 }}
-	out:fly={{ y: '100%', duration: 700, easing: quartInOut, opacity: 1 }}
+	in:fly={{ y: '-100%', duration: 700, easing: quartInOut, opacity: 1 }}
+	out:fly={{ y: '-100%', duration: 700, easing: quartInOut, opacity: 1 }}
 >
 	{#if user}
 		<header class="UserProfile__header">
@@ -42,6 +40,7 @@
 				<UserCard mainGuest {user}>
 					<UserCardHeader
 						id={user.id}
+						name="userId"
 						givenName={user.givenName}
 						familyName={user.familyName}
 						action="?/deleteGuest"
@@ -57,6 +56,7 @@
 							<UserCard mainGuest={false} user={guest}>
 								<UserCardHeader
 									id={guest.id}
+									name="guestId"
 									givenName={guest.givenName}
 									familyName={guest.familyName}
 									action="?/deleteGuest"
@@ -73,17 +73,16 @@
 </main>
 
 <style lang="scss">
-	@use '../../../../../lib/styles/partials/breakpoints';
+	@use '$lib/styles/partials/breakpoints';
 
 	.UserProfile {
 		background-color: #ded4e6;
-		bottom: 0;
+		top: 0;
 		left: 0;
-		overflow: hidden;
+		overflow: auto;
 		padding: 1rem;
 		position: fixed;
 		right: 0;
-		top: 10rem;
 		z-index: 10;
 
 		&__header {
@@ -103,13 +102,8 @@
 	.UserCards {
 		display: flex;
 		gap: 2rem;
-		flex-direction: column;
 		overflow: auto;
 		width: 100%;
-
-		@include breakpoints.tablet {
-			flex-direction: row;
-		}
 
 		h2 {
 			margin-bottom: 1rem;

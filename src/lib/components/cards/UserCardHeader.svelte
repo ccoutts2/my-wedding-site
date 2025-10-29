@@ -6,8 +6,10 @@
 		action,
 		givenName,
 		familyName,
+		name,
 		id
-	}: { action: string; givenName: string; familyName: string; id: string | number } = $props();
+	}: { action: string; name: string; givenName: string; familyName: string; id: string | number } =
+		$props();
 </script>
 
 <header class="UserCardHeader">
@@ -18,7 +20,7 @@
 	<menu class="UserCardHeader__buttons">
 		<li>
 			<form use:enhance method="POST" {action} data-sveltekit-reload>
-				<input type="hidden" name="userId" value={id} />
+				<input type="hidden" {name} value={id} />
 				<button
 					type="submit"
 					onclick={(e) =>

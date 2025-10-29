@@ -1,12 +1,11 @@
 <script lang="ts">
-	import StringTune, { StringSplit, StringProgress } from '@fiddle-digital/string-tune';
+	import StringTune, { StringProgress } from '@fiddle-digital/string-tune';
 	import { onMount } from 'svelte';
 	let { users, sorting, searchTerm, handleInput } = $props();
 
 	onMount(() => {
 		const stringModule = StringTune.getInstance();
 
-		stringModule.use(StringSplit);
 		stringModule.use(StringProgress, { mode: 'scroll' });
 
 		stringModule.start(60);

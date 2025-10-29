@@ -3,6 +3,12 @@
 @import './fonts.scss' layer(globals);
 
 @layer globals {
+	:root {
+		--input-border: grey;
+		--input-focus-h: 256;
+		--input-focus-s: 45%;
+		--input-focus-l: 43%;
+	}
 	/* Box sizing rules */
 	*,
 	*::before,
@@ -55,6 +61,10 @@
 	input,
 	label {
 		line-height: 1.1;
+	}
+
+	fieldset {
+		border: 0;
 	}
 
 	/* Balance text wrapping on headings */
@@ -122,5 +132,16 @@
 		font-family: inherit;
 		font-size: 100%;
 		padding: 0;
+	}
+}
+
+@layer utilities {
+	.flex-row {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.w-full {
+		width: 100%;
 	}
 }
