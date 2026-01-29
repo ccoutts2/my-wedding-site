@@ -10,7 +10,7 @@
 	let { children, ...props }: ButtonProps = $props();
 </script>
 
-<button {...props} class="Button">
+<button class="Button" {...props}>
 	{@render children?.()}
 </button>
 
@@ -45,7 +45,6 @@
 
 		&:hover {
 			&::after {
-				content: attr(data-content);
 				transform: scaleY(1);
 			}
 		}

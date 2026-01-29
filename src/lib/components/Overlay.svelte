@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { OverlayProps } from '../../routes/(app)/types';
+	import type { OverlayProps } from '$lib/types';
 
-	const context = getContext<OverlayProps>('overlay-ctx');
+	const context = getContext<OverlayProps>('overlay-ctx') ?? { isMenuOpen: false };
 </script>
 
 <div class="Overlay {context.isMenuOpen ? 'menu-open' : ''}">Hi</div>

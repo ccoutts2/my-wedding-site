@@ -20,12 +20,6 @@
 {@render children?.()}
 
 <style>
-	/* transition */
-	::view-transition-old(root),
-	::view-transition-new(root) {
-		animation-duration: 0.5s;
-	}
-
 	@keyframes move-out {
 		from {
 			opacity: 1;

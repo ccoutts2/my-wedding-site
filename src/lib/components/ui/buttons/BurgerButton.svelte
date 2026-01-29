@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { OverlayProps } from '../../../../routes/(app)/types';
+	import type { OverlayProps } from '$lib/types';
 
 	const context = getContext<OverlayProps>('overlay-ctx');
+	if (!context) {
+		throw new Error('BurgerButton component must be used within an overlay context provider');
+	}
 
 	const toggleBurgerMenu = () => {
-		if (context.isMenuOpen) {
-			context.isMenuOpen = false;
-		} else {
-			context.isMenuOpen = true;
-		}
+		context.isMenuOpen = !context.isMenuOpen;
 	};
 </script>
 
@@ -71,7 +70,7 @@
 				font-size: 0;
 				height: 1px;
 				text-indent: -999;
-				transform: scale;
+				transform: scale(1);
 				width: 100%;
 			}
 

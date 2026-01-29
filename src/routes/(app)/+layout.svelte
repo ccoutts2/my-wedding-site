@@ -1,8 +1,8 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
 	import Header from '$lib/components/navigation/Header.svelte';
-	import { setContext, getContext } from 'svelte';
-	import type { OverlayProps } from './types.js';
+	import { setContext } from 'svelte';
+	import type { OverlayProps } from '$lib/types';
 	import Overlay from '$lib/components/Overlay.svelte';
 
 	let { children, data } = $props();

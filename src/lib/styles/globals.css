@@ -47,12 +47,6 @@
 		list-style: none;
 	}
 
-	/* Set core body defaults */
-	body {
-		min-height: 100vh;
-		line-height: 1.5;
-	}
-
 	/* Set shorter line heights on headings and interactive elements */
 	h1,
 	h2,
@@ -121,7 +115,7 @@
 	body {
 		background-color: #dad2fd;
 		color: #3e3a37;
-		font-family: PP Neue Montreal;
+		font-family: 'PP Neue Montreal';
 		font-size: 1rem;
 		font-weight: normal;
 		line-height: 1.1;

@@ -1,18 +1,25 @@
 <script lang="ts">
 	import BurgerButton from '../ui/buttons/BurgerButton.svelte';
 
-	let { data } = $props();
+	interface HeaderProps {
+		data: {
+			adminUser: boolean;
+		};
+	}
+
+	let { data }: HeaderProps = $props();
 </script>
 
 <header class="Header">
 	<nav>
 		<ul class="Header__navList">
-			<li>Our Story</li>
+			<li><a href="/our-story">Our Story</a></li>
 			{#if data.adminUser}
-				<li>Add Guests</li>
-				<li>View Guests</li>
+				<li><a href="/add-guests">Add Guests</a></li>
+
+				<li><a href="/view-guests">View Guests</a></li>
 			{:else}
-				<li>RSVP</li>
+				<li><a href="/rsvp">RSVP</a></li>
 			{/if}
 		</ul>
 	</nav>
