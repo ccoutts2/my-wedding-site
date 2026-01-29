@@ -11,7 +11,7 @@
 	let { active = false, children, href, ...props }: NavLinkProps = $props();
 </script>
 
-<a class="NavLink" {href} data-is-active={active} {...props}>{@render children?.()}</a>
+<a class="NavLink" {href} data-is-active={active} {...props}>{@render children()}</a>
 
 <style lang="scss">
 	.NavLink {

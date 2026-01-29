@@ -4,7 +4,7 @@ import { redirect, type Actions } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms';
 import { zod4 } from 'sveltekit-superforms/adapters';
 import { z } from 'zod/v4';
-import { DietaryOptions } from '../../../generated/prisma/enums';
+import { DietaryOptions } from '../../../../generated/prisma/enums';
 
 const schema = z
 	.object({

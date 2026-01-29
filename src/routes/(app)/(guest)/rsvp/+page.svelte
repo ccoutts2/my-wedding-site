@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms';
 	import type { PageProps } from './$types';
-	import { DietaryOptions } from '../../../generated/prisma/enums';
+	import { DietaryOptions } from '../../../../generated/prisma/enums';
 
 	let { data }: PageProps = $props();
 

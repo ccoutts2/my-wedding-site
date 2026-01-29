@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms';
 	import type { PageProps } from './$types';
-	import { GuestType } from '../../../../generated/prisma/enums';
+	import { GuestType } from '../../../../../generated/prisma/enums';
 
 	let { data }: PageProps = $props();
 

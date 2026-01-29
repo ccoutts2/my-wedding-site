@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { onMount, type Snippet } from 'svelte';
+	import { type Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 	import type { EventHandler } from 'svelte/elements';
 	import Table from '$lib/components/Table.svelte';
@@ -35,8 +35,8 @@
 	};
 
 	const isModalOpen = $derived(
-		page.route.id === '/(admin)/admin/view-guests/[id]' ||
-			page.route.id === '/(admin)/admin/view-guests/[id]/edit'
+		page.route.id === '/(app)/(admin)/admin/view-guests/[id]' ||
+			page.route.id === '/(app)/(admin)/admin/view-guests/[id]/edit'
 	);
 </script>
 
