@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { HTMLFormAttributes } from 'svelte/elements';
-	import Button from '../Button.svelte';
+	import Button from '../ui/buttons/Button.svelte';
 
 	type SvelteAction = (node: HTMLFormElement) => { destroy?: () => void };
 

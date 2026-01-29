@@ -7,7 +7,7 @@
 	import RadioGroup from '$lib/components/form/RadioGroup/RadioGroup.svelte';
 	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
 	import UserCardDetails from '$lib/components/cards/UserCardDetails.svelte';
-	import Button from '$lib/components/Button.svelte';
+	import Button from '$lib/components/ui/buttons/Button.svelte';
 	import Form from '$lib/components/form/Form.svelte';
 
 	let { data }: PageProps = $props();

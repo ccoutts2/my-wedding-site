@@ -22,6 +22,7 @@
 	html {
 		-moz-text-size-adjust: none;
 		-webkit-text-size-adjust: none;
+		background-color: #dad2fd;
 		text-size-adjust: none;
 	}
 
@@ -118,20 +119,27 @@
 	}
 
 	body {
-		background-color: #e6e7e8;
+		background-color: #dad2fd;
+		color: #3e3a37;
 		font-family: PP Neue Montreal;
 		font-size: 1rem;
 		font-weight: normal;
 		line-height: 1.1;
-		min-height: 100vh;
+		min-height: 100dvh;
 	}
 
 	button {
-		border: 0;
+		-webkit-appearance: none;
+		appearance: none;
+		background: none;
+		border-radius: 0;
+		border: none;
+		box-shadow: none;
+		color: inherit;
 		cursor: pointer;
-		font-family: inherit;
-		font-size: 100%;
+		font: inherit;
 		padding: 0;
+		text-align: inherit;
 	}
 }
 

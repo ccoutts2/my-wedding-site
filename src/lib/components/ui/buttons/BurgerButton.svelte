@@ -1,0 +1,131 @@
+<script lang="ts">
+	import { getContext } from 'svelte';
+	import type { OverlayProps } from '../../../../routes/(app)/types';
+
+	const context = getContext<OverlayProps>('overlay-ctx');
+
+	const toggleBurgerMenu = () => {
+		if (context.isMenuOpen) {
+			context.isMenuOpen = false;
+		} else {
+			context.isMenuOpen = true;
+		}
+	};
+</script>
+
+<button class="BurgerButton" data-is-open={context.isMenuOpen} onclick={toggleBurgerMenu}>
+	<span>{context.isMenuOpen ? 'close' : 'menu'}</span>
+	<div class="BurgerButton__burger">
+		<span><span class="visually-hidden">Toggle menu.</span></span>
+	</div>
+</button>
+
+<style lang="scss">
+	.BurgerButton {
+		background-color: transparent;
+		color: black;
+		contain: paint;
+		display: flex;
+		gap: 2rem;
+		min-width: 12.5rem;
+		padding: 1rem 2rem;
+		position: relative;
+		transition: background-color 0.3s ease;
+		z-index: 100;
+
+		&::before {
+			content: '';
+			background-color: #ff9272;
+			inset: 0;
+			position: absolute;
+			transform-origin: bottom;
+			transform: scaleY(0);
+			transition: transform 0.25s ease-in-out;
+			z-index: -1;
+		}
+
+		&[data-is-open='true'] &__burger {
+			span:first-of-type {
+				scale: 1 1 !important;
+			}
+		}
+
+		&__burger {
+			align-items: center;
+			contain: paint;
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			justify-content: center;
+			position: relative;
+			right: 0;
+			width: 4rem;
+			z-index: 100;
+
+			span:first-of-type,
+			&::before,
+			&::after {
+				background-color: black;
+				color: transparent;
+				display: block;
+				font-size: 0;
+				height: 1px;
+				text-indent: -999;
+				transform: scale;
+				width: 100%;
+			}
+
+			&::before,
+			&::after {
+				content: '';
+				transition: translate 0.3s ease;
+				translate: 0 0;
+			}
+
+			span:first-of-type {
+				scale: 1 1;
+				transition: scale 0.3s ease;
+				width: 100%;
+				z-index: 2;
+			}
+		}
+
+		&:hover::before {
+			transform: scaleY(1);
+		}
+
+		&:hover &__burger {
+			&::before {
+				translate: -100% 0;
+			}
+
+			&::after {
+				translate: 100% 0;
+			}
+
+			span:first-of-type {
+				scale: 1 1;
+			}
+		}
+
+		&[data-is-open='true'] &__burger {
+			&::before {
+				translate: -100% 0;
+			}
+
+			&::after {
+				translate: 100% 0;
+			}
+
+			span:first-of-type {
+				scale: 0.5 1;
+			}
+		}
+
+		&:active &__burger {
+			span:first-of-type {
+				scale: 0.1 1 !important;
+			}
+		}
+	}
+</style>

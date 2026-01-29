@@ -1,25 +1,24 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
-	import '$lib/styles/globals.css';
+	import Header from '$lib/components/navigation/Header.svelte';
+	import { setContext, getContext } from 'svelte';
+	import type { OverlayProps } from './types.js';
+	import Overlay from '$lib/components/Overlay.svelte';
 
 	let { children, data } = $props();
+
+	const overlayState = $state<OverlayProps>({
+		isMenuOpen: false
+	});
+
+	setContext('overlay-ctx', overlayState);
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<header>
-	<nav>
-		<ul>
-			<li>Our Story</li>
-			{#if data.adminUser}
-				<li>Add Guests</li>
-				<li>View Guests</li>
-			{:else}
-				<li>RSVP</li>
-			{/if}
-		</ul>
-	</nav>
-</header>
+<Header {data} />
 {@render children?.()}
+
+<Overlay />

@@ -12,9 +12,9 @@
 <header>
 	<nav>
 		<ul>
-			<li>Our Story</li>
-			<li>Add Guests</li>
-			<li>View Guests</li>
+			<li><a href="/our-story">Our Story</a></li>
+			<li><a href="/admin/add-guests">Add Guests</a></li>
+			<li><a href="/admin/view-guests">View Guests</a></li>
 		</ul>
 	</nav>
 </header>
