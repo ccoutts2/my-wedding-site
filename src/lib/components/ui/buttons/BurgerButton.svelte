@@ -23,14 +23,13 @@
 	.BurgerButton {
 		background-color: transparent;
 		color: black;
-		contain: paint;
 		display: flex;
 		gap: 2rem;
 		min-width: 12.5rem;
 		padding: 1rem 2rem;
 		position: relative;
 		transition: background-color 0.3s ease;
-		z-index: 100;
+		z-index: 1000 !important;
 
 		&::before {
 			content: '';

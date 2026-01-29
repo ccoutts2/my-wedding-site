@@ -1,7 +1,12 @@
 <script lang="ts">
-	import { onNavigate } from '$app/navigation';
-	import type { Snippet } from 'svelte';
 	import '$lib/styles/globals.css';
+	import { onNavigate } from '$app/navigation';
+	import favicon from '$lib/assets/favicon.svg';
+	import Header from '$lib/components/navigation/Header.svelte';
+	import { setContext } from 'svelte';
+	import type { OverlayProps } from '$lib/types';
+	import Overlay from '$lib/components/Overlay.svelte';
+	import { page } from '$app/state';
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -14,10 +19,24 @@
 		});
 	});
 
-	let { children }: { children: Snippet } = $props();
+	const overlayState = $state<OverlayProps>({
+		isMenuOpen: false
+	});
+
+	setContext('overlay-ctx', overlayState);
+
+	let { children, data } = $props();
+
+	const url = $derived(page.url.pathname);
 </script>
 
+<svelte:head>
+	<link rel="icon" href={favicon} />
+</svelte:head>
+
+<Header {data} {url} />
 {@render children?.()}
+<Overlay />
 
 <style>
 	@keyframes move-out {

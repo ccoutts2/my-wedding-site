@@ -36,7 +36,6 @@
 		&[data-layout='auth'] {
 			align-items: center;
 			background-color: variables.$color--auth--background;
-
 			justify-content: center;
 
 			h1 {
