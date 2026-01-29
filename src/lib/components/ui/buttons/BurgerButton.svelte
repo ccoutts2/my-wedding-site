@@ -29,7 +29,8 @@
 		padding: 1rem 2rem;
 		position: relative;
 		transition: background-color 0.3s ease;
-		z-index: 1000 !important;
+		z-index: 1000;
+		view-transition-name: button;
 
 		&::before {
 			content: '';
