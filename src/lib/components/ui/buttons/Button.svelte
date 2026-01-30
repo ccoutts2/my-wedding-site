@@ -32,7 +32,7 @@
 		overflow: hidden;
 		padding: 0.5rem;
 		position: relative;
-		box-shadow: 0px;
+		box-shadow: none;
 		transition: box-shadow 0.3s;
 
 		&:hover {

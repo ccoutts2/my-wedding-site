@@ -15,7 +15,7 @@
 	aria-required="true"
 	data-has-error={errors ? 'true' : undefined}
 	aria-invalid={errors ? 'true' : undefined}
-	aria-describedby="{name}-error-message"
+	aria-describedby={errors ? `${name}-error-message` : undefined}
 >
 	<legend class="RadioGroup__legend"> {legend} </legend>
 

@@ -92,7 +92,7 @@
 
 		<div class="AddGuestToggle">
 			<Fieldset>
-				<RadioGroup name="type" legend="More guests">
+				<RadioGroup name="hasGuests" legend="More guests">
 					<RadioGroupOption
 						label="Yes"
 						bind:group={$form.hasGuests}
@@ -148,7 +148,7 @@
 									type="button"
 									class="AddGuestToggle__deleteButton"
 									onclick={() => deleteGuestInput(i)}
-									aria-label="Add another guest"
+									aria-label="Remove guest"
 								>
 									<CircleMinus />
 								</button>
