@@ -15,38 +15,32 @@
 </button>
 
 <style lang="scss">
+	@use '$lib/styles/partials/breakpoints';
+	@use '$lib/styles/partials/variables';
+
 	.Button {
 		align-items: center;
+		background-color: variables.$color--button;
+		color: variables.$color--button-text;
 		display: flex;
-		background-color: #a399a8;
 		border-radius: 4px;
 		flex: 1;
 		justify-content: center;
 		width: 100%;
+
 		min-width: 5rem;
 		overflow: hidden;
 		padding: 0.5rem;
 		position: relative;
-
-		&::after {
-			content: '';
-			align-items: center;
-			background-color: #101214;
-			border-radius: 4px;
-			color: #a399a8 !important;
-			display: flex;
-			inset: 0;
-			justify-content: center;
-			position: absolute;
-			transform-origin: top;
-			transform: scaleY(0);
-			transition: transform 0.55s cubic-bezier(0, 1.09, 0.83, 1);
-		}
+		box-shadow: 0px;
+		transition: box-shadow 0.3s;
 
 		&:hover {
-			&::after {
-				transform: scaleY(1);
-			}
+			box-shadow: 0px 1px 2px dimgray;
+		}
+
+		@include breakpoints.tablet {
+			max-width: 12.5rem;
 		}
 	}
 </style>

@@ -9,14 +9,15 @@
 	import { page } from '$app/state';
 
 	onNavigate((navigation) => {
-		if (!document.startViewTransition) return;
-
-		return new Promise((resolve) => {
-			document.startViewTransition(async () => {
-				resolve();
-				await navigation.complete;
+		if (document.startViewTransition && navigation.from?.route.id !== navigation.to?.route.id) {
+			return new Promise((resolve) => {
+				document.startViewTransition &&
+					document.startViewTransition(async () => {
+						resolve();
+						await navigation.complete;
+					});
 			});
-		});
+		}
 	});
 
 	const overlayState = $state<OverlayProps>({
@@ -62,10 +63,10 @@
 	}
 
 	::view-transition-old(root) {
-		animation: 1.5s cubic-bezier(0.87, 0, 0.13, 1) both move-out;
+		animation: 1s cubic-bezier(0.87, 0, 0.13, 1) both move-out;
 	}
 
 	::view-transition-new(root) {
-		animation: 1.5s cubic-bezier(0.87, 0, 0.13, 1) both move-in;
+		animation: 1s cubic-bezier(0.87, 0, 0.13, 1) both move-in;
 	}
 </style>

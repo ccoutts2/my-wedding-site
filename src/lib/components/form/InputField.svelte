@@ -4,6 +4,7 @@
 	let {
 		label,
 		fieldName,
+		type,
 		value = $bindable(),
 		errors,
 		autocomplete,
@@ -12,16 +13,16 @@
 	}: FormFieldProps = $props();
 </script>
 
-<div class="TextField" data-has-error={errors ? 'true' : undefined}>
-	<label class="TextField__label" data-has-error={errors ? 'true' : undefined} for={fieldName}
+<div class="Field" data-has-error={errors ? 'true' : undefined}>
+	<label class="Field__label" data-has-error={errors ? 'true' : undefined} for={fieldName}
 		>{label}</label
 	>
 	<input
-		class="TextField__input"
+		class="Field__input"
 		name={fieldName}
 		id={fieldName}
 		bind:value
-		type="text"
+		{type}
 		{required}
 		{autocomplete}
 		aria-invalid={errors ? 'true' : undefined}
@@ -34,11 +35,13 @@
 </div>
 
 <style lang="scss">
-	.TextField {
+	@use '$lib/styles/partials/variables';
+
+	.Field {
 		align-items: flex-start;
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 0.25rem;
 		padding-block: 0.5rem;
 		position: relative;
 		width: 100%;
@@ -46,25 +49,34 @@
 		&__label {
 			color: grey;
 			font-size: 0.825rem;
+			padding-block: 0.5rem 0.25rem;
 			text-transform: capitalize;
 			width: 100%;
 		}
 
 		&__input {
-			background-color: #eee8f4;
-			border-radius: 4px;
-			border: 2px solid transparent;
+			background-color: variables.$color--default--input--background;
+			border: 1px solid variables.$color--input--border;
+			border-radius: 0.25rem;
+			color: variables.$color--foreground;
 			flex-shrink: 1;
 			font-size: Max(16px, 1em);
-			padding: 0.25rem 0.5rem;
+			padding: 0.5rem;
 			transition: 180ms box-shadow ease-in-out;
 			width: 100%;
 
 			&:focus {
-				border-color: hsl(var(--input-focus-h), var(--input-focus-s), var(--input-focus-l));
-				box-shadow: 0 0 0 2px
-					hsla(var(--input-focus-h), var(--input-focus-s), calc(var(--input-focus-l) + 40%), 0.8);
-				outline: 2px solid transparent;
+				border-color: variables.$color--input--border-focus;
+				box-shadow: 0 0 0 2px rgba(variables.$color--foreground, 0.1);
+				outline: none;
+			}
+		}
+
+		&[data-has-error='true'] &__input {
+			border-color: variables.$color--input--border-error;
+
+			&:focus {
+				box-shadow: 0 0 0 2px rgba(variables.$color--input--border-error, 0.1);
 			}
 		}
 	}

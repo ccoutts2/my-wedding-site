@@ -10,44 +10,65 @@
 </script>
 
 <fieldset
-	class="Fieldset"
+	class="RadioGroup"
 	role="radiogroup"
 	aria-required="true"
 	data-has-error={errors ? 'true' : undefined}
 	aria-invalid={errors ? 'true' : undefined}
 	aria-describedby="{name}-error-message"
 >
-	<legend> {legend} </legend>
+	<legend class="RadioGroup__legend"> {legend} </legend>
 
 	{#if errors}
-		<div class="Error" id="{name}-error-message">
+		<div class="RadioGroup__error" id="{name}-error-message">
 			{errors}
 		</div>
 	{/if}
 
-	{@render children?.()}
+	<div class="RadioGroup__options">
+		{@render children()}
+	</div>
 </fieldset>
 
 <style lang="scss">
 	@use '$lib/styles/partials/variables';
 
-	.Error {
-		color: #dc2626;
+	.RadioGroup {
+		border: none;
 		display: flex;
-		gap: 0.2rem;
-		margin-bottom: 0.25rem;
-	}
-
-	.Fieldset {
-		color: grey;
-		display: flex;
-		font-size: 0.825rem;
-		gap: 1rem;
-		margin-block: 0.5rem;
+		flex-direction: column;
+		padding-block: 0.5rem;
 		width: 100%;
 
-		legend {
-			padding-bottom: 0.5rem;
+		&__legend {
+			color: grey;
+			font-size: 0.825rem;
+			padding-block: 0.5rem 0.25rem;
+			text-transform: capitalize;
+			width: 100%;
+		}
+
+		&__error {
+			color: variables.$color--input--border-error;
+			font-size: 0.75rem;
+			margin-bottom: 0.25rem;
+			font-weight: 500;
+		}
+
+		&[data-has-error] &__options {
+			border-color: variables.$color--input--border-error;
+
+			&:hover {
+				border-color: darken(#dc2626, 10%);
+			}
+		}
+
+		&__options {
+			border-radius: 0.25rem;
+			box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+			display: flex;
+			overflow: hidden;
+			width: 100%;
 		}
 	}
 </style>

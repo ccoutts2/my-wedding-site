@@ -7,7 +7,7 @@
 
 	interface FormProps extends HTMLFormAttributes {
 		children: Snippet;
-		action: string;
+		action?: string;
 		enhance: SvelteAction;
 	}
 
@@ -15,7 +15,7 @@
 </script>
 
 <form {action} method="POST" class="Form" use:enhance {...props}>
-	{@render children?.()}
+	{@render children()}
 
 	<div class="Form__button">
 		<Button type="submit" data-content="Submit">Submit</Button>
@@ -26,21 +26,20 @@
 	@use '$lib/styles/partials/breakpoints.scss';
 
 	.Form {
+		align-items: center;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
+		justify-content: center;
+		max-width: 32rem;
+		width: 100%;
 
 		@include breakpoints.tablet {
 			align-items: flex-start;
 		}
 
 		&__button {
-			margin-block: 1rem 0.25rem;
+			margin-block: 2rem;
 			width: 100%;
-
-			@include breakpoints.tablet {
-				max-width: 10rem;
-			}
 		}
 	}
 </style>

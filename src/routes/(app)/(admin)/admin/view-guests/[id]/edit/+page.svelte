@@ -1,14 +1,11 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
 	import { superForm } from 'sveltekit-superforms';
-	import { GuestType } from '../../../../../../generated/prisma/enums';
-	import EmailField from '$lib/components/form/EmailField.svelte';
-	import TextField from '$lib/components/form/TextField.svelte';
+	import { GuestType } from '../../../../../../../generated/prisma/enums';
 	import RadioGroup from '$lib/components/form/RadioGroup/RadioGroup.svelte';
 	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
-	import UserCardDetails from '$lib/components/cards/UserCardDetails.svelte';
-	import Button from '$lib/components/ui/buttons/Button.svelte';
 	import Form from '$lib/components/form/Form.svelte';
+	import InputField from '$lib/components/form/InputField.svelte';
 
 	let { data }: PageProps = $props();
 
@@ -32,14 +29,16 @@
 					<Form action="?/edit" {enhance}>
 						<fieldset class="w-full">
 							<legend class="visually-hidden">Edit the guest's first and last name</legend>
-							<TextField
+							<InputField
+								type="text"
 								label="First Name"
 								fieldName="givenName"
 								bind:value={$form.givenName}
 								errors={$errors.givenName}
 								autocomplete="given-name"
 							/>
-							<TextField
+							<InputField
+								type="text"
 								label="Last Name"
 								fieldName="familyName"
 								bind:value={$form.familyName}
@@ -48,9 +47,11 @@
 							/>
 						</fieldset>
 
-						<EmailField
+						<InputField
+							type="email"
 							fieldName="email"
 							label="Email"
+							autocomplete="email"
 							errors={$errors.email}
 							bind:value={$form.email}
 						/>
@@ -105,14 +106,16 @@
 									<input type="hidden" name="guestId" value={$form.additionalGuests[i].id} />
 									<fieldset class="w-full">
 										<legend class="visually-hidden">Edit the guest's first and last name</legend>
-										<TextField
+										<InputField
+											type="text"
 											label="First Name"
 											fieldName="givenName"
 											bind:value={$form.additionalGuests[i].givenName}
 											errors={$errors.additionalGuests?.[i]?.givenName as string[] | undefined}
 											autocomplete="given-name"
 										/>
-										<TextField
+										<InputField
+											type="text"
 											label="Last Name"
 											fieldName="familyName"
 											bind:value={$form.additionalGuests[i].familyName}

@@ -1,5 +1,5 @@
 import type { InputConstraint } from 'sveltekit-superforms';
-import type { FullAutoFill, HTMLInputAttributes } from 'svelte/elements';
+import type { FullAutoFill, HTMLInputAttributes, HTMLInputTypeAttribute } from 'svelte/elements';
 
 export interface FormFieldProps extends HTMLInputAttributes {
 	label: string;
@@ -10,4 +10,5 @@ export interface FormFieldProps extends HTMLInputAttributes {
 	autocomplete?: FullAutoFill;
 	options?: string[] | boolean[] | undefined;
 	required?: boolean;
+	type: HTMLInputTypeAttribute;
 }

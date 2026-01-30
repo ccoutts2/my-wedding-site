@@ -11,16 +11,33 @@ $breakpoint--desktop: math.div(1280, 16) + rem;
 $content--max-width: math.div(1384, 16) + rem;
 $content--max-width--lg: math.div(1512, 16) + rem;
 
-// Website Colours
+// Button Colours
 
 $color--button: #ff9272;
 $color--button-text: #7f2006;
-$color--text: #3e3a37;
 
 // Default Routes
-$color--foreground: #3c5c3d;
-$color--background: #dad2fd;
+$color--foreground: #8f9c4c;
+$color--background: #e0d6f1;
 
 // Auth Routes
 $color--auth--foreground: #33a69a;
 $color--auth--background: #ffe5d6;
+
+// Form Colours
+
+$color--default--label: $color--foreground;
+$color--auth--label: $color--auth--foreground;
+
+$color--default--input--background: #fdfcff;
+$color--auth--input--background: #fffaf8;
+
+$color--input--border: rgba($color--foreground, 0.2);
+$color--input--border-focus: $color--foreground;
+$color--input--border-error: #dc2626;
+
+$color--option--selected: $color--button;
+$color--option--selected-text: $color--button-text;
+$color--option--hover: rgba($color--button, 0.15);
+
+$color--foreground--muted: lighten($color--foreground, 25%);

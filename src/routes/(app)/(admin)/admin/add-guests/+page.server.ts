@@ -32,11 +32,6 @@ export const load: PageServerLoad = async () => {
 export const actions = {
 	default: async ({ request }) => {
 		const form = await superValidate(request, zod4(schema));
-		const emailCheck = await prisma.user.findUnique({
-			where: {
-				email: form.data.email
-			}
-		});
 
 		if (!form.valid) {
 			return message(form, {
@@ -44,6 +39,12 @@ export const actions = {
 				message: 'Form is invalid. Please check the form for errors.'
 			});
 		}
+
+		const emailCheck = await prisma.user.findUnique({
+			where: {
+				email: form.data.email
+			}
+		});
 
 		if (!emailCheck) {
 			try {
@@ -89,6 +90,6 @@ export const actions = {
 				);
 			}
 		}
-		return message(form, { text: 'Guests added successfully!' });
+		return message(form, { text: 'Form submitted successfully!' });
 	}
 } satisfies Actions;

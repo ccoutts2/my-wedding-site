@@ -5,66 +5,71 @@
 		label,
 		name,
 		value,
-		checked
+		checked,
+		required = false
 	}: {
 		group: string | undefined;
 		id: string;
 		name: string;
 		label: string;
 		value: string;
-		checked: boolean;
+		checked?: boolean;
+		required?: boolean;
 	} = $props();
 </script>
 
-<label for={id}>
-	<input type="radio" {name} {id} bind:group {value} {checked} />
-	<span>{label}</span>
+<label for={id} class="Option__label">
+	{label}
+	<input class="Option__input" type="radio" {name} {id} bind:group {value} {checked} {required} />
 </label>
 
 <style lang="scss">
-	label {
-		cursor: pointer;
-		align-items: center;
-		background-color: #a399a8;
-		border-radius: 4px;
-		display: flex;
-		font-size: 0.825rem;
-		justify-content: center;
-		min-height: 2rem;
-		min-width: 5rem;
-		overflow: hidden;
-		position: relative;
-		text-transform: capitalize;
+	@use '$lib/styles/partials/variables';
 
-		&::after {
-			content: '';
-			background-color: #101214;
-			inset: 0;
+	.Option {
+		&__input {
+			cursor: pointer;
+			height: 100%;
+			left: 0;
+			opacity: 0;
 			position: absolute;
-			transform: translateY(100%);
-			transition: 0.3s transform cubic-bezier(0.22, 0.31, 0, 1);
-		}
-
-		span {
-			text-align: center;
-			transition: color 0.3s cubic-bezier(0.22, 0.31, 0, 1);
+			top: 0;
 			width: 100%;
 		}
-	}
 
-	input[type='radio'] {
-		display: none;
-	}
+		&__label {
+			background-color: variables.$color--default--input--background;
+			border-left: 1px solid variables.$color--input--border;
+			color: variables.$color--foreground;
+			display: flex;
+			flex-grow: 1;
+			font-size: 0.875rem;
+			justify-content: center;
+			padding: 0.5rem 1rem;
+			position: relative;
+			transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+			user-select: none;
 
-	label:has(input[type='radio']:checked) {
-		background-color: #101214;
-		&::after {
-			transform: translateY(0%);
-		}
+			&:first-of-type {
+				border-left: none;
+			}
 
-		span {
-			color: #a399a8;
-			z-index: 2;
+			&:has(:checked),
+			&:hover {
+				background-color: variables.$color--option--selected;
+				color: variables.$color--option--selected-text;
+				font-weight: 600;
+			}
+
+			&:hover:not(:has(:checked)) {
+				background-color: variables.$color--option--hover;
+			}
+
+			&:has(:focus-visible) {
+				outline: 2px solid variables.$color--input--border-focus;
+				outline-offset: -2px;
+				z-index: 1;
+			}
 		}
 	}
 </style>

@@ -20,9 +20,9 @@
 </button>
 
 <style lang="scss">
+	@use '$lib/styles/partials/variables';
+
 	.BurgerButton {
-		background-color: transparent;
-		color: black;
 		display: flex;
 		gap: 2rem;
 		min-width: 12.5rem;
@@ -34,7 +34,7 @@
 
 		&::before {
 			content: '';
-			background-color: #ff9272;
+			background-color: variables.$color--button;
 			inset: 0;
 			position: absolute;
 			transform-origin: bottom;

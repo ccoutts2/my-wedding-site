@@ -2,6 +2,13 @@
 	import { superForm } from 'sveltekit-superforms';
 	import type { PageProps } from './$types';
 	import { GuestType } from '../../../../../generated/prisma/enums';
+	import PageLayout from '$lib/components/PageLayout.svelte';
+	import Form from '$lib/components/form/Form.svelte';
+	import Fieldset from '$lib/components/form/Fieldset.svelte';
+	import RadioGroup from '$lib/components/form/RadioGroup/RadioGroup.svelte';
+	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
+	import InputField from '$lib/components/form/InputField.svelte';
+	import { CircleMinus } from '@lucide/svelte';
 
 	let { data }: PageProps = $props();
 
@@ -29,164 +36,152 @@
 	});
 </script>
 
-<main>
-	<form method="POST" use:enhance>
+<PageLayout title="Add Guests" pageLayout="centered">
+	<Form {enhance}>
 		{#if $message}
 			<p>{$message.text}</p>
 		{/if}
-		<fieldset>
-			<legend>Add the guests's first and last name</legend>
 
-			<div>
-				<label for="given-name">First name:</label>
-				<input
-					type="text"
-					name="given-name"
-					id="given-name"
-					autocomplete="given-name"
-					required
-					bind:value={$form.givenName}
-				/>
-			</div>
-			<div>
-				<label for="family-name">Last name:</label>
-				<input
-					type="text"
-					id="family-name"
-					name="family-name"
-					autocomplete="family-name"
-					required
-					bind:value={$form.familyName}
-				/>
-			</div>
-		</fieldset>
-		<div>
-			<label for="email">Email:</label>
-			<input
+		<Fieldset legend="Add the guests's first and last name" dataHidden={true}>
+			<InputField
 				type="text"
-				id="email"
-				name="email"
-				autocomplete="email"
+				fieldName="given-name"
+				label="First Name"
 				required
-				bind:value={$form.email}
+				bind:value={$form.givenName}
+				errors={$errors.givenName}
+				autocomplete="given-name"
 			/>
-		</div>
-		<fieldset>
-			<legened>Is the guest a day or night guest?</legened>
-			<div>
-				<input
-					type="radio"
-					id="day-guest"
-					name="type"
-					required
-					value={GuestType.DAY}
-					bind:group={$form.type}
-				/>
-				<label for="day-guest">Day</label>
-			</div>
-			<div>
-				<input
-					type="radio"
-					id="night-guest"
-					name="type"
-					required
-					value={GuestType.NIGHT}
-					bind:group={$form.type}
-				/>
-				<label for="night-guest">Night</label>
-			</div>
-		</fieldset>
+			<InputField
+				type="text"
+				fieldName="family-name"
+				label="Surname"
+				required
+				bind:value={$form.familyName}
+				errors={$errors.familyName}
+				autocomplete="family-name"
+			/>
+		</Fieldset>
 
-		<fieldset class="GuestToggle">
-			<legened>Can the guest bring other guests?</legened>
-			<div>
-				<input
-					type="radio"
-					id="has-guests-yes"
-					name="has-guests"
-					required
-					value="yes"
-					bind:group={$form.hasGuests}
-				/>
-				<label for="has-guests-yes">Yes</label>
-			</div>
-			<div>
-				<input
-					type="radio"
-					id="has-guests-no"
-					name="has-guests"
-					required
-					value="no"
-					bind:group={$form.hasGuests}
-				/>
-				<label for="has-guests-no">No</label>
-			</div>
+		<InputField
+			type="email"
+			label="Email"
+			fieldName="email"
+			required
+			bind:value={$form.email}
+			errors={$errors.email}
+			autocomplete="email"
+		/>
 
-			<div class={$form.hasGuests === 'yes' ? 'GuestToggle__panel--checked' : 'GuestToggle__panel'}>
-				<button type="button" onclick={() => addGuestInput()}>Add Guests</button>
-				{#each $form.additionalGuests as _, i}
-					<fieldset>
-						<legend>Add the additional guest's first and last name</legend>
-						<div>
-							<label for="guest-{i}-given-name">First name:</label>
-							<input
-								type="text"
-								name="given-name"
-								id="guest-{i}-given-name"
-								autocomplete="given-name"
-								required
-								bind:value={$form.additionalGuests[i].givenName}
-							/>
-						</div>
-						<div>
-							<label for="guest-{i}-family-name">Last name:</label>
-							<input
-								type="text"
-								id="guest-{i}-family-name"
-								name="family-name"
-								autocomplete="family-name"
-								required
-								bind:value={$form.additionalGuests[i].familyName}
-							/>
-						</div>
-						<button
-							type="button"
-							onclick={() => deleteGuestInput(i)}
-							aria-label="Add another guest"
-						>
-							<svg
-								width="20"
-								height="20"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"
+		<RadioGroup name="type" legend="Day or Night guest">
+			<RadioGroupOption
+				label="Day"
+				id="type-day"
+				name="type"
+				bind:group={$form.type}
+				value={GuestType.DAY}
+			/>
+			<RadioGroupOption
+				label="Night"
+				id="type-night"
+				name="type"
+				bind:group={$form.type}
+				value={GuestType.NIGHT}
+			/>
+		</RadioGroup>
+
+		<div class="AddGuestToggle">
+			<Fieldset>
+				<RadioGroup name="type" legend="More guests">
+					<RadioGroupOption
+						label="Yes"
+						bind:group={$form.hasGuests}
+						id="more-guests-yes"
+						name="hasGuests"
+						value="yes"
+					/>
+					<RadioGroupOption
+						label="No"
+						bind:group={$form.hasGuests}
+						id="more-guests-no"
+						name="hasGuests"
+						value="no"
+					/>
+				</RadioGroup>
+
+				<div
+					class={$form.hasGuests === 'yes'
+						? 'AddGuestToggle__panel--checked'
+						: 'AddGuestToggle__panel'}
+				>
+					<button type="button" class="AddGuestToggle__addButton" onclick={() => addGuestInput()}
+						>Add Guest</button
+					>
+					<div class="flex-col">
+						{#each $form.additionalGuests as _, i}
+							<Fieldset
+								legend="Add the additional guest's first and last name"
+								dataHidden={true}
+								class="flex-row gap-2"
 							>
-								<path d="M5 12h14" />
-							</svg>
-						</button>
-					</fieldset>
-				{/each}
-			</div>
-		</fieldset>
-		<button type="submit">Add guest</button>
-	</form>
-</main>
+								<InputField
+									type="text"
+									fieldName="guest-{i}-given-name"
+									label="First Name"
+									required
+									bind:value={$form.additionalGuests[i].givenName}
+									errors={$errors.additionalGuests?.[i]?.givenName}
+									autocomplete="given-name"
+								/>
+
+								<InputField
+									type="text"
+									fieldName="guest-{i}-family-name"
+									label="Last Name"
+									required
+									bind:value={$form.additionalGuests[i].familyName}
+									errors={$errors.additionalGuests?.[i]?.familyName}
+									autocomplete="family-name"
+								/>
+
+								<button
+									type="button"
+									class="AddGuestToggle__deleteButton"
+									onclick={() => deleteGuestInput(i)}
+									aria-label="Add another guest"
+								>
+									<CircleMinus />
+								</button>
+							</Fieldset>
+						{/each}
+					</div>
+				</div>
+			</Fieldset>
+		</div>
+	</Form>
+</PageLayout>
 
 <style lang="scss">
-	.GuestToggle {
+	.AddGuestToggle {
 		display: flex;
 		flex-direction: column;
+		width: 100%;
 
 		&__panel {
 			display: none;
+		}
 
-			&--checked {
-				display: flex;
-			}
+		&__panel--checked {
+			display: flex;
+			flex-direction: column-reverse;
+		}
+
+		&__addButton {
+			text-align: end;
+		}
+
+		&__deleteButton {
+			margin-top: 2rem;
 		}
 	}
 </style>

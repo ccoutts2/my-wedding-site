@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import prisma from '$lib/server/prisma';
-import { DietaryOptions, GuestType } from '../../../../../../generated/prisma/enums';
+import { GuestType } from '../../../../../../../generated/prisma/enums';
 import { zod4 } from 'sveltekit-superforms/adapters';
 import { z } from 'zod/v4';
 import { message, superValidate } from 'sveltekit-superforms';
