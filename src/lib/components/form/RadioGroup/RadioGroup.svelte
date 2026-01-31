@@ -59,7 +59,7 @@
 			border-color: variables.$color--input--border-error;
 
 			&:hover {
-				border-color: darken(#dc2626, 10%);
+				border-color: variables.$color--input--border-error;
 			}
 		}
 

@@ -3,8 +3,12 @@
 	import { type Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 	import type { EventHandler } from 'svelte/elements';
-	import Table from '$lib/components/Table.svelte';
+	import Table from '$lib/components/ui/table/Table.svelte';
 	import SearchInput from '$lib/components/form/SearchField.svelte';
+	import type { Sorting } from '$lib/types';
+	import TableRow from '$lib/components/ui/table/TableRow.svelte';
+	import TableFilter from '$lib/components/ui/table/TableFilter.svelte';
+	import TableHeaderCell from '$lib/components/ui/table/TableHeaderCell.svelte';
 
 	let { children, data }: { children: Snippet; data: LayoutData } = $props();
 
@@ -14,10 +18,7 @@
 
 	let searchTerm: string = $state(data.query ?? '');
 
-	const sorting: {
-		orderBy: string;
-		ascending: boolean;
-	} = $derived(data.sorting);
+	const sorting: Sorting = $derived(data.sorting);
 
 	// Func to search for results upon input change, with debounce
 
@@ -44,7 +45,43 @@
 	<SearchInput {searchTerm} {handleInput} />
 
 	{#if data.users}
-		<Table users={data.users} {sorting} {searchTerm} {handleInput} />
+		<Table caption="Guests invited to our wedding.">
+			<thead>
+				<TableRow type="header">
+					<TableHeaderCell scope="col">
+						<TableFilter {searchTerm} {handleInput} {sorting} value="givenName" label="Name" />
+					</TableHeaderCell>
+					<TableHeaderCell scope="col">Replied</TableHeaderCell>
+					<TableHeaderCell scope="col">
+						<TableFilter {searchTerm} {handleInput} {sorting} value="isAccepted" label="RSVP" />
+					</TableHeaderCell>
+					<TableHeaderCell scope="col">
+						<TableFilter {searchTerm} {handleInput} {sorting} value="diet" label="Diet" />
+					</TableHeaderCell>
+					<TableHeaderCell scope="col">Allergies</TableHeaderCell>
+					<TableHeaderCell scope="col">Type</TableHeaderCell>
+					<TableHeaderCell scope="col">Plus 1</TableHeaderCell>
+				</TableRow>
+			</thead>
+			<tbody class="Table__tableBody">
+				{#each data.users as { id, givenName, familyName, RSVP, isAccepted, diet, hasAllergies, type, hasGuests }}
+					<TableRow type="body">
+						<TableHeaderCell scope="row">
+							{`${givenName} ${familyName}`}
+							<a href={`/admin/view-guests/${id}`} data-sveltekit-noscroll
+								><span class="visually-hidden">View {givenName}</span></a
+							>
+						</TableHeaderCell>
+						<td>{RSVP}</td>
+						<td>{isAccepted}</td>
+						<td>{diet}</td>
+						<td>{hasAllergies}</td>
+						<td>{type}</td>
+						<td>{hasGuests}</td>
+					</TableRow>
+				{/each}
+			</tbody>
+		</Table>
 	{/if}
 </main>
 
@@ -61,7 +98,7 @@
 		&.show-modal {
 			overflow: hidden;
 
-			:global(.ViewGuests) {
+			:global(.Table) {
 				overflow: hidden;
 				pointer-events: none;
 			}
