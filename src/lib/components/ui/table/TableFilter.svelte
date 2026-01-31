@@ -5,17 +5,16 @@
 
 	interface TableFilterProps {
 		searchTerm: string;
-		handleInput: EventHandler<Event, HTMLInputElement>;
 		label: string;
 		value: string;
 		sorting: Sorting;
 	}
 
-	let { searchTerm = $bindable(), handleInput, label, value, sorting }: TableFilterProps = $props();
+	let { searchTerm = $bindable(), label, value, sorting }: TableFilterProps = $props();
 </script>
 
 <form>
-	<input type="hidden" name="q" id="q" bind:value={searchTerm} oninput={handleInput} />
+	<input type="hidden" name="q" id="q" bind:value={searchTerm} />
 	<input type="hidden" name="orderBy" {value} />
 	<input type="hidden" name="asc" value={sorting.ascending ? 'false' : 'true'} />
 	<button type="submit" class="TableFilter__button">

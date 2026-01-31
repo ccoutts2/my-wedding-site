@@ -48,15 +48,15 @@
 		<Table caption="Guests invited to our wedding.">
 			<thead>
 				<TableRow type="header">
-					<TableHeaderCell scope="col">
-						<TableFilter {searchTerm} {handleInput} {sorting} value="givenName" label="Name" />
+					<TableHeaderCell scope="col" filter={true}>
+						<TableFilter {searchTerm} {sorting} value="givenName" label="Name" />
 					</TableHeaderCell>
 					<TableHeaderCell scope="col">Replied</TableHeaderCell>
-					<TableHeaderCell scope="col">
-						<TableFilter {searchTerm} {handleInput} {sorting} value="isAccepted" label="RSVP" />
+					<TableHeaderCell scope="col" filter={true}>
+						<TableFilter {searchTerm} {sorting} value="isAccepted" label="RSVP" />
 					</TableHeaderCell>
-					<TableHeaderCell scope="col">
-						<TableFilter {searchTerm} {handleInput} {sorting} value="diet" label="Diet" />
+					<TableHeaderCell scope="col" filter={true}>
+						<TableFilter {searchTerm} {sorting} value="diet" label="Diet" />
 					</TableHeaderCell>
 					<TableHeaderCell scope="col">Allergies</TableHeaderCell>
 					<TableHeaderCell scope="col">Type</TableHeaderCell>
@@ -72,12 +72,12 @@
 								><span class="visually-hidden">View {givenName}</span></a
 							>
 						</TableHeaderCell>
-						<td>{RSVP}</td>
-						<td>{isAccepted}</td>
-						<td>{diet}</td>
-						<td>{hasAllergies}</td>
+						<td>{RSVP ? 'Yes' : 'No'}</td>
+						<td>{isAccepted ? 'Yes' : 'No'}</td>
+						<td>{diet ? 'Yes' : 'No'}</td>
+						<td>{hasAllergies ? 'Yes' : 'No'}</td>
 						<td>{type}</td>
-						<td>{hasGuests}</td>
+						<td>{hasGuests ? 'Yes' : 'No'}</td>
 					</TableRow>
 				{/each}
 			</tbody>

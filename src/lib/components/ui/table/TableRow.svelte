@@ -16,8 +16,6 @@
 	@use '$lib/styles/partials/variables';
 
 	.TableRow {
-		opacity: (calc(var(--progress) * 8));
-
 		&[data-is-type='header'] {
 			background-color: variables.$color--button;
 			color: variables.$color--button-text;

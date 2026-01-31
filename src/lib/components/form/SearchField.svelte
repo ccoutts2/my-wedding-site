@@ -1,5 +1,12 @@
 <script lang="ts">
-	let { searchTerm, handleInput } = $props();
+	import type { EventHandler } from 'svelte/elements';
+
+	interface SearchFieldProps {
+		searchTerm: string;
+		handleInput: EventHandler<Event, HTMLInputElement>;
+	}
+
+	let { searchTerm, handleInput }: SearchFieldProps = $props();
 </script>
 
 <search class="Field">
