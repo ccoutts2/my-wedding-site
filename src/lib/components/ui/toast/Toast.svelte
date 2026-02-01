@@ -53,6 +53,10 @@
 			border-color: variables.$color--input--border-error;
 		}
 
+		&[data-status='info'] {
+			border-color: variables.$color--foreground;
+		}
+
 		&__title {
 			font-weight: 600;
 		}

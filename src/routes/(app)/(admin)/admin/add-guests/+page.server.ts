@@ -49,55 +49,54 @@ export const actions = {
 		if (emailCheck) {
 			return message(form, {
 				status: 'error',
-				text: 'Email is already regsitered. Please enter a different email. '
+				text: 'Email is already registered. Please enter a different email. '
 			});
 		}
 
-		if (!emailCheck) {
-			try {
-				const user = await prisma.user.create({
-					data: {
-						givenName: form.data.givenName,
-						familyName: form.data.familyName,
-						email: form.data.email,
-						type: form.data.type,
-						hasGuests: form.data.hasGuests === 'yes',
-						isAccepted: false,
-						RSVP: false
-					},
-					include: {
-						guest: true
-					}
-				});
-
-				if (user.hasGuests) {
-					for (const guest of form.data.additionalGuests) {
-						await prisma.guest.create({
-							data: {
-								userId: user.id,
-								givenName: guest.givenName,
-								familyName: guest.familyName,
-								type: user.type,
-								isAccepted: false
-							}
-						});
-					}
+		try {
+			const user = await prisma.user.create({
+				data: {
+					givenName: form.data.givenName,
+					familyName: form.data.familyName,
+					email: form.data.email,
+					type: form.data.type,
+					hasGuests: form.data.hasGuests === 'yes',
+					isAccepted: false,
+					RSVP: false
+				},
+				include: {
+					guest: true
 				}
-			} catch (error) {
-				console.log(error);
+			});
 
-				return message(
-					form,
-					{
-						status: 'error',
-						text: 'Something went wrong. Please try again.'
-					},
-					{
-						status: 500
-					}
-				);
+			if (user.hasGuests) {
+				for (const guest of form.data.additionalGuests) {
+					await prisma.guest.create({
+						data: {
+							userId: user.id,
+							givenName: guest.givenName,
+							familyName: guest.familyName,
+							type: user.type,
+							isAccepted: false
+						}
+					});
+				}
 			}
+		} catch (error) {
+			console.log(error);
+
+			return message(
+				form,
+				{
+					status: 'error',
+					text: 'Something went wrong. Please try again.'
+				},
+				{
+					status: 500
+				}
+			);
 		}
+
 		return message(form, { status: 'success', text: 'Form submitted successfully!' });
 	}
 } satisfies Actions;

@@ -21,7 +21,9 @@
 		errorSelector: '[aria-invalid="true"]',
 		onUpdated({ form }) {
 			if (form.valid) {
-				toastState.add('Update', form.message.text, form.message.status);
+				if (form.message?.text && form.message?.status) {
+					toastState.add('Update', form.message.text, form.message.status);
+				}
 			}
 		}
 	});
