@@ -24,12 +24,21 @@ export const load: LayoutServerLoad = async ({ url, setHeaders }) => {
 		query: url.searchParams.get('q'),
 		orderBy: url.searchParams.get('orderBy') || ORDER_BY_OPTIONS[0],
 		ascending: url.searchParams.get('asc'),
-		page: parseInt(url.searchParams.get('p') || '1', 10)
+		page: Number(url.searchParams.get('p')) || 1
 	});
 
 	const page = requestedPage ?? 1;
 
-	const totalGuests = await prisma.user.count();
+	const whereClause = query
+		? {
+				OR: [
+					{ familyName: { contains: query, mode: 'insensitive' as const } },
+					{ givenName: { contains: query, mode: 'insensitive' as const } }
+				]
+			}
+		: undefined;
+
+	const totalGuests = await prisma.user.count({ where: whereClause });
 
 	const totalPages = Math.ceil(totalGuests / ITEMS_PER_PAGE);
 
@@ -44,25 +53,7 @@ export const load: LayoutServerLoad = async ({ url, setHeaders }) => {
 	const users = await prisma.user.findMany({
 		skip: (page - 1) * ITEMS_PER_PAGE,
 		take: ITEMS_PER_PAGE,
-		where: {
-			OR: query
-				? [
-						{
-							familyName: {
-								contains: query,
-								mode: 'insensitive'
-							}
-						},
-						{
-							givenName: {
-								contains: query,
-								mode: 'insensitive'
-							}
-						}
-					]
-				: undefined
-		},
-
+		where: whereClause,
 		orderBy: {
 			[orderBy]: ascending ? 'asc' : 'desc'
 		}

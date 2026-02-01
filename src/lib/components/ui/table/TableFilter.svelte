@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Sorting } from '$lib/types';
 	import { MoveUp } from '@lucide/svelte';
-	import type { EventHandler } from 'svelte/elements';
 
 	interface TableFilterProps {
 		searchTerm: string;

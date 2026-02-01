@@ -9,7 +9,6 @@
 	import TableRow from '$lib/components/ui/table/TableRow.svelte';
 	import TableFilter from '$lib/components/ui/table/TableFilter.svelte';
 	import TableHeaderCell from '$lib/components/ui/table/TableHeaderCell.svelte';
-	import { CircleArrowLeft, CircleArrowRight } from '@lucide/svelte';
 	import { DEBOUNCE_TIME_IN_MS, ITEMS_PER_PAGE } from '$lib';
 	import Pagination from '$lib/components/navigation/Pagination.svelte';
 
@@ -21,7 +20,7 @@
 
 	const sorting: Sorting = $derived(data.sorting);
 
-	let totalGuests = $state(data.totalGuests);
+	let totalGuests = $derived(data.totalGuests);
 	let totalPages = $derived(Math.ceil(totalGuests / ITEMS_PER_PAGE));
 	let currentPage = $derived(Number(page.url.searchParams.get('p')) || 1);
 

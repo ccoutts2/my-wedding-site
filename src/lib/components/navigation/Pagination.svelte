@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { CircleArrowLeft, CircleArrowRight } from '@lucide/svelte';
+	import { page } from '$app/state';
 
 	interface PaginationProps {
 		currentPage: number;
@@ -7,26 +8,33 @@
 	}
 
 	let { currentPage, totalPages }: PaginationProps = $props();
+
+	const getPageUrl = (pageNum: number): string => {
+		const url = new URL(page.url);
+		url.searchParams.set('p', pageNum.toString());
+		return url.pathname + url.search;
+	};
 </script>
 
 <ul class="Pagination">
 	<li class="Pagination__item" data-is-arrow="true">
-		<a href="/admin/view-guests?p={currentPage - 1}" class={currentPage === 1 ? 'disabled' : ''}>
-			<CircleArrowLeft /></a
-		>
+		{#if currentPage === 1}
+			<span class="disabled" aria-disabled="true"><CircleArrowLeft /></span>
+		{:else}
+			<a href={getPageUrl(currentPage - 1)}><CircleArrowLeft /></a>
+		{/if}
 	</li>
 	{#each Array(totalPages) as _, i}
 		<li class="Pagination__item {currentPage === i + 1 ? 'active' : ''}" data-is-arrow="false">
-			<a href="/admin/view-guests?p={i + 1}">{i + 1}</a>
+			<a href={getPageUrl(i + 1)}>{i + 1}</a>
 		</li>
 	{/each}
 	<li class="Pagination__item" data-is-arrow="true">
-		<a
-			href="/admin/view-guests?p={currentPage + 1}"
-			class={currentPage === totalPages ? 'disabled' : ''}
-		>
-			<CircleArrowRight /></a
-		>
+		{#if currentPage === totalPages}
+			<span class="disabled" aria-disabled="true"><CircleArrowRight /></span>
+		{:else}
+			<a href={getPageUrl(currentPage + 1)}><CircleArrowRight /></a>
+		{/if}
 	</li>
 </ul>
 
@@ -74,14 +82,14 @@
 					inset: 0;
 					position: absolute;
 				}
-
-				&.disabled {
-					color: grey;
-					cursor: default;
-					pointer-events: none;
-					text-decoration: none;
-				}
 			}
 		}
+	}
+
+	.disabled {
+		color: grey;
+		cursor: default;
+		pointer-events: none;
+		text-decoration: none;
 	}
 </style>
