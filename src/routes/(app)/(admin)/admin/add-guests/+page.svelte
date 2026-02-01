@@ -9,13 +9,21 @@
 	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
 	import InputField from '$lib/components/form/InputField.svelte';
 	import { CircleMinus } from '@lucide/svelte';
+	import { getToastState } from '$lib/contexts/toast-state.svelte';
 
 	let { data }: PageProps = $props();
+
+	const toastState = getToastState();
 
 	const { form, enhance, message, errors } = superForm(data.form, {
 		dataType: 'json',
 		scrollToError: 'smooth',
-		errorSelector: '[aria-invalid="true"]'
+		errorSelector: '[aria-invalid="true"]',
+		onUpdated({ form }) {
+			if (form.valid) {
+				toastState.add('Update', form.message.text, form.message.status);
+			}
+		}
 	});
 
 	const addGuestInput = () => {
@@ -38,10 +46,6 @@
 
 <PageLayout title="Add Guests" pageLayout="centered">
 	<Form {enhance}>
-		{#if $message}
-			<p>{$message.text}</p>
-		{/if}
-
 		<Fieldset legend="Add the guests's first and last name" dataHidden={true}>
 			<InputField
 				type="text"

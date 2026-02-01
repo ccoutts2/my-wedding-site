@@ -8,6 +8,9 @@
 	import Overlay from '$lib/components/Overlay.svelte';
 	import { page } from '$app/state';
 
+	import Toaster from '$lib/components/ui/toast/Toaster.svelte';
+	import { setToastState } from '$lib/contexts/toast-state.svelte.js';
+
 	onNavigate((navigation) => {
 		if (document.startViewTransition && navigation.from?.route.id !== navigation.to?.route.id) {
 			return new Promise((resolve) => {
@@ -25,6 +28,7 @@
 	});
 
 	setContext('overlay-ctx', overlayState);
+	setToastState();
 
 	let { children, data } = $props();
 
@@ -35,6 +39,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
+<Toaster />
 <Header {data} {url} />
 {@render children?.()}
 <Overlay />

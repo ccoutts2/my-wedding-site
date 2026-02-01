@@ -36,7 +36,7 @@ export const actions = {
 		if (!form.valid) {
 			return message(form, {
 				status: 'invalid',
-				message: 'Form is invalid. Please check the form for errors.'
+				text: 'Form is invalid. Please check the form for errors.'
 			});
 		}
 
@@ -45,6 +45,13 @@ export const actions = {
 				email: form.data.email
 			}
 		});
+
+		if (emailCheck) {
+			return message(form, {
+				status: 'error',
+				text: 'Email is already regsitered. Please enter a different email. '
+			});
+		}
 
 		if (!emailCheck) {
 			try {
@@ -78,6 +85,7 @@ export const actions = {
 				}
 			} catch (error) {
 				console.log(error);
+
 				return message(
 					form,
 					{
@@ -90,6 +98,6 @@ export const actions = {
 				);
 			}
 		}
-		return message(form, { text: 'Form submitted successfully!' });
+		return message(form, { status: 'success', text: 'Form submitted successfully!' });
 	}
 } satisfies Actions;
