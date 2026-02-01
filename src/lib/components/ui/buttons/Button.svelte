@@ -21,19 +21,16 @@
 	.Button {
 		align-items: center;
 		background-color: variables.$color--button;
+		border-radius: 4px;
+		box-shadow: none;
 		color: variables.$color--button-text;
 		display: flex;
-		border-radius: 4px;
 		flex: 1;
 		justify-content: center;
-		width: 100%;
-
 		min-width: 5rem;
-		overflow: hidden;
 		padding: 0.5rem;
-		position: relative;
-		box-shadow: none;
 		transition: box-shadow 0.3s;
+		width: 100%;
 
 		&:hover {
 			box-shadow: 0px 1px 2px dimgray;

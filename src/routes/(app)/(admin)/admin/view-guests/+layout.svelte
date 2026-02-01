@@ -11,6 +11,7 @@
 	import TableHeaderCell from '$lib/components/ui/table/TableHeaderCell.svelte';
 	import { CircleArrowLeft, CircleArrowRight } from '@lucide/svelte';
 	import { DEBOUNCE_TIME_IN_MS, ITEMS_PER_PAGE } from '$lib';
+	import Pagination from '$lib/components/navigation/Pagination.svelte';
 
 	let { children, data }: { children: Snippet; data: LayoutData } = $props();
 
@@ -48,24 +49,6 @@
 <main class="ViewGuestsLayout {isModalOpen ? 'show-modal' : ''}">
 	<SearchInput {searchTerm} {handleInput} />
 
-	<ul class="w-full">
-		<li><a href="/admin/view-guests?p={currentPage - 1}"> <CircleArrowLeft /></a></li>
-		{#each Array(totalPages) as _, i}
-			<li>
-				<a href="/admin/view-guests?p={i + 1}" class={currentPage === i + 1 ? 'active' : ''}
-					>{i + 1}</a
-				>
-			</li>
-		{/each}
-		<li>
-			<a
-				href="/admin/view-guests?p={currentPage + 1}"
-				class={currentPage === totalPages ? 'disabled' : ''}
-			>
-				<CircleArrowRight /></a
-			>
-		</li>
-	</ul>
 	{#if data.users}
 		<Table caption="Guests invited to our wedding.">
 			<thead>
@@ -104,23 +87,13 @@
 				{/each}
 			</tbody>
 		</Table>
+		<Pagination {currentPage} {totalPages} />
 	{/if}
 </main>
 
 {@render children?.()}
 
 <style lang="scss">
-	.active {
-		color: red;
-	}
-
-	.disabled {
-		pointer-events: none;
-		cursor: default;
-		text-decoration: none;
-		color: black;
-	}
-
 	.ViewGuestsLayout {
 		display: flex;
 		flex-direction: column;
