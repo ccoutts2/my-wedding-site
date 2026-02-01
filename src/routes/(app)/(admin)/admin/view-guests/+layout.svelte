@@ -9,16 +9,20 @@
 	import TableRow from '$lib/components/ui/table/TableRow.svelte';
 	import TableFilter from '$lib/components/ui/table/TableFilter.svelte';
 	import TableHeaderCell from '$lib/components/ui/table/TableHeaderCell.svelte';
+	import { CircleArrowLeft, CircleArrowRight } from '@lucide/svelte';
+	import { DEBOUNCE_TIME_IN_MS, ITEMS_PER_PAGE } from '$lib';
 
 	let { children, data }: { children: Snippet; data: LayoutData } = $props();
 
 	let timeout: number | NodeJS.Timeout;
 
-	const DEBOUNCE_TIME_IN_MS: number = 400;
-
 	let searchTerm: string = $state(data.query ?? '');
 
 	const sorting: Sorting = $derived(data.sorting);
+
+	let totalGuests = $state(data.totalGuests);
+	let totalPages = $derived(Math.ceil(totalGuests / ITEMS_PER_PAGE));
+	let currentPage = $derived(Number(page.url.searchParams.get('p')) || 1);
 
 	// Func to search for results upon input change, with debounce
 
@@ -44,6 +48,24 @@
 <main class="ViewGuestsLayout {isModalOpen ? 'show-modal' : ''}">
 	<SearchInput {searchTerm} {handleInput} />
 
+	<ul class="w-full">
+		<li><a href="/admin/view-guests?p={currentPage - 1}"> <CircleArrowLeft /></a></li>
+		{#each Array(totalPages) as _, i}
+			<li>
+				<a href="/admin/view-guests?p={i + 1}" class={currentPage === i + 1 ? 'active' : ''}
+					>{i + 1}</a
+				>
+			</li>
+		{/each}
+		<li>
+			<a
+				href="/admin/view-guests?p={currentPage + 1}"
+				class={currentPage === totalPages ? 'disabled' : ''}
+			>
+				<CircleArrowRight /></a
+			>
+		</li>
+	</ul>
 	{#if data.users}
 		<Table caption="Guests invited to our wedding.">
 			<thead>
@@ -88,6 +110,17 @@
 {@render children?.()}
 
 <style lang="scss">
+	.active {
+		color: red;
+	}
+
+	.disabled {
+		pointer-events: none;
+		cursor: default;
+		text-decoration: none;
+		color: black;
+	}
+
 	.ViewGuestsLayout {
 		display: flex;
 		flex-direction: column;
