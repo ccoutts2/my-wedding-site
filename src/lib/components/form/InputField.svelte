@@ -17,18 +17,33 @@
 	<label class="Field__label" data-has-error={errors ? 'true' : undefined} for={fieldName}
 		>{label}</label
 	>
-	<input
-		class="Field__input"
-		name={fieldName}
-		id={fieldName}
-		bind:value
-		{type}
-		{required}
-		{autocomplete}
-		aria-invalid={errors ? 'true' : undefined}
-		aria-describedby={errors ? `${fieldName}-error-message` : undefined}
-		{...constraints}
-	/>
+	{#if type !== 'textarea'}
+		<input
+			class="Field__input"
+			name={fieldName}
+			id={fieldName}
+			bind:value
+			{type}
+			{required}
+			{autocomplete}
+			aria-invalid={errors ? 'true' : undefined}
+			aria-describedby={errors ? `${fieldName}-error-message` : undefined}
+			{...constraints}
+		/>
+	{:else}
+		<textarea
+			class="Field__input"
+			name={fieldName}
+			id={fieldName}
+			bind:value
+			{required}
+			rows="5"
+			{autocomplete}
+			aria-invalid={errors ? 'true' : undefined}
+			aria-describedby={errors ? `${fieldName}-error-message` : undefined}
+			{...constraints}
+		></textarea>
+	{/if}
 	{#if errors}
 		<span class="Error" id="{fieldName}-error-message">{errors}</span>
 	{/if}
@@ -50,7 +65,6 @@
 			color: grey;
 			font-size: 0.825rem;
 			padding-block: 0.5rem 0.25rem;
-			text-transform: capitalize;
 			width: 100%;
 		}
 

@@ -134,7 +134,7 @@ export const actions = {
 		if (!form.valid) {
 			return message(form, {
 				status: 'invalid',
-				text: 'Form was invalid. Please check the form for errors'
+				text: 'Form was invalid. Please check the form for errors.'
 			});
 		}
 
@@ -180,7 +180,7 @@ export const actions = {
 
 		return message(form, {
 			status: 'success',
-			text: "Thanks for RSVP'ing!"
+			text: "Thanks for filling in the form. That's us got your choices!"
 		});
 	}
 } satisfies Actions;

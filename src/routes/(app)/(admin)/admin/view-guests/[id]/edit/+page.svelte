@@ -14,12 +14,12 @@
 	const { user } = data;
 	const toastState = getToastState();
 
-	const { form, enhance, errors } = superForm(data.form, {
+	const { form, enhance, message, errors } = superForm(data.form, {
 		dataType: 'json',
 		onUpdated({ form }) {
 			if (form.valid) {
-				if (form.message?.text && form.message?.status) {
-					toastState.add(form.message.status, form.message.text, form.message.status);
+				if ($message?.text && $message?.status) {
+					toastState.add($message.status, $message.text, $message.status);
 				}
 			}
 		}

@@ -44,7 +44,6 @@
 			color: grey;
 			font-size: 0.825rem;
 			padding-block: 0.5rem 0.25rem;
-			text-transform: capitalize;
 			width: 100%;
 		}
 
