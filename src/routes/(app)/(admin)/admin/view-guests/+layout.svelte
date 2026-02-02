@@ -86,7 +86,9 @@
 				{/each}
 			</tbody>
 		</Table>
-		<Pagination {currentPage} {totalPages} />
+		{#if !isModalOpen}
+			<Pagination {currentPage} {totalPages} />
+		{/if}
 	{/if}
 </main>
 
@@ -97,6 +99,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
+		min-height: 100vh;
 		padding: 1rem;
 		position: relative;
 
@@ -107,14 +110,20 @@
 				overflow: hidden;
 				pointer-events: none;
 			}
+
+			&::after {
+				visibility: visible;
+				display: block;
+				background-color: rgba(0, 0, 0, 0.7);
+			}
 		}
 
-		&.show-modal::after {
+		&::after {
+			position: absolute;
 			content: '';
-			background: rgba(0, 0, 0, 0.2);
 			inset: 0;
-			position: fixed;
-			z-index: -5;
+			visibility: hidden;
+			display: none;
 		}
 	}
 </style>

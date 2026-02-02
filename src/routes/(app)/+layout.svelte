@@ -44,7 +44,7 @@
 {@render children?.()}
 <Overlay />
 
-<style>
+<!-- <style>
 	@keyframes move-out {
 		from {
 			opacity: 1;
@@ -74,4 +74,4 @@
 	::view-transition-new(root) {
 		animation: 1s cubic-bezier(0.87, 0, 0.13, 1) both move-in;
 	}
-</style>
+</style> -->

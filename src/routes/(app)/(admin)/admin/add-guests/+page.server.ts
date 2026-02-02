@@ -7,15 +7,15 @@ import { z } from 'zod/v4';
 import { GuestType } from '../../../../../generated/prisma/enums';
 
 const schema = z.object({
-	givenName: z.string().min(1, 'You must enter a valid name.'),
-	familyName: z.string().min(1, 'You must enter a valid name.'),
-	email: z.email(),
+	givenName: z.string().trim().min(1, 'You must enter a valid name.'),
+	familyName: z.string().trim().min(1, 'You must enter a valid name.'),
+	email: z.email().trim(),
 	type: z.enum(GuestType),
 	hasGuests: z.string().min(1, 'You must select an option'),
 	additionalGuests: z
 		.object({
-			givenName: z.string().min(1, 'You must enter a valid name.'),
-			familyName: z.string().min(1, 'You must enter a valid name.'),
+			givenName: z.string().trim().min(1, 'You must enter a valid name.'),
+			familyName: z.string().trim().min(1, 'You must enter a valid name.'),
 			type: z.enum(GuestType)
 		})
 		.array()

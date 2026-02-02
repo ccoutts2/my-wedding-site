@@ -6,17 +6,35 @@
 	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
 	import Form from '$lib/components/form/Form.svelte';
 	import InputField from '$lib/components/form/InputField.svelte';
+	import Fieldset from '$lib/components/form/Fieldset.svelte';
+	import { getToastState } from '$lib/contexts/toast-state.svelte';
 
 	let { data }: PageProps = $props();
 
 	const { user } = data;
+	const toastState = getToastState();
 
-	const { form, enhance, message, errors } = superForm(data.form, {
-		dataType: 'json'
+	const { form, enhance, errors } = superForm(data.form, {
+		dataType: 'json',
+		onUpdated({ form }) {
+			if (form.valid) {
+				if (form.message?.text && form.message?.status) {
+					toastState.add('Updated user information.', form.message.text, form.message.status);
+				}
+			}
+		}
 	});
 </script>
 
-<main class="EditUserProfile">
+<svelte:head>
+	<title>Aly and Chris | Edit Guest Information</title>
+	<meta
+		name="description"
+		content="Edit a specific guests's information, and their guest's information."
+	/>
+</svelte:head>
+
+<section class="EditUserProfile">
 	{#if user}
 		<header class="EditUserProfile__header">
 			<h1>Edit User Profile</h1>
@@ -27,8 +45,7 @@
 				<h2>Main Guest</h2>
 				<article class="EditUserCard">
 					<Form action="?/edit" {enhance}>
-						<fieldset class="w-full">
-							<legend class="visually-hidden">Edit the guest's first and last name</legend>
+						<Fieldset legend="Edit the guest's first and last name" dataHidden={true}>
 							<InputField
 								type="text"
 								label="First Name"
@@ -45,7 +62,7 @@
 								errors={$errors.familyName}
 								autocomplete="family-name"
 							/>
-						</fieldset>
+						</Fieldset>
 
 						<InputField
 							type="email"
@@ -98,14 +115,13 @@
 			</div>
 
 			{#if user.hasGuests && user.guest.length > 0}
-				<ul class="EditUserCards__additionalGuests" role="list">
+				<ul class="EditUserCards__additionalGuests">
 					{#each $form.additionalGuests as _, i}
 						<li>
 							<article class="EditUserCard">
 								<Form action="?/editGuest" {enhance}>
 									<input type="hidden" name="guestId" value={$form.additionalGuests[i].id} />
-									<fieldset class="w-full">
-										<legend class="visually-hidden">Edit the guest's first and last name</legend>
+									<Fieldset legend="Edit the guest's first and last name" dataHidden={true}>
 										<InputField
 											type="text"
 											label="First Name"
@@ -122,7 +138,7 @@
 											errors={$errors.additionalGuests?.[i]?.familyName as string[] | undefined}
 											autocomplete="family-name"
 										/>
-									</fieldset>
+									</Fieldset>
 
 									<RadioGroup name="type" legend="Day or Night guest">
 										<RadioGroupOption
@@ -152,13 +168,14 @@
 	{:else}
 		<p>User not found.</p>
 	{/if}
-</main>
+</section>
 
 <style lang="scss">
 	@use '$lib/styles/partials/breakpoints';
+	@use '$lib/styles/partials/variables';
 
 	.EditUserProfile {
-		background-color: #ded4e6;
+		background-color: variables.$color--background;
 		top: 0;
 		left: 0;
 		overflow: auto;
@@ -187,6 +204,7 @@
 
 	.EditUserCards {
 		display: flex;
+		height: 65vh;
 		gap: 2rem;
 		flex-direction: column;
 		overflow: auto;
@@ -203,6 +221,7 @@
 		&__additionalGuests {
 			display: flex;
 			gap: 2rem;
+			list-style: none;
 			width: 100%;
 		}
 	}
@@ -214,6 +233,6 @@
 		gap: 1rem;
 		padding: 1rem;
 		min-width: 18rem;
-		max-width: 35rem;
+		max-width: 25rem;
 	}
 </style>

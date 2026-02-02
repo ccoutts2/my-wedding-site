@@ -4,7 +4,7 @@
 	let { children }: { children: Snippet } = $props();
 </script>
 
-<ul class="UserCardDetails" role="list">
+<ul class="UserCardDetails">
 	{@render children?.()}
 </ul>
 

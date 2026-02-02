@@ -13,7 +13,7 @@
 </script>
 
 <form>
-	<input type="hidden" name="q" id="q" bind:value={searchTerm} />
+	<input type="hidden" name="q" bind:value={searchTerm} />
 	<input type="hidden" name="orderBy" {value} />
 	<input type="hidden" name="asc" value={sorting.ascending ? 'false' : 'true'} />
 	<button type="submit" class="TableFilter__button">

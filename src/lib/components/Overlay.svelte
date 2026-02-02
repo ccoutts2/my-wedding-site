@@ -7,7 +7,7 @@
 
 <div class="Overlay {context.isMenuOpen ? 'menu-open' : ''}">Hi</div>
 
-<style>
+<style lang="scss">
 	.Overlay {
 		background-color: #e6c2bf;
 		clip-path: inset(0% 0% 100% 0%);

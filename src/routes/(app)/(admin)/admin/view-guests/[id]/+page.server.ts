@@ -32,7 +32,7 @@ export const actions = {
 		const userIdFromForm = formData.get('userId');
 
 		if (!userIdFromForm || userIdFromForm !== userId) {
-			return fail(400, { message: 'Invalid user ID provided for deletion.' });
+			return fail(400, { text: 'Invalid user ID provided for deletion.' });
 		}
 
 		try {
@@ -47,7 +47,7 @@ export const actions = {
 			await prisma.$transaction([deleteUserGuests, deleteUser]);
 		} catch (error) {
 			console.log(error);
-			return fail(500, { message: 'Something went wrong. Please try again.' });
+			return fail(500, { text: 'Something went wrong. Please try again.' });
 		}
 
 		throw redirect(302, '/admin/view-guests');
@@ -58,7 +58,7 @@ export const actions = {
 		const guestIdFromForm = formData.get('guestId');
 
 		if (!guestIdFromForm || typeof guestIdFromForm !== 'string') {
-			return fail(400, { message: 'Invalid guest ID provided for deletion.' });
+			return fail(400, { text: 'Invalid guest ID provided for deletion.' });
 		}
 
 		const guestId = parseInt(guestIdFromForm, 10);
@@ -69,7 +69,7 @@ export const actions = {
 			});
 		} catch (error) {
 			console.log(error);
-			return fail(500, { message: 'Something went wrong. Please try again.' });
+			return fail(500, { text: 'Something went wrong. Please try again.' });
 		}
 
 		throw redirect(302, '/admin/view-guests');

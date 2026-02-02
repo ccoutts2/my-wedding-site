@@ -1,28 +1,28 @@
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms';
-	import type { PageProps } from './$types';
-	import { GuestType } from '../../../../../generated/prisma/enums';
-	import PageLayout from '$lib/components/PageLayout.svelte';
-	import Form from '$lib/components/form/Form.svelte';
-	import Fieldset from '$lib/components/form/Fieldset.svelte';
-	import RadioGroup from '$lib/components/form/RadioGroup/RadioGroup.svelte';
-	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
-	import InputField from '$lib/components/form/InputField.svelte';
 	import { CircleMinus } from '@lucide/svelte';
 	import { getToastState } from '$lib/contexts/toast-state.svelte';
+	import { GuestType } from '../../../../../generated/prisma/enums';
+	import { superForm } from 'sveltekit-superforms';
+	import Fieldset from '$lib/components/form/Fieldset.svelte';
+	import Form from '$lib/components/form/Form.svelte';
+	import InputField from '$lib/components/form/InputField.svelte';
+	import PageLayout from '$lib/components/PageLayout.svelte';
+	import RadioGroup from '$lib/components/form/RadioGroup/RadioGroup.svelte';
+	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
+	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 
 	const toastState = getToastState();
 
-	const { form, enhance, message, errors } = superForm(data.form, {
+	const { form, enhance, errors } = superForm(data.form, {
 		dataType: 'json',
 		scrollToError: 'smooth',
 		errorSelector: '[aria-invalid="true"]',
 		onUpdated({ form }) {
 			if (form.valid) {
 				if (form.message?.text && form.message?.status) {
-					toastState.add('Update', form.message.text, form.message.status);
+					toastState.add('Added to the guest list!', form.message.text, form.message.status);
 				}
 			}
 		}
@@ -45,6 +45,11 @@
 		}
 	});
 </script>
+
+<svelte:head>
+	<title>Aly and Chris | Add Guests</title>
+	<meta name="description" content="Invite guests to the wedding." />
+</svelte:head>
 
 <PageLayout title="Add Guests" pageLayout="centered">
 	<Form {enhance}>

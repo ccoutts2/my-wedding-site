@@ -112,7 +112,7 @@ export const actions = {
 		if (!form) {
 			return message(form, {
 				status: 'invalid',
-				message: 'Form was invalid. Please check the form for errors.'
+				text: 'Form was invalid. Please check the form for errors.'
 			});
 		}
 
@@ -135,7 +135,7 @@ export const actions = {
 				form,
 				{
 					status: 'error',
-					message: 'Something went wrong. Please try again.'
+					text: 'Something went wrong. Please try again.'
 				},
 				{
 					status: 500

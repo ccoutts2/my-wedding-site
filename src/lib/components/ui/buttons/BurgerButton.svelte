@@ -14,23 +14,28 @@
 
 <button class="BurgerButton" data-is-open={context.isMenuOpen} onclick={toggleBurgerMenu}>
 	<span>{context.isMenuOpen ? 'close' : 'menu'}</span>
-	<div class="BurgerButton__burger">
+	<span class="BurgerButton__burger">
 		<span><span class="visually-hidden">Toggle menu.</span></span>
-	</div>
+	</span>
 </button>
 
 <style lang="scss">
+	@use '$lib/styles/partials/breakpoints';
 	@use '$lib/styles/partials/variables';
 
 	.BurgerButton {
 		display: flex;
+		justify-content: flex-end;
 		gap: 2rem;
 		min-width: 12.5rem;
-		padding: 1rem 2rem;
 		position: relative;
 		transition: background-color 0.3s ease;
 		z-index: 1000;
 		view-transition-name: button;
+
+		@include breakpoints.tablet {
+			padding: 1rem 2rem;
+		}
 
 		&::before {
 			content: '';
@@ -69,7 +74,6 @@
 				display: block;
 				font-size: 0;
 				height: 1px;
-				text-indent: -999;
 				transform: scale(1);
 				width: 100%;
 			}

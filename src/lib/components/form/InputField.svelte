@@ -84,6 +84,7 @@
 	.Error {
 		color: #dc2626;
 		display: flex;
+		font-size: 0.75rem;
 		gap: 0.2rem;
 		margin-bottom: 0.25rem;
 	}

@@ -41,15 +41,15 @@
 			</li>
 			<li>
 				<span>Responded</span>
-				<span>{user.RSVP}</span>
+				<span>{user.RSVP ? 'Yes' : 'No'}</span>
 			</li>
 			<li>
 				<span>RSVP</span>
-				<span>{user.isAccepted}</span>
+				<span>{user.isAccepted ? 'Yes' : 'No'}</span>
 			</li>
 			<li>
 				<span>More guests</span>
-				<span>{user.hasGuests}</span>
+				<span>{user.hasGuests ? 'Yes' : 'No'}</span>
 			</li>
 
 			<li>
@@ -71,7 +71,7 @@
 			</li>
 			<li>
 				<span>RSVP</span>
-				<span>{user.isAccepted}</span>
+				<span>{user.isAccepted ? 'Yes' : 'No'}</span>
 			</li>
 
 			<li>
