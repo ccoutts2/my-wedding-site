@@ -19,7 +19,7 @@
 		onUpdated({ form }) {
 			if (form.valid) {
 				if (form.message?.text && form.message?.status) {
-					toastState.add('Updated user information.', form.message.text, form.message.status);
+					toastState.add(form.message.status, form.message.text, form.message.status);
 				}
 			}
 		}

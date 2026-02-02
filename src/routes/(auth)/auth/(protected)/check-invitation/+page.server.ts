@@ -6,7 +6,7 @@ import { zod4 } from 'sveltekit-superforms/adapters';
 import { z } from 'zod/v4';
 
 const emailSchema = z.object({
-	email: z.email()
+	email: z.string().trim().pipe(z.email())
 });
 
 export const load: PageServerLoad = async ({ cookies }) => {

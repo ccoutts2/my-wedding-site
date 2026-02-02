@@ -59,6 +59,7 @@
 
 		&__title {
 			font-weight: 600;
+			text-transform: capitalize;
 		}
 
 		&__message {

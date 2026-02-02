@@ -6,7 +6,7 @@ import { z } from 'zod/v4';
 import { ADMIN_PASSWORD, GUEST_PASSWORD } from '$env/static/private';
 
 const emailSchema = z.object({
-	password: z.string('Incorrect password.')
+	password: z.string('Incorrect password. Please try again.').trim()
 });
 
 export const load: PageServerLoad = async () => {

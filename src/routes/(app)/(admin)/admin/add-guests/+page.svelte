@@ -22,7 +22,7 @@
 		onUpdated({ form }) {
 			if (form.valid) {
 				if (form.message?.text && form.message?.status) {
-					toastState.add('Added to the guest list!', form.message.text, form.message.status);
+					toastState.add(form.message.status, form.message.text, form.message.status);
 				}
 			}
 		}
@@ -53,7 +53,7 @@
 
 <PageLayout title="Add Guests" pageLayout="centered">
 	<Form {enhance}>
-		<Fieldset legend="Add the guests's first and last name" dataHidden={true}>
+		<Fieldset legend="Add the guest's first and last name" dataHidden={true}>
 			<InputField
 				type="text"
 				fieldName="given-name"

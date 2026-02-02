@@ -7,9 +7,9 @@ import { message, superValidate } from 'sveltekit-superforms';
 import { redirect, type Actions } from '@sveltejs/kit';
 
 const schema = z.object({
-	givenName: z.string().min(1, 'You must enter a valid name.').optional(),
-	familyName: z.string().min(1, 'You must enter a valid name.').optional(),
-	email: z.email().optional(),
+	givenName: z.string().trim().min(1, 'You must enter a valid name.').optional(),
+	familyName: z.string().trim().min(1, 'You must enter a valid name.').optional(),
+	email: z.string().trim().pipe(z.email()).optional(),
 	hasGuests: z.string().min(1, 'Please select an option.').optional(),
 	type: z.enum(GuestType).optional(),
 	additionalGuests: z

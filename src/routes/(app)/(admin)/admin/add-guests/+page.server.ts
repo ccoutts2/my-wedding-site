@@ -9,7 +9,7 @@ import { GuestType } from '../../../../../generated/prisma/enums';
 const schema = z.object({
 	givenName: z.string().trim().min(1, 'You must enter a valid name.'),
 	familyName: z.string().trim().min(1, 'You must enter a valid name.'),
-	email: z.email().trim(),
+	email: z.string().trim().pipe(z.email()),
 	type: z.enum(GuestType),
 	hasGuests: z.string().min(1, 'You must select an option'),
 	additionalGuests: z
@@ -54,34 +54,31 @@ export const actions = {
 		}
 
 		try {
-			const user = await prisma.user.create({
-				data: {
-					givenName: form.data.givenName,
-					familyName: form.data.familyName,
-					email: form.data.email,
-					type: form.data.type,
-					hasGuests: form.data.hasGuests === 'yes',
-					isAccepted: false,
-					RSVP: false
-				},
-				include: {
-					guest: true
-				}
-			});
+			await prisma.$transaction(async (tx) => {
+				const user = await tx.user.create({
+					data: {
+						givenName: form.data.givenName,
+						familyName: form.data.familyName,
+						email: form.data.email,
+						type: form.data.type,
+						hasGuests: form.data.hasGuests === 'yes',
+						isAccepted: false,
+						RSVP: false
+					}
+				});
 
-			if (user.hasGuests) {
-				for (const guest of form.data.additionalGuests) {
-					await prisma.guest.create({
-						data: {
+				if (user.hasGuests) {
+					await tx.guest.createMany({
+						data: form.data.additionalGuests.map((guest) => ({
 							userId: user.id,
 							givenName: guest.givenName,
 							familyName: guest.familyName,
 							type: user.type,
 							isAccepted: false
-						}
+						}))
 					});
 				}
-			}
+			});
 		} catch (error) {
 			console.log(error);
 
