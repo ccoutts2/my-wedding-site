@@ -38,7 +38,6 @@
 			bind:value
 			{required}
 			rows="5"
-			{autocomplete}
 			aria-invalid={errors ? 'true' : undefined}
 			aria-describedby={errors ? `${fieldName}-error-message` : undefined}
 			{...constraints}

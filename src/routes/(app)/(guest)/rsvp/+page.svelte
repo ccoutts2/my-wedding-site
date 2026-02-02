@@ -20,7 +20,7 @@
 		errorSelector: '[aria-invalid="true"]',
 		onUpdated({ form }) {
 			if (form.valid) {
-				if ($message.text && $message?.status) {
+				if ($message?.text && $message?.status) {
 					toastState.add($message.status, $message.text, $message.status);
 				}
 			}
@@ -82,7 +82,7 @@
 					value={DietaryOptions.VEGETARIAN}
 				/>
 				<RadioGroupOption
-					label="Vegetarian"
+					label="Vegan"
 					bind:group={$form.meal}
 					name="meal"
 					id="meal-vegan"
@@ -133,6 +133,7 @@
 		</div>
 
 		{#each data.additionalGuests as guest, i}
+			{@const guestError = $errors.guestResponses?.[i]}
 			<RadioGroup
 				name="acceptance[{i}]"
 				legend="Is {guest.givenName} joining us on our special day?"
@@ -213,21 +214,21 @@
 					id="allergies-{i}-description"
 					fieldName="allergies-{i}-description"
 					label="Let us know if {guest.givenName} has any further info on your allergies or specific deitary requirements (optional)"
-					errors={$errors.allergiesDescription}
-					bind:value={$form.allergiesDescription}
+					errors={guestError?.allergiesDescription}
+					bind:value={$form.guestResponses[i].allergiesDescription}
 				/>
-			</div>
-			<div class="w-full {$form.acceptance !== 'yes' ? 'toggle-hide' : ''}">
-				<InputField
-					type="text"
-					name="music[{i}]"
-					id="music-{i}"
-					fieldName="music-{i}"
-					label="Their music choice for the DJs?"
-					errors={$errors.music}
-					required={$form.guestResponses[i].acceptance === 'yes'}
-					bind:value={$form.guestResponses[i].music}
-				/>
+				<div class="w-full {$form.guestResponses[i].acceptance !== 'yes' ? 'toggle-hide' : ''}">
+					<InputField
+						type="text"
+						name="music[{i}]"
+						id="music-{i}"
+						fieldName="music-{i}"
+						label="Their music choice for the DJs?"
+						errors={guestError?.music}
+						required={$form.guestResponses[i].music === 'yes'}
+						bind:value={$form.guestResponses[i].music}
+					/>
+				</div>
 			</div>
 		{/each}
 	</Form>
