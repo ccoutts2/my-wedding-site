@@ -2,32 +2,65 @@
 	import { superForm } from 'sveltekit-superforms';
 	import type { PageProps } from './$types';
 	import PageLayout from '$lib/components/PageLayout.svelte';
+	import Form from '$lib/components/form/Form.svelte';
+	import InputField from '$lib/components/form/InputField.svelte';
+	import { Eye, EyeOff } from '@lucide/svelte';
 
 	let { data }: PageProps = $props();
 
 	let isPasswordVisible: boolean = $state(false);
 
-	const { form, enhance, message, errors } = superForm(data.form);
+	const { form, enhance, errors } = superForm(data.form);
 
 	const showPassword = () => {
 		isPasswordVisible = !isPasswordVisible;
 	};
 </script>
 
-<PageLayout layout="auth">
-	<form method="POST" use:enhance>
-		<div>
-			<label for="password"> Enter password </label>
-			<input
+<svelte:head>
+	<title>Aly and Chris | Log in</title>
+	<meta name="description" content="Log in to access the wedding portal site." />
+</svelte:head>
+
+<PageLayout rootLayout="auth" title="Welcome to our wedding site!" pageLayout="centered">
+	<Form {enhance}>
+		<div class="Login">
+			<InputField
+				label="Enter the password"
+				fieldName="password"
 				type={isPasswordVisible ? 'text' : 'password'}
-				id="password"
-				name="password"
 				bind:value={$form.password}
+				errors={$errors.password}
 				required
 			/>
-			<button type="button" onclick={showPassword}>Reveal</button>
+			<button class="Login__button" type="button" onclick={showPassword}>
+				<span>
+					{#if isPasswordVisible}
+						<EyeOff size={20} />
+					{:else}
+						<Eye size={20} />
+					{/if}
+				</span>
+				<span class="visually-hidden">{isPasswordVisible ? 'Hide password' : 'Show password'}</span>
+			</button>
 		</div>
-
-		<button type="submit">Enter</button>
-	</form>
+	</Form>
 </PageLayout>
+
+<style lang="scss">
+	.Login {
+		align-items: center;
+		display: flex;
+		width: 100%;
+
+		&__button {
+			padding-inline: 1rem;
+			position: relative;
+
+			span:first-of-type {
+				position: absolute;
+				top: 0.4rem;
+			}
+		}
+	}
+</style>

@@ -113,7 +113,7 @@
 					name="allergies-description"
 					id="allergies-description"
 					fieldName="allergies-description"
-					label="Let us know if you have any further info on your allergies or specific deitary requirements (optional)"
+					label="Let us know if you have any further info on your allergies or specific dietary requirements (optional)"
 					errors={$errors.allergiesDescription}
 					bind:value={$form.allergiesDescription}
 				/>
@@ -216,23 +216,18 @@
 						id="music-{i}"
 						fieldName="music-{i}"
 						label="Their music choice for the DJs?"
-						errors={$errors.guestResponses?.[i].allergiesDescription as string[] | undefined}
+						errors={$errors.guestResponses?.[i].music as string[] | undefined}
 						required={$form.guestResponses[i].acceptance === 'yes'}
 						bind:value={$form.guestResponses[i].music}
 					/>
 				{/each}
 			</div>
 		{/if}
+		{#if $form.acceptance === 'no'}
+			<div>
+				<p>Sad!</p>
+				<p>If your plans change please fill in the form again. You have until October to RSVP.</p>
+			</div>
+		{/if}
 	</Form>
-
-	{#if $form.acceptance === 'no'}
-		<p>Sad!</p>
-		<p>If your plans change please fill in the form again. You have until October to RSVP.</p>
-	{/if}
 </PageLayout>
-
-<style lang="scss">
-	.toggle-hide {
-		display: none;
-	}
-</style>

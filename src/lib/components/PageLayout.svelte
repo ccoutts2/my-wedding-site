@@ -27,6 +27,7 @@
 		color: variables.$color--foreground;
 		display: flex;
 		flex-direction: column;
+		height: 100%;
 		padding: 1rem;
 
 		h1 {
@@ -37,8 +38,9 @@
 		&[data-route-layout='auth'] {
 			align-items: center;
 			background-color: variables.$color--auth--background;
-			justify-content: center;
+			justify-content: center !important;
 			margin: 0 auto;
+			min-height: 100dvh;
 
 			h1 {
 				color: variables.$color--auth--foreground;
@@ -49,6 +51,11 @@
 			align-items: center;
 			justify-content: flex-start;
 			margin: 0 auto;
+
+			h1 {
+				text-align: center;
+				text-wrap: pretty;
+			}
 		}
 	}
 </style>
