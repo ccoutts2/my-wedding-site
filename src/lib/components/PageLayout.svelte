@@ -27,7 +27,7 @@
 		color: variables.$color--foreground;
 		display: flex;
 		flex-direction: column;
-		height: 100%;
+		min-height: 100dvh;
 		padding: 1rem;
 
 		h1 {

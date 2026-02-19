@@ -7,6 +7,7 @@
 	import TextColumn from './TextColumn.svelte';
 	import Subtitle from './Subtitle.svelte';
 	import Section from './Section.svelte';
+	import UserResponseCard from './cards/UserResponseCard.svelte';
 
 	const context = getContext<OverlayProps>('overlay-ctx') ?? { isMenuOpen: false };
 
@@ -55,18 +56,7 @@
 					<Subtitle as="h3"
 						>You are {user.isAccepted ? 'coming' : 'not coming'}, {user.givenName}</Subtitle
 					>
-					{#if user.isAccepted}
-						<article class="Overlay__response">
-							<p>Your responses:</p>
-							<ul>
-								<li>Diet: {user.diet.toLowerCase() ?? 'Not specified'}</li>
-								<li>Allergies: {user.hasAllergies ? 'Yes' : 'No'}</li>
-								<li>Music Choice: {user.musicSelection ?? 'Not specified'}</li>
-							</ul>
-						</article>
-					{:else}
-						<p class="Overlay__response">Not too late to <a href="/rsvp">change your mind</a>.</p>
-					{/if}
+					<UserResponseCard {user} />
 				</section>
 			{/if}
 		</div>
@@ -136,17 +126,6 @@
 			font-size: clamp(1.5rem, 4vw, 4rem);
 			list-style: none;
 			margin-block: 1rem;
-		}
-
-		&__response {
-			display: flex;
-			flex-direction: column;
-			gap: 0.5rem;
-
-			li {
-				list-style: none;
-				text-transform: capitalize;
-			}
 		}
 	}
 </style>

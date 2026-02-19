@@ -56,11 +56,10 @@
 	@use '$lib/styles/partials/breakpoints';
 
 	.Footer {
-		display: grid;
-		grid-template-columns: repeat(1, 1fr);
-		gap: 3rem;
-		padding: 1rem;
 		border-top: 1px solid black;
+		display: grid;
+		gap: 3rem;
+		grid-template-columns: auto;
 
 		@include breakpoints.tablet {
 			grid-template-columns: repeat(12, 1fr);
@@ -70,9 +69,14 @@
 			display: flex;
 			flex-direction: column;
 			grid-column: span 5;
+			padding: 1rem;
 
 			&:first-of-type {
 				grid-column: span 2;
+			}
+
+			@include breakpoints.tablet {
+				border-left: 1px solid black;
 			}
 		}
 

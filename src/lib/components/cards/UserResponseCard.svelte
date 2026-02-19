@@ -19,11 +19,12 @@
 	.UserResponseCard {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 1rem;
 
 		li {
 			list-style: none;
 			text-transform: capitalize;
+			margin-block: 0.25rem;
 		}
 	}
 </style>
