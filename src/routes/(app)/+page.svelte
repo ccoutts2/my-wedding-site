@@ -28,9 +28,7 @@
 					duration: 1.2,
 					ease: 'power4.inOut',
 					onComplete: () => {
-						if (typeof window !== 'undefined') {
-							sessionStorage.setItem('preloader', 'true');
-						}
+						window.sessionStorage.setItem('preloader', 'true');
 					}
 				});
 

@@ -9,6 +9,7 @@
 	const timelineState = getPreloaderState();
 	onMount(() => {
 		if (timelineState.isInitialLoad && timelineState.tl) {
+			timelineState.tl.set(preloaderContainer, { autoAlpha: 1 });
 			timelineState.tl
 
 				.to(counterValue, {
@@ -50,13 +51,13 @@
 
 <style lang="scss">
 	.Preloader {
-		background-color: #181818;
+		background-color: #e6c2bf;
 		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-		color: #fff;
+		color: #33a69a;
 		height: 100vh;
-		opacity: 1;
+		opacity: 0;
 		position: absolute;
-		visibility: visible;
+		visibility: hidden;
 		width: 100%;
 		will-change: clip-path;
 		z-index: 99;

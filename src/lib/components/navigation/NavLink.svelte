@@ -15,22 +15,22 @@
 
 <style lang="scss">
 	.NavLink {
-		text-decoration: none;
 		color: inherit;
-		position: relative;
 		display: inline-block;
+		position: relative;
+		text-decoration: none;
 
 		&::after {
 			content: '';
-			position: absolute;
-			height: 1px;
 			background-color: black;
-			width: 100%;
-			left: 0;
 			bottom: -0.25rem;
-			transition: transform 0.3s;
-			transform: scaleX(0);
+			height: 1px;
+			left: 0;
+			position: absolute;
 			transform-origin: left;
+			transform: scaleX(0);
+			transition: transform 0.3s;
+			width: 100%;
 		}
 
 		&:hover::after {

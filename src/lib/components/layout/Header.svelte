@@ -2,7 +2,7 @@
 	import { getPreloaderState } from '$lib/contexts/preloader.state.svelte';
 	import { onMount } from 'svelte';
 	import BurgerButton from '../ui/buttons/BurgerButton.svelte';
-	import NavLink from './NavLink.svelte';
+	import NavLink from '../navigation/NavLink.svelte';
 
 	interface HeaderProps {
 		adminUser: boolean;
