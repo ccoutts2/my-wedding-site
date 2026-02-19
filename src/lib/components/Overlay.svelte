@@ -28,6 +28,9 @@
 			<nav>
 				<ul>
 					<li class="Overlay__navItem">
+						<NavLink href="/" aria-current={url === '/'} active={url === '/'}>Home</NavLink>
+					</li>
+					<li class="Overlay__navItem">
 						<NavLink
 							href="/our-story"
 							aria-current={url === '/our-story'}
