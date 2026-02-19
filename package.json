@@ -49,6 +49,7 @@
 		"@neondatabase/serverless": "^1.0.2",
 		"@prisma/client": "^6.17.0",
 		"@prisma/extension-accelerate": "^2.0.2",
+		"gsap": "^3.14.2",
 		"sass": "^1.93.2"
 	}
 }

@@ -138,6 +138,10 @@
 		padding: 0;
 		text-align: inherit;
 	}
+
+	a {
+		color: currentColor;
+	}
 }
 
 @layer utilities {
@@ -165,6 +169,10 @@
 		align-items: center;
 	}
 
+	.w-half {
+		width: 50%;
+	}
+
 	.w-full {
 		width: 100%;
 	}
@@ -179,5 +187,10 @@
 
 	.toggle-hide {
 		display: none;
+	}
+
+	.italic {
+		font-style: italic;
+
 	}
 }

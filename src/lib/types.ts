@@ -18,3 +18,7 @@ export type Toast = {
 };
 
 export type ToastStatus = 'success' | 'error' | 'invalid' | 'info';
+
+// Headers
+
+export type Heading = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';

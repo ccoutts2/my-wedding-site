@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { getPreloaderState } from '$lib/contexts/preloader.state.svelte';
+	import { onMount } from 'svelte';
 	import BurgerButton from '../ui/buttons/BurgerButton.svelte';
 	import NavLink from './NavLink.svelte';
 
@@ -11,9 +13,29 @@
 	}
 
 	let { data, url }: HeaderProps = $props();
+
+	const timelineState = getPreloaderState();
+	let header: HTMLHeadElement;
+
+	onMount(() => {
+		timelineState?.tl.from(
+			header,
+			{
+				yPercent: -100,
+				duration: 2.5,
+				ease: 'power4.inOut',
+				onComplete: () => {
+					if (typeof window !== 'undefined') {
+						sessionStorage.setItem('preloader', 'true');
+					}
+				}
+			},
+			'-=0.6'
+		);
+	});
 </script>
 
-<header class="Header">
+<header class="Header" bind:this={header}>
 	<nav>
 		<ul class="Header__navList">
 			<li>

@@ -4,6 +4,7 @@
 
 $breakpoint--mobile: math.div(576, 16) + rem;
 $breakpoint--tablet: math.div(768, 16) + rem;
+$breakpoint--laptop: math.div(1024, 16) + rem;
 $breakpoint--desktop: math.div(1280, 16) + rem;
 
 // Max content width

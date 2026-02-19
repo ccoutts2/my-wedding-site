@@ -10,6 +10,7 @@
 
 	import Toaster from '$lib/components/ui/toast/Toaster.svelte';
 	import { setToastState } from '$lib/contexts/toast-state.svelte.js';
+	import Preloader from '$lib/components/Preloader.svelte';
 
 	onNavigate((navigation) => {
 		if (document.startViewTransition && navigation.from?.route.id !== navigation.to?.route.id) {
@@ -40,6 +41,8 @@
 </svelte:head>
 
 <Toaster />
+<Preloader />
 <Header {data} {url} />
+
 {@render children?.()}
 <Overlay />

@@ -13,6 +13,12 @@
 	}
 }
 
+@mixin laptop {
+	@media (min-width: variables.$breakpoint--laptop) {
+		@content;
+	}
+}
+
 @mixin desktop {
 	@media (min-width: variables.$breakpoint--desktop) {
 		@content;
