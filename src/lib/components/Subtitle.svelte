@@ -22,6 +22,8 @@
 		margin-block: 0.5rem 0.825rem;
 
 		&__heading {
+			font-size: 1rem;
+			font-weight: 500;
 			position: relative;
 			padding-left: 1.1rem;
 
@@ -30,11 +32,11 @@
 				background-color: #181818;
 				border-radius: 50%;
 				display: inline-block;
-				height: 0.75rem;
+				height: 11px;
 				left: 0;
 				position: absolute;
 				top: calc(50% - 6.5px);
-				width: 0.75rem;
+				width: 11px;
 			}
 		}
 	}

@@ -9,23 +9,25 @@
 
 	const timelineState = getPreloaderState();
 	onMount(() => {
-		timelineState.tl
+		if (timelineState.isInitialLoad) {
+			timelineState.tl
 
-			.to(counterValue, {
-				value: 100,
-				duration: 5,
-				ease: 'power2.out'
-			})
-			.to(
-				preloaderContainer,
-				{
-					clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-					duration: 1,
-					ease: 'power2.inOut'
-				},
-				'+=0.75'
-			)
-			.add('header', '+=0.25');
+				.to(counterValue, {
+					value: 100,
+					duration: 5,
+					ease: 'power2.out'
+				})
+				.to(
+					preloaderContainer,
+					{
+						clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+						duration: 1,
+						ease: 'power2.inOut'
+					},
+					'+=0.75'
+				)
+				.add('header', '+=0.25');
+		}
 	});
 
 	let preloaderPlayed: string | null = $state(null);

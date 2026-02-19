@@ -11,27 +11,29 @@
 	const timelineState = getPreloaderState();
 
 	onMount(() => {
-		timelineState.tl
-			.from(
-				hero,
-				{
-					clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-					duration: 1,
-					ease: 'power1.inOut'
-				},
-				'hero'
-			)
-			.from(hero, {
-				scale: 0.5,
-				transformOrigin: 'top center',
-				duration: 1.2,
-				ease: 'power4.inOut',
-				onComplete: () => {
-					if (typeof window !== 'undefined') {
-						sessionStorage.setItem('preloader', 'true');
+		if (timelineState.isInitialLoad) {
+			timelineState.tl
+				.from(
+					hero,
+					{
+						clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+						duration: 1,
+						ease: 'power1.inOut'
+					},
+					'hero'
+				)
+				.from(hero, {
+					scale: 0.5,
+					transformOrigin: 'top center',
+					duration: 1.2,
+					ease: 'power4.inOut',
+					onComplete: () => {
+						if (typeof window !== 'undefined') {
+							sessionStorage.setItem('preloader', 'true');
+						}
 					}
-				}
-			});
+				});
+		}
 	});
 </script>
 

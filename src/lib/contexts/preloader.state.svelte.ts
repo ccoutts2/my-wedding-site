@@ -3,6 +3,13 @@ import gsap from 'gsap';
 
 export class PreloaderState {
 	tl = $state<GSAPTimeline>(gsap.timeline());
+	isInitialLoad: boolean = $state(false);
+
+	constructor() {
+		if (typeof window !== 'undefined') {
+			this.isInitialLoad = !window.sessionStorage.getItem('preloader');
+		}
+	}
 
 	play() {
 		this.tl.play();

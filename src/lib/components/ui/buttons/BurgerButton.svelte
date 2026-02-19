@@ -24,6 +24,7 @@
 	@use '$lib/styles/partials/variables';
 
 	.BurgerButton {
+		align-items: center;
 		display: flex;
 		justify-content: flex-end;
 		gap: 2rem;

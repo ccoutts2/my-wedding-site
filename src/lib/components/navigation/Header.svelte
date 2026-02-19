@@ -1,46 +1,44 @@
 <script lang="ts">
-	import { page } from '$app/state';
 	import { getPreloaderState } from '$lib/contexts/preloader.state.svelte';
 	import { onMount } from 'svelte';
 	import BurgerButton from '../ui/buttons/BurgerButton.svelte';
 	import NavLink from './NavLink.svelte';
 
 	interface HeaderProps {
-		data: {
-			adminUser: boolean;
-		};
+		adminUser: boolean;
+
 		url: string;
 	}
 
-	let { data, url }: HeaderProps = $props();
+	let { adminUser, url }: HeaderProps = $props();
+
+	$inspect(adminUser);
 
 	const timelineState = getPreloaderState();
+
 	let header: HTMLHeadElement;
 
 	onMount(() => {
-		timelineState?.tl
-			.from(
-				header,
-				{
-					yPercent: -100,
-					duration: 1.5,
-					ease: 'power4.out'
-				},
-				'header'
-			)
-			.add('hero', '-=2');
+		if (timelineState.isInitialLoad) {
+			timelineState?.tl
+				.from(
+					header,
+					{
+						yPercent: -100,
+						duration: 1.5,
+						ease: 'power4.out'
+					},
+					'header'
+				)
+				.add('hero', '-=2');
+		}
 	});
 </script>
 
 <header class="Header" bind:this={header}>
 	<nav>
-		<ul class="Header__navList">
-			<li>
-				<NavLink href="/our-story" aria-current={url === '/our-story'} active={url === '/our-story'}
-					>Our Story</NavLink
-				>
-			</li>
-			{#if data.adminUser}
+		{#if adminUser}
+			<ul class="Header__navList">
 				<li>
 					<NavLink
 						href="/admin/add-guests"
@@ -58,14 +56,12 @@
 						>View Guests
 					</NavLink>
 				</li>
-			{:else}
-				<li>
-					<NavLink href="/rsvp" aria-current={url === '/rsvp'} active={url === '/rsvp'}
-						>RSVP</NavLink
-					>
-				</li>
-			{/if}
-		</ul>
+			</ul>
+		{:else}
+			<span>
+				<NavLink href="/rsvp" aria-current={url === '/rsvp'} active={url === '/rsvp'}>RSVP</NavLink>
+			</span>
+		{/if}
 	</nav>
 	<BurgerButton />
 </header>
@@ -74,8 +70,10 @@
 	.Header {
 		align-items: center;
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
+		align-items: center;
 		padding: 1rem;
+		gap: 2rem;
 
 		&__navList {
 			align-items: center;
