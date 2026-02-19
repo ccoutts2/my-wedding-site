@@ -4,6 +4,35 @@
 	import TextColumn from '$lib/components/TextColumn.svelte';
 	import GridItem from '$lib/components/ui/GridItem.svelte';
 	import { assetsConfig } from '$lib/config/assets';
+	import { onMount } from 'svelte';
+	import { getPreloaderState } from '$lib/contexts/preloader.state.svelte';
+
+	let hero: HTMLElement;
+	const timelineState = getPreloaderState();
+
+	onMount(() => {
+		timelineState.tl
+			.from(
+				hero,
+				{
+					clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+					duration: 1,
+					ease: 'power1.inOut'
+				},
+				'hero'
+			)
+			.from(hero, {
+				scale: 0.5,
+				transformOrigin: 'top center',
+				duration: 1.2,
+				ease: 'power4.inOut',
+				onComplete: () => {
+					if (typeof window !== 'undefined') {
+						sessionStorage.setItem('preloader', 'true');
+					}
+				}
+			});
+	});
 </script>
 
 <svelte:head>
@@ -20,15 +49,17 @@
 			Aly and Chris would love <span class="italic">you</span> to join them on their special day
 		</h1>
 	</header>
-	<figure class="Home__hero">
-		<img
-			src={assetsConfig[27].src}
-			alt={assetsConfig[27].alt}
-			width={assetsConfig[27].width}
-			height={assetsConfig[27].height}
-			fetchpriority="high"
-		/>
-	</figure>
+	<div class="Home__hero">
+		<figure class="Home__heroImgContainer" bind:this={hero}>
+			<img
+				src={assetsConfig[27].src}
+				alt={assetsConfig[27].alt}
+				width={assetsConfig[27].width}
+				height={assetsConfig[27].height}
+				fetchpriority="high"
+			/>
+		</figure>
+	</div>
 	<Section state="right-aligned">
 		<Subtitle as="h2">When & Where</Subtitle>
 		<TextColumn>
@@ -46,20 +77,12 @@
 			</p>
 			<div class="Grid">
 				<GridItem
-					src={assetsConfig[21].src}
-					alt={assetsConfig[21].alt}
-					width={assetsConfig[21].width}
-					height={assetsConfig[21].height}
-					col={1}
-					span={5}
-				/>
-				<GridItem
 					src={assetsConfig[24].src}
 					alt={assetsConfig[24].alt}
 					width={assetsConfig[24].width}
 					height={assetsConfig[24].height}
-					col={6}
-					span={8}
+					col={5}
+					span={12}
 				/>
 			</div>
 
@@ -96,6 +119,8 @@
 </main>
 
 <style lang="scss">
+	@use '$lib/styles/partials/breakpoints';
+
 	.Grid {
 		display: grid;
 		grid-template-columns: repeat(12, 1fr);
@@ -121,16 +146,29 @@
 		}
 
 		&__hero {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+		}
+
+		&__heroImgContainer {
 			aspect-ratio: 1.333333333333;
 			position: relative;
 			width: 100%;
+			clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 
-			img {
-				position: absolute;
-				height: 100%;
-				width: 100%;
-				object-fit: cover;
+			@include breakpoints.laptop {
+				width: 50vw;
 			}
+		}
+
+		img {
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+			transform-origin: top center;
 		}
 	}
 </style>

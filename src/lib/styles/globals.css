@@ -1,6 +1,5 @@
-@layer globals;
 
-@import './fonts.scss' layer(globals);
+@import './fonts.scss';
 
 @layer globals {
 	/* Box sizing rules */

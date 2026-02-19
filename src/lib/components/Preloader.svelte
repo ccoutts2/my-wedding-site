@@ -1,17 +1,31 @@
 <script lang="ts">
-	import { setPreloaderState } from '$lib/contexts/preloader.state.svelte';
+	import { getPreloaderState } from '$lib/contexts/preloader.state.svelte';
 	import { onMount } from 'svelte';
 
 	let preloaderContainer: HTMLDivElement;
+	let counterProgress: HTMLElement;
 
-	const timelineState = setPreloaderState();
+	let counterValue = $state({ value: 0 });
+
+	const timelineState = getPreloaderState();
 	onMount(() => {
-		timelineState.tl.to(preloaderContainer, {
-			top: '-100vh',
-			duration: 1,
-			delay: 3,
-			ease: 'power2.inOut'
-		});
+		timelineState.tl
+
+			.to(counterValue, {
+				value: 100,
+				duration: 5,
+				ease: 'power2.out'
+			})
+			.to(
+				preloaderContainer,
+				{
+					clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+					duration: 1,
+					ease: 'power2.inOut'
+				},
+				'+=0.75'
+			)
+			.add('header', '+=0.25');
 	});
 
 	let preloaderPlayed: string | null = $state(null);
@@ -23,31 +37,38 @@
 	});
 </script>
 
-<div class="Preloader {preloaderPlayed ? 'hide' : ''}" bind:this={preloaderContainer}></div>
+<div class="Preloader {preloaderPlayed ? 'hide' : ''}" bind:this={preloaderContainer}>
+	<span class="visually-hidden">Pre loader container.</span>
+
+	<span class="Preloader__counter" bind:this={counterProgress}
+		>{Math.floor(counterValue.value)}</span
+	>
+</div>
 
 <style lang="scss">
 	.Preloader {
-		padding: 30px;
 		background-color: #181818;
+		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 		color: #fff;
 		height: 100vh;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-between;
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 99;
 		opacity: 1;
+		position: absolute;
 		visibility: visible;
+		width: 100%;
+		will-change: clip-path;
+		z-index: 99;
 
 		&.hide {
 			opacity: 0;
 			visibility: hidden;
 			display: none;
+		}
+
+		&__counter {
+			position: absolute;
+			bottom: 2rem;
+			right: 2rem;
+			font-size: 3rem;
 		}
 	}
 </style>

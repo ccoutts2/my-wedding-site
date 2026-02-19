@@ -18,20 +18,17 @@
 	let header: HTMLHeadElement;
 
 	onMount(() => {
-		timelineState?.tl.from(
-			header,
-			{
-				yPercent: -100,
-				duration: 2.5,
-				ease: 'power4.inOut',
-				onComplete: () => {
-					if (typeof window !== 'undefined') {
-						sessionStorage.setItem('preloader', 'true');
-					}
-				}
-			},
-			'-=0.6'
-		);
+		timelineState?.tl
+			.from(
+				header,
+				{
+					yPercent: -100,
+					duration: 1.5,
+					ease: 'power4.out'
+				},
+				'header'
+			)
+			.add('hero', '-=2');
 	});
 </script>
 
