@@ -33,6 +33,10 @@
 						}
 					}
 				});
+
+			return () => {
+				timelineState.tl?.kill();
+			};
 		}
 	});
 </script>

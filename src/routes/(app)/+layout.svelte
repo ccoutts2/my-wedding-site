@@ -34,7 +34,7 @@
 	let { children, data } = $props();
 
 	const url = $derived(data.page);
-	const adminUser = data.adminUser;
+	const adminUser = $derived(data.adminUser);
 </script>
 
 <svelte:head>

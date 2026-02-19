@@ -15,6 +15,14 @@ export const load: LayoutServerLoad = async ({ cookies, url }) => {
 
 	let user;
 
+	if (!authenticatedUser) {
+		return {
+			adminUser: admin === 'true',
+			page,
+			user: null
+		};
+	}
+
 	try {
 		user = await prisma.user.findUnique({
 			where: {
@@ -22,7 +30,7 @@ export const load: LayoutServerLoad = async ({ cookies, url }) => {
 			}
 		});
 	} catch (error) {
-		console.log('Error fiding user.');
+		console.error('Error finding user:', error);
 	}
 
 	return {

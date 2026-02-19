@@ -3,13 +3,12 @@
 	import { onMount } from 'svelte';
 
 	let preloaderContainer: HTMLDivElement;
-	let counterProgress: HTMLElement;
 
 	let counterValue = $state({ value: 0 });
 
 	const timelineState = getPreloaderState();
 	onMount(() => {
-		if (timelineState.isInitialLoad) {
+		if (timelineState.isInitialLoad && timelineState.tl) {
 			timelineState.tl
 
 				.to(counterValue, {
@@ -28,6 +27,10 @@
 				)
 				.add('header', '+=0.25');
 		}
+
+		return () => {
+			timelineState.tl?.kill();
+		};
 	});
 
 	let preloaderPlayed: string | null = $state(null);
@@ -42,9 +45,7 @@
 <div class="Preloader {preloaderPlayed ? 'hide' : ''}" bind:this={preloaderContainer}>
 	<span class="visually-hidden">Pre loader container.</span>
 
-	<span class="Preloader__counter" bind:this={counterProgress}
-		>{Math.floor(counterValue.value)}</span
-	>
+	<span class="Preloader__counter">{Math.floor(counterValue.value)}</span>
 </div>
 
 <style lang="scss">

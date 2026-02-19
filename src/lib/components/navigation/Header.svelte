@@ -12,15 +12,13 @@
 
 	let { adminUser, url }: HeaderProps = $props();
 
-	$inspect(adminUser);
-
 	const timelineState = getPreloaderState();
 
 	let header: HTMLHeadElement;
 
 	onMount(() => {
-		if (timelineState.isInitialLoad) {
-			timelineState?.tl
+		if (timelineState.isInitialLoad && timelineState.tl) {
+			timelineState.tl
 				.from(
 					header,
 					{
@@ -32,6 +30,10 @@
 				)
 				.add('hero', '-=2');
 		}
+
+		return () => {
+			timelineState.tl?.kill();
+		};
 	});
 </script>
 
@@ -68,12 +70,11 @@
 
 <style lang="scss">
 	.Header {
-		align-items: center;
+		align-items: baseline;
 		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		padding: 1rem;
 		gap: 2rem;
+		justify-content: flex-end;
+		padding: 1rem;
 
 		&__navList {
 			align-items: center;

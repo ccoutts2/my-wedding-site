@@ -13,7 +13,7 @@
 	let { data }: { data: { adminUser: boolean; page: string; user: any } } = $props();
 
 	const url = $derived(data.page);
-	const user = data?.user;
+	const user = $derived(data?.user);
 
 	$effect(() => {
 		if (url) {
@@ -56,9 +56,9 @@
 						<article class="Overlay__response">
 							<p>Your responses:</p>
 							<ul>
-								<li>Diet: {user.diet.toLowerCase()}</li>
+								<li>Diet: {user.diet.toLowerCase() ?? 'Not specified'}</li>
 								<li>Allergies: {user.hasAllergies ? 'Yes' : 'No'}</li>
-								<li>Music Choice: {user.musicSelection}</li>
+								<li>Music Choice: {user.musicSelection ?? 'Not specified'}</li>
 							</ul>
 						</article>
 					{:else}
