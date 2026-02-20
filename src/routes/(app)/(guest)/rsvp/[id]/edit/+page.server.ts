@@ -94,7 +94,7 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
 		}
 	});
 
-	if (!user) {
+	if (!user || user.email !== email) {
 		cookies.delete('user_email', {
 			path: '/'
 		});
@@ -143,9 +143,19 @@ export const actions = {
 		}
 
 		try {
+			const user = await prisma.user.findUnique({
+				where: { email: email },
+				include: { guest: true }
+			});
+
+			if (!user) {
+				return message(form, { status: 'error', text: 'User not found.' }, { status: 404 });
+			}
+
+			const validGuestIds = new Set(user.guest.map((g) => g.id));
+
 			await prisma.user.update({
 				where: { email },
-				include: { guest: true },
 				data: {
 					RSVP: true,
 					isAccepted: form.data.acceptance === 'yes',
@@ -157,6 +167,10 @@ export const actions = {
 			});
 
 			for (const response of form.data.guestResponses) {
+				if (!validGuestIds.has(response.id)) {
+					return message(form, { status: 'error', text: 'Invalid guest.' }, { status: 403 });
+				}
+
 				await prisma.guest.update({
 					where: { id: response.id },
 					data: {

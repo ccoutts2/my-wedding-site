@@ -17,6 +17,7 @@
 	const { form, enhance, message, errors } = superForm(data.form, {
 		scrollToError: 'smooth',
 		dataType: 'json',
+		resetForm: false,
 		errorSelector: '[aria-invalid="true"]',
 		onUpdated({ form }) {
 			if (form.valid) {
@@ -212,7 +213,7 @@
 						id="allergies-{i}-description"
 						fieldName="allergies-{i}-description"
 						label="Let us know if {guest.givenName} has any further info on their allergies or specific dietary requirements (optional)"
-						errors={$errors.guestResponses?.[i].allergiesDescription as string[] | undefined}
+						errors={$errors.guestResponses?.[i]?.allergiesDescription as string[] | undefined}
 						bind:value={$form.guestResponses[i].allergiesDescription}
 					/>
 
@@ -222,7 +223,7 @@
 						id="music-{i}"
 						fieldName="music-{i}"
 						label="Their music choice for the DJs?"
-						errors={$errors.guestResponses?.[i].music as string[] | undefined}
+						errors={$errors.guestResponses?.[i]?.music as string[] | undefined}
 						required={$form.guestResponses[i].acceptance === 'yes'}
 						bind:value={$form.guestResponses[i].music}
 					/>

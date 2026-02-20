@@ -34,7 +34,9 @@
 				timelineState.tl?.kill();
 			};
 		} else {
-			timelineState.tl.set(preloaderContainer, { autoAlpha: 0 });
+			if (preloaderContainer) {
+				timelineState.tl.set(preloaderContainer, { autoAlpha: 0 });
+			}
 		}
 	});
 

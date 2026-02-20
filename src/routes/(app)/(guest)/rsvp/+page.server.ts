@@ -100,7 +100,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
 	}
 
 	if (user.RSVP) {
-		throw redirect(302, `rsvp/${user.id}/edit`);
+		throw redirect(302, `/rsvp/${user.id}/edit`);
 	}
 
 	const additionalGuests = await prisma.guest.findMany({

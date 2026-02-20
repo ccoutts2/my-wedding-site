@@ -14,7 +14,6 @@
 		float: left;
 		font-size: 1rem;
 		font-style: normal;
-		font-weight: 400;
 		font-weight: 500;
 		line-height: 1.2rem;
 		margin-block: 0.5rem 0.825rem;

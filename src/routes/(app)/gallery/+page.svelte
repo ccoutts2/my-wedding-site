@@ -26,6 +26,11 @@
 			.to(title, {
 				top: '70%'
 			});
+
+		return () => {
+			tl.kill();
+			ScrollTrigger.getAll().forEach((st) => st.kill());
+		};
 	});
 </script>
 

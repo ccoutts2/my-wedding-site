@@ -6,9 +6,9 @@
 	<article class="UserResponseCard">
 		<h4>Your responses:</h4>
 		<ul>
-			<li>Diet: {user.diet.toLowerCase() ?? 'Not specified'}</li>
+			<li>Diet: {user.diet.toLowerCase()}</li>
 			<li>Allergies: {user.hasAllergies ? 'Yes' : 'No'}</li>
-			<li>Music Choice: {user.musicSelection ?? 'Not specified'}</li>
+			<li>Music Choice: {user.musicSelection}</li>
 		</ul>
 	</article>
 {:else}
