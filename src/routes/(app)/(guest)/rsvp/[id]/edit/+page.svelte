@@ -1,14 +1,13 @@
 <script lang="ts">
+	import { DietaryOptions } from '../../../../../../generated/prisma/enums';
+	import { getToastState } from '$lib/contexts/toast-state.svelte';
 	import { superForm } from 'sveltekit-superforms';
-	import type { PageProps } from './$types';
-	import { DietaryOptions } from '../../../../generated/prisma/enums';
-
+	import Form from '$lib/components/form/Form.svelte';
+	import InputField from '$lib/components/form/InputField.svelte';
+	import PageLayout from '$lib/components/PageLayout.svelte';
 	import RadioGroup from '$lib/components/form/RadioGroup/RadioGroup.svelte';
 	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
-	import Form from '$lib/components/form/Form.svelte';
-	import PageLayout from '$lib/components/PageLayout.svelte';
-	import InputField from '$lib/components/form/InputField.svelte';
-	import { getToastState } from '$lib/contexts/toast-state.svelte';
+	import type { PageProps } from './$types';
 	import Subtitle from '$lib/components/Subtitle.svelte';
 
 	let { data }: PageProps = $props();
@@ -30,23 +29,23 @@
 </script>
 
 <svelte:head>
-	<title>Aly and Chris | RSVP</title>
-	<meta name="description" content="RSVP to the wedding by filling out the form." />
+	<title>Aly and Chris | Edit RSVP</title>
+	<meta name="description" content="Edit your RSVP to the wedding by filling out the form." />
 </svelte:head>
 
-<PageLayout title="RSVP to our wedding!" pageLayout="centered">
-	<section class="RSVP">
+<PageLayout title="Edit your RSVP" pageLayout="centered">
+	<section class="EditRSVP">
 		<Subtitle as="h2">Hi {data.user.givenName}</Subtitle>
-		<p class="RSVP__text">Please use the form below to edit your RSVP.</p>
+		<p class="EditRSVP__text">Please use the form below to edit your RSVP.</p>
 		{#if data.user.hasGuests}
-			<p class="RSVP__text">You'll be able to fill in the form for:</p>
-			<ul class="RSVP__additionalGuestList">
+			<p class="EditRSVP__text">You'll be able to fill in the form for:</p>
+			<ul class="EditRSVP__additionalGuestList">
 				<li class="italic">yourself</li>
-				{#each data.additionalGuests as guest}
+				{#each data.user.guest as guest}
 					<li>{guest.givenName}</li>
 				{/each}
 			</ul>
-			<p class="RSVP__text">
+			<p class="EditRSVP__text">
 				Once you submit, you can come back to this form to edit anything at a later date.
 			</p>
 		{/if}
@@ -135,7 +134,7 @@
 					bind:value={$form.music}
 				/>
 
-				{#each data.additionalGuests as guest, i}
+				{#each data.user.guest as guest, i}
 					<RadioGroup
 						name="acceptance[{i}]"
 						legend="Is {guest.givenName} joining us on our special day?"
@@ -240,7 +239,7 @@
 </PageLayout>
 
 <style lang="scss">
-	.RSVP {
+	.EditRSVP {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;

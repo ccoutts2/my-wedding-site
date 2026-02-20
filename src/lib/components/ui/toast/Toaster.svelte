@@ -13,13 +13,13 @@
 
 <style lang="scss">
 	.Toaster {
-		position: absolute;
-		top: 1rem;
-		left: 50%;
-		transform: translateX(-50%);
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
+		left: 50%;
+		position: fixed;
+		top: 1rem;
+		transform: translateX(-50%);
 		z-index: 1000000;
 	}
 </style>

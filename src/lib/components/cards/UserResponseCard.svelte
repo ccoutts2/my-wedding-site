@@ -4,7 +4,7 @@
 
 {#if user.isAccepted}
 	<article class="UserResponseCard">
-		<p>Your responses:</p>
+		<h4>Your responses:</h4>
 		<ul>
 			<li>Diet: {user.diet.toLowerCase() ?? 'Not specified'}</li>
 			<li>Allergies: {user.hasAllergies ? 'Yes' : 'No'}</li>

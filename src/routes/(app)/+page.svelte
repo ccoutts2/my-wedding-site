@@ -6,9 +6,14 @@
 	import { assetsConfig } from '$lib/config/assets';
 	import { onMount } from 'svelte';
 	import { getPreloaderState } from '$lib/contexts/preloader.state.svelte';
+	import type { PageProps } from './$types';
 
 	let hero: HTMLElement;
 	const timelineState = getPreloaderState();
+
+	let { data }: PageProps = $props();
+
+	const user = data.user;
 
 	onMount(() => {
 		if (timelineState.isInitialLoad) {
@@ -56,10 +61,10 @@
 	<div class="Home__hero">
 		<figure class="Home__heroImgContainer" bind:this={hero}>
 			<img
-				src={assetsConfig[27].src}
-				alt={assetsConfig[27].alt}
-				width={assetsConfig[27].width}
-				height={assetsConfig[27].height}
+				src={assetsConfig[6].src}
+				alt={assetsConfig[6].alt}
+				width={assetsConfig[6].width}
+				height={assetsConfig[6].height}
 				fetchpriority="high"
 			/>
 		</figure>
@@ -81,23 +86,32 @@
 			</p>
 			<div class="Grid">
 				<GridItem
-					src={assetsConfig[24].src}
-					alt={assetsConfig[24].alt}
-					width={assetsConfig[24].width}
-					height={assetsConfig[24].height}
+					src={assetsConfig[16].src}
+					alt={assetsConfig[16].alt}
+					width={assetsConfig[16].width}
+					height={assetsConfig[16].height}
 					col={5}
 					span={12}
 				/>
 			</div>
 
-			<p>Please <a href="/rsvp">RSVP</a>.</p>
+			{#if user && user.RSVP}
+				<p>Thanks for your response, {user.givenName}</p>
+				<p>
+					If you need to edit your response, please do so by clicking <a href="/rsvp/{user.id}/edit"
+						>edit your RSVP</a
+					>.
+				</p>
+			{:else}
+				<p>Please <a href="/rsvp">RSVP</a>.</p>
+			{/if}
 		</TextColumn>
 	</Section>
 	<Section state="centered">
 		<Subtitle as="h2">Travel and Stay</Subtitle>
 		<TextColumn>
 			<p>
-				We would love for you to stay right in the heart of the action with us. The hotel is set
+				For anyone wishing to stay right in the heart of the action with us... The hotel is set
 				across 11 beautiful Georgian townhouses and features a buzzing lobby, an Italian restaurant
 				(Patatino), and even a small cinema.
 			</p>

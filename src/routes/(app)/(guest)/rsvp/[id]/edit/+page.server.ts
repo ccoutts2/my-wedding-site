@@ -1,10 +1,10 @@
-import { DietaryOptions } from '../../../../generated/prisma/enums';
+import { DietaryOptions } from '../../../../../../generated/prisma/enums';
 import { message, superValidate } from 'sveltekit-superforms';
 import { redirect, type Actions } from '@sveltejs/kit';
 import { z } from 'zod/v4';
 import { zod4 } from 'sveltekit-superforms/adapters';
 import prisma from '$lib/server/prisma';
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad } from '../$types';
 
 const schema = z
 	.object({
@@ -80,7 +80,7 @@ const schema = z
 		});
 	});
 
-export const load: PageServerLoad = async ({ cookies }) => {
+export const load: PageServerLoad = async ({ cookies, params }) => {
 	const email = cookies.get('user_email');
 
 	if (!email) {
@@ -88,7 +88,10 @@ export const load: PageServerLoad = async ({ cookies }) => {
 	}
 
 	const user = await prisma.user.findUnique({
-		where: { email }
+		where: { id: params.id },
+		include: {
+			guest: true
+		}
 	});
 
 	if (!user) {
@@ -99,34 +102,31 @@ export const load: PageServerLoad = async ({ cookies }) => {
 		throw redirect(302, '/');
 	}
 
-	if (user.RSVP) {
-		throw redirect(302, `rsvp/${user.id}/edit`);
-	}
+	const initialData = {
+		acceptance: user.isAccepted === true ? 'yes' : user.isAccepted === false ? 'no' : '',
+		meal: user.diet ?? undefined,
+		allergies: user.hasAllergies === true ? 'yes' : user.hasAllergies === false ? 'no' : '',
+		allergiesDescription: user.allergiesDescription ?? '',
+		music: user.musicSelection ?? '',
 
-	const additionalGuests = await prisma.guest.findMany({
-		where: { userId: user?.id }
-	});
+		guestResponses: user.guest.map((guest) => ({
+			id: guest.id,
+			acceptance: guest.isAccepted === true ? 'yes' : guest.isAccepted === false ? 'no' : '',
+			meal: guest.diet ?? undefined,
+			allergies: guest.hasAllergies === true ? 'yes' : guest.hasAllergies === false ? 'no' : '',
+			allergiesDescription: guest.allergiesDescription ?? '',
+			music: guest.musicSelection ?? ''
+		}))
+	};
 
-	let guestResponses = [];
-
-	guestResponses = additionalGuests.map((guest) => ({
-		id: guest.id,
-		acceptance: '',
-		meal: DietaryOptions.MEAT,
-		allergies: '',
-		allergiesDescription: '',
-		music: ''
-	}));
-
-	const form = await superValidate({ guestResponses }, zod4(schema), {
+	// Pass the initialData to superValidate
+	const form = await superValidate(initialData, zod4(schema), {
 		errors: false
 	});
 
 	return {
 		user,
-		form,
-		guestResponses,
-		additionalGuests
+		form
 	};
 };
 

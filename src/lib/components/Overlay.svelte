@@ -32,10 +32,8 @@
 						<NavLink href="/" aria-current={url === '/'} active={url === '/'}>Home</NavLink>
 					</li>
 					<li class="Overlay__navItem">
-						<NavLink
-							href="/our-story"
-							aria-current={url === '/our-story'}
-							active={url === '/our-story'}>Our Story</NavLink
+						<NavLink href="/gallery" aria-current={url === '/gallery'} active={url === '/gallery'}
+							>Gallery</NavLink
 						>
 					</li>
 					<li class="Overlay__navItem">
@@ -62,10 +60,10 @@
 		</div>
 
 		<GridItem
-			src={assetsConfig[29].src}
-			alt={assetsConfig[29].alt}
-			width={assetsConfig[29].width}
-			height={assetsConfig[29].height}
+			src={assetsConfig[30].src}
+			alt={assetsConfig[30].alt}
+			width={assetsConfig[30].width}
+			height={assetsConfig[30].height}
 			col={2}
 			span={4}
 		/>

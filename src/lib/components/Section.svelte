@@ -20,7 +20,7 @@
 		padding: 3.125rem 1rem 1rem;
 
 		@include breakpoints.laptop {
-			padding-block: 6.25rem 2rem 2rem;
+			padding: 6.25rem 2rem 2rem;
 		}
 
 		&[data-state='centered'] {

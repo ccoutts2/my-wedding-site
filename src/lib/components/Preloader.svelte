@@ -2,36 +2,40 @@
 	import { getPreloaderState } from '$lib/contexts/preloader.state.svelte';
 	import { onMount } from 'svelte';
 
-	let preloaderContainer: HTMLDivElement;
+	let preloaderContainer: HTMLDivElement | null = $state(null);
 
 	let counterValue = $state({ value: 0 });
 
 	const timelineState = getPreloaderState();
 	onMount(() => {
 		if (timelineState.isInitialLoad && timelineState.tl) {
-			timelineState.tl.set(preloaderContainer, { autoAlpha: 1 });
-			timelineState.tl
+			if (!preloaderPlayed) {
+				timelineState.tl.set(preloaderContainer, { visibility: 'visible', opacity: 1 });
 
-				.to(counterValue, {
-					value: 100,
-					duration: 5,
-					ease: 'power2.out'
-				})
-				.to(
-					preloaderContainer,
-					{
-						clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-						duration: 1,
-						ease: 'power2.inOut'
-					},
-					'+=0.75'
-				)
-				.add('header', '+=0.25');
+				timelineState.tl
+					.to(counterValue, {
+						value: 100,
+						duration: 5,
+						ease: 'power2.out'
+					})
+					.to(
+						preloaderContainer,
+						{
+							clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+							duration: 1,
+							ease: 'power2.inOut'
+						},
+						'+=0.75'
+					)
+					.add('header', '+=0.25');
+			}
+
+			return () => {
+				timelineState.tl?.kill();
+			};
+		} else {
+			timelineState.tl.set(preloaderContainer, { autoAlpha: 0 });
 		}
-
-		return () => {
-			timelineState.tl?.kill();
-		};
 	});
 
 	let preloaderPlayed: string | null = $state(null);
@@ -43,11 +47,13 @@
 	});
 </script>
 
-<div class="Preloader {preloaderPlayed ? 'hide' : ''}" bind:this={preloaderContainer}>
-	<span class="visually-hidden">Pre loader container.</span>
+{#if !preloaderPlayed}
+	<div class="Preloader {preloaderPlayed ? 'hide' : ''}" bind:this={preloaderContainer}>
+		<span class="visually-hidden">Pre loader container.</span>
 
-	<span class="Preloader__counter">{Math.floor(counterValue.value)}</span>
-</div>
+		<span class="Preloader__counter">{Math.floor(counterValue.value)}</span>
+	</div>
+{/if}
 
 <style lang="scss">
 	.Preloader {
@@ -55,12 +61,13 @@
 		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 		color: #33a69a;
 		height: 100vh;
-		opacity: 0;
-		position: absolute;
-		visibility: hidden;
+		inset: 0;
+		opacity: 1;
+		position: fixed;
+		visibility: visible;
 		width: 100%;
 		will-change: clip-path;
-		z-index: 99;
+		z-index: 99999;
 
 		&.hide {
 			opacity: 0;

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import GridItem from '$lib/components/ui/GridItem.svelte';
 	import { assetsConfig } from '$lib/config/assets';
-	import gsap from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { onMount } from 'svelte';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import GridItem from '$lib/components/ui/GridItem.svelte';
+	import gsap from 'gsap';
 
 	let container: HTMLElement;
 	let title: HTMLHeadElement;
@@ -24,13 +24,22 @@
 				}
 			})
 			.to(title, {
-				top: '100%'
+				top: '70%'
 			});
 	});
 </script>
 
-<main bind:this={container}>
-	<section class="Gallery">
+<svelte:head>
+	<title>Aly and Chris | Gallery</title>
+	<meta
+		name="description"
+		content="This is the pictures page displaying information a collection of pictures of Aly and Chris."
+	/>
+</svelte:head>
+
+<main class="Gallery" bind:this={container}>
+	<h1>Our Gallery</h1>
+	<section class="Gallery__images">
 		<h2 bind:this={title}>aly x chris</h2>
 		<div class="Grid">
 			<GridItem
@@ -128,25 +137,25 @@
 
 <style lang="scss">
 	.Gallery {
-		height: 200vh;
 		position: relative;
 
-		h2 {
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			font-size: clamp(1.15rem, 2.5vw, 3rem);
-			text-transform: uppercase;
+		&__images {
+			h2 {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				font-size: clamp(1.15rem, 2.5vw, 3rem);
+				text-transform: uppercase;
+			}
 		}
-	}
-	.Grid {
-		display: grid;
-		margin-top: 5rem;
-		grid-template-columns: repeat(12, 1fr);
-		gap: 0.5rem;
-		padding-inline: 1rem;
-		width: 100%;
-		height: 200vh;
+		.Grid {
+			display: grid;
+			margin-top: 5rem;
+			grid-template-columns: repeat(12, 1fr);
+			gap: 0.5rem;
+			padding-inline: 1rem;
+			width: 100%;
+		}
 	}
 </style>

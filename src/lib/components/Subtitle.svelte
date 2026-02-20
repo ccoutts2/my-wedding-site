@@ -5,39 +5,34 @@
 	let { children, as }: { children: Snippet; as: Heading } = $props();
 </script>
 
-<header class="Subtitle">
-	<svelte:element this={as} class="Subtitle__heading">
-		{@render children()}
-	</svelte:element>
-</header>
+<svelte:element this={as} class="Subtitle">
+	{@render children()}
+</svelte:element>
 
 <style lang="scss">
 	.Subtitle {
-		text-transform: uppercase;
+		float: left;
+		font-size: 1rem;
 		font-style: normal;
 		font-weight: 400;
+		font-weight: 500;
 		line-height: 1.2rem;
-		float: left;
-		min-width: 35%;
 		margin-block: 0.5rem 0.825rem;
+		min-width: 35%;
+		padding-left: 1.1rem;
+		position: relative;
+		text-transform: uppercase;
 
-		&__heading {
-			font-size: 1rem;
-			font-weight: 500;
-			position: relative;
-			padding-left: 1.1rem;
-
-			&::before {
-				content: '';
-				background-color: #181818;
-				border-radius: 50%;
-				display: inline-block;
-				height: 11px;
-				left: 0;
-				position: absolute;
-				top: calc(50% - 6.5px);
-				width: 11px;
-			}
+		&::before {
+			content: '';
+			background-color: currentColor;
+			border-radius: 50%;
+			display: inline-block;
+			height: 11px;
+			left: 0;
+			position: absolute;
+			top: calc(50% - 6.5px);
+			width: 11px;
 		}
 	}
 </style>
