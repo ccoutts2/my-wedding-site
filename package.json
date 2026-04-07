@@ -7,12 +7,12 @@
 		"seed": "tsx prisma/seed.ts"
 	},
 	"scripts": {
-		"postinstall": "svelte-kit sync || echo '' && prisma generate",
+		"postinstall": "prisma generate",
 		"db:generate": "npx prisma generate",
 		"db:migrate": "npx prisma migrate dev",
 		"db:seed": "npx prisma db seed",
 		"dev": "vite dev",
-		"build": "svelte-kit sync && prisma generate && vite build",
+		"build": "prisma generate && svelte-kit sync && vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
