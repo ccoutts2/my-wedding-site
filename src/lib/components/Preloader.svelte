@@ -34,7 +34,7 @@
 				timelineState.tl?.kill();
 			};
 		} else {
-			if (preloaderContainer) {
+			if (preloaderContainer && timelineState.tl) {
 				timelineState.tl.set(preloaderContainer, { autoAlpha: 0 });
 			}
 		}
