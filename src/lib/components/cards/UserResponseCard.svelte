@@ -1,19 +1,15 @@
 <script lang="ts">
-	let { user }: { user: any } = $props();
+	let { person }: { person: any } = $props();
 </script>
 
-{#if user.isAccepted}
-	<article class="UserResponseCard">
-		<h4>Your responses:</h4>
-		<ul>
-			<li>Diet: {user.diet.toLowerCase()}</li>
-			<li>Allergies: {user.hasAllergies ? 'Yes' : 'No'}</li>
-			<li>Music Choice: {user.musicSelection}</li>
-		</ul>
-	</article>
-{:else}
-	<p>Not too late to <a href="/rsvp">change your mind</a>.</p>
-{/if}
+<article class="UserResponseCard">
+	<h4>Answered:</h4>
+	<ul>
+		<li>Diet: {person.diet.toLowerCase()}</li>
+		<li>Allergies: {person.hasAllergies ? 'Yes' : 'No'}</li>
+		<li>Music Choice: {person.musicSelection}</li>
+	</ul>
+</article>
 
 <style lang="scss">
 	.UserResponseCard {

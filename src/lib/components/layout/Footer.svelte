@@ -6,6 +6,12 @@
 	let { data }: { data: { adminUser: boolean; user: any; page: string } } = $props();
 
 	const { adminUser, user, page: url } = $derived(data);
+
+	let person = $state(user);
+
+	const onClick = (selectedPerson: any) => {
+		person = selectedPerson;
+	};
 </script>
 
 <footer class="Footer">
@@ -41,9 +47,21 @@
 		</p>
 	</section>
 	<section class="Footer__col">
-		<Subtitle as="h3">Your info</Subtitle>
-		{#if user}
-			<UserResponseCard {user} />
+		<Subtitle as="h3">Responses</Subtitle>
+		{#if user && user.RSVP}
+			<ul class="Footer__guestList">
+				<li class="Footer__guestName" class:is-active={person.id === user.id}>
+					<button onclick={() => onClick(user)}>You</button>
+				</li>
+				{#if user.hasGuests && user.guest.length > 0}
+					{#each user.guest as guest}
+						<li class="Footer__guestName" class:is-active={person.id === guest.id}>
+							<button onclick={() => onClick(guest)}>{guest.givenName}</button>
+						</li>
+					{/each}
+				{/if}
+			</ul>
+			<UserResponseCard {person} />
 		{:else}
 			<p>Please <a href="/rsvp">RSVP</a>.</p>
 		{/if}
@@ -59,6 +77,7 @@
 
 <style lang="scss">
 	@use '$lib/styles/partials/breakpoints';
+	@use '$lib/styles/partials/variables';
 
 	.logo {
 		width: 6.5rem;
@@ -97,6 +116,35 @@
 
 			@include breakpoints.tablet {
 				border-left: 1px solid black;
+			}
+		}
+
+		&__guestList {
+			display: flex;
+			gap: 1rem;
+			list-style: none;
+			padding-block: 1rem;
+		}
+
+		&__guestName {
+			background-color: transparent;
+			border-radius: 99999px;
+			border: 1px solid black;
+			padding: 0.125rem 1rem;
+			position: relative;
+			transition: background-color 0.4s ease-in-out;
+
+			&.is-active {
+				background-color: variables.$color--button;
+				color: variables.$color--button-text;
+			}
+
+			button {
+				&::after {
+					content: '';
+					inset: 0;
+					position: absolute;
+				}
 			}
 		}
 

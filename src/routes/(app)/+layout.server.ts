@@ -27,6 +27,9 @@ export const load: LayoutServerLoad = async ({ cookies, url }) => {
 		user = await prisma.user.findUnique({
 			where: {
 				email: authenticatedUser
+			},
+			include: {
+				guest: true
 			}
 		});
 	} catch (error) {

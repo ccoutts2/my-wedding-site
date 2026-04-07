@@ -54,7 +54,7 @@
 					<Subtitle as="h3"
 						>You are {user.isAccepted ? 'coming' : 'not coming'}, {user.givenName}</Subtitle
 					>
-					<UserResponseCard {user} />
+					<UserResponseCard person={user} />
 				</section>
 			{/if}
 		</div>
