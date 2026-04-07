@@ -7,7 +7,7 @@
 		"seed": "tsx prisma/seed.ts"
 	},
 	"scripts": {
-		"postinstall": "prisma generate",
+		"postinstall": "svelte-kit sync || echo '' && prisma generate",
 		"db:generate": "npx prisma generate",
 		"db:migrate": "npx prisma migrate dev",
 		"db:seed": "npx prisma db seed",
