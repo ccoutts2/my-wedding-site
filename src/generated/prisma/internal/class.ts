@@ -33,6 +33,10 @@ const config: runtime.GetPrismaClientConfig = {
         "fromEnvVar": null,
         "value": "darwin-arm64",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -55,8 +59,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id                   String          @id @default(cuid())\n  createdAt            DateTime        @default(now())\n  updatedAt            DateTime        @updatedAt\n  email                String          @unique\n  givenName            String\n  familyName           String\n  hasGuests            Boolean\n  RSVP                 Boolean\n  isAccepted           Boolean\n  diet                 DietaryOptions?\n  hasAllergies         Boolean?\n  allergiesDescription String?\n  musicSelection       String?\n  type                 GuestType       @default(DAY)\n  guest                Guest[]\n}\n\nmodel Guest {\n  id                   Int             @id @default(autoincrement())\n  createdAt            DateTime        @default(now())\n  updatedAt            DateTime        @updatedAt\n  givenName            String\n  familyName           String\n  isAccepted           Boolean\n  diet                 DietaryOptions?\n  hasAllergies         Boolean?\n  allergiesDescription String?\n  musicSelection       String?\n  type                 GuestType       @default(DAY)\n  userId               String\n  belongsTo            User            @relation(fields: [userId], references: [id])\n}\n\nenum DietaryOptions {\n  MEAT\n  VEGETARIAN\n  VEGAN\n}\n\nenum GuestType {\n  DAY\n  NIGHT\n}\n",
-  "inlineSchemaHash": "ea5ef9a0e03f31392fb315c94e6bc5eddc4ce5daaa72ee4afae9861d0a7e7ca5",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id                   String          @id @default(cuid())\n  createdAt            DateTime        @default(now())\n  updatedAt            DateTime        @updatedAt\n  email                String          @unique\n  givenName            String\n  familyName           String\n  hasGuests            Boolean\n  RSVP                 Boolean\n  isAccepted           Boolean\n  diet                 DietaryOptions?\n  hasAllergies         Boolean?\n  allergiesDescription String?\n  musicSelection       String?\n  type                 GuestType       @default(DAY)\n  guest                Guest[]\n}\n\nmodel Guest {\n  id                   Int             @id @default(autoincrement())\n  createdAt            DateTime        @default(now())\n  updatedAt            DateTime        @updatedAt\n  givenName            String\n  familyName           String\n  isAccepted           Boolean\n  diet                 DietaryOptions?\n  hasAllergies         Boolean?\n  allergiesDescription String?\n  musicSelection       String?\n  type                 GuestType       @default(DAY)\n  userId               String\n  belongsTo            User            @relation(fields: [userId], references: [id])\n}\n\nenum DietaryOptions {\n  MEAT\n  VEGETARIAN\n  VEGAN\n}\n\nenum GuestType {\n  DAY\n  NIGHT\n}\n",
+  "inlineSchemaHash": "c3a7b9c6f9699cd921f1e064acbea24768d5ff5d9bc90b4ab77f75b76642f4b0",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
