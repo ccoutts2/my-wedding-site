@@ -24,7 +24,7 @@ const config: runtime.GetPrismaClientConfig = {
 			fromEnvVar: null
 		},
 		config: {
-			engineType: 'client'
+			engineType: 'library'
 		},
 		binaryTargets: [
 			{
