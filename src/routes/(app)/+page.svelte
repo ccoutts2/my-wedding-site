@@ -134,6 +134,13 @@
 			</p>
 		</TextColumn>
 	</Section>
+	<Section state="left-aligned">
+		<Subtitle as="h2">Registry</Subtitle>
+		<TextColumn>
+			<p>Aly says your presence is the greatest gift...</p>
+			<p>But if you'd like to contribute towards our honeymoon, we'd be eternally greatful!</p>
+		</TextColumn>
+	</Section>
 </main>
 
 <style lang="scss">
