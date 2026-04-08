@@ -16,7 +16,7 @@
 	const user = data.user;
 
 	onMount(() => {
-		if (timelineState.isInitialLoad) {
+		if (timelineState.isInitialLoad && timelineState.tl) {
 			timelineState.tl
 				.from(
 					hero,
