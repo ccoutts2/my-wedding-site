@@ -1,8 +1,17 @@
 import { PrismaClient } from '../../generated/prisma/client';
+import { PrismaNeon } from '@prisma/adapter-neon';
 import { DATABASE_URL } from '$env/static/private';
-import { PrismaPg } from '@prisma/adapter-pg';
 
-const adapter = new PrismaPg({ connectionString: DATABASE_URL });
-const prisma = new PrismaClient({ adapter });
+const globalForPrisma = globalThis as unknown as {
+	prisma: PrismaClient | undefined;
+};
+
+const adapter = new PrismaNeon({ connectionString: DATABASE_URL });
+
+export const prisma =
+	globalForPrisma.prisma ??
+	new PrismaClient({ adapter });
+
+globalForPrisma.prisma = prisma;
 
 export default prisma;
