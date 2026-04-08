@@ -1,12 +1,10 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import type { OverlayProps } from '$lib/types';
-	import GridItem from './ui/GridItem.svelte';
 	import { assetsConfig } from '$lib/config/assets';
+	import { getContext } from 'svelte';
+	import GridItem from './ui/GridItem.svelte';
 	import NavLink from './navigation/NavLink.svelte';
-	import TextColumn from './TextColumn.svelte';
 	import Subtitle from './Subtitle.svelte';
-	import Section from './Section.svelte';
+	import type { OverlayProps } from '$lib/types';
 	import UserResponseCard from './cards/UserResponseCard.svelte';
 
 	const context = getContext<OverlayProps>('overlay-ctx') ?? { isMenuOpen: false };
@@ -44,6 +42,13 @@
 					<li class="Overlay__navItem">
 						<NavLink href="/q&a" aria-current={url === '/q&a'} active={url === '/q&a'}
 							>Q & A</NavLink
+						>
+					</li>
+					<li class="Overlay__navItem">
+						<NavLink
+							href="/order-of-the-day"
+							aria-current={url === '/order-of-the-day'}
+							active={url === '/order-of-the-day'}>Order Of The Day</NavLink
 						>
 					</li>
 				</ul>
