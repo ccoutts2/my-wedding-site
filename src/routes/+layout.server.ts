@@ -1,5 +1,7 @@
 import { DATABASE_URL } from '$env/static/private';
 import { neon } from '@neondatabase/serverless';
+import { dev } from '$app/environment';
+import { injectAnalytics } from '@vercel/analytics/sveltekit';
 
 const connectionString: string = DATABASE_URL as string;
 const sql = neon(connectionString);
@@ -11,3 +13,5 @@ export async function load() {
 		version
 	};
 }
+
+injectAnalytics({ mode: dev ? 'development' : 'production' });

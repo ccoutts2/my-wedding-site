@@ -57,8 +57,9 @@
 			{#if user}
 				<section class="flex-col">
 					<Subtitle as="h3"
-						>You are {user.isAccepted ? 'coming' : 'not coming'}, {user.givenName}</Subtitle
+						>You're {user.isAccepted ? 'coming' : 'not coming'}, {user.givenName}</Subtitle
 					>
+
 					<UserResponseCard person={user} />
 				</section>
 			{/if}
@@ -81,7 +82,7 @@
 	.Overlay {
 		background-color: #e6c2bf;
 		clip-path: inset(0% 0% 100% 0%);
-		height: 100dvh;
+		height: 100vh;
 		left: 0;
 		position: fixed;
 		top: 0;
@@ -90,6 +91,7 @@
 
 		&.menu-open {
 			clip-path: inset(0% 0% 0% 0%);
+			overflow: auto;
 		}
 
 		&__content {

@@ -134,30 +134,33 @@
 					errors={$errors.music}
 					bind:value={$form.music}
 				/>
+			</div>
+		{/if}
 
-				{#each data.user.guest as guest, i}
-					<RadioGroup
-						name="acceptance[{i}]"
-						legend="Is {guest.givenName} joining us on our special day?"
-					>
-						<RadioGroupOption
-							label="Yes"
-							bind:group={$form.guestResponses[i].acceptance}
-							name="acceptance[{i}]"
-							id="acceptance-{i}-yes"
-							value="yes"
-							required={$form.guestResponses[i].acceptance === 'yes'}
-						/>
-						<RadioGroupOption
-							label="No"
-							bind:group={$form.guestResponses[i].acceptance}
-							name="acceptance[{i}]"
-							id="acceptance-{i}-no"
-							value="no"
-							required={$form.guestResponses[i].acceptance === 'yes'}
-						/>
-					</RadioGroup>
-
+		{#each data.user.guest as guest, i}
+			<RadioGroup
+				name="acceptance[{i}]"
+				legend="Is {guest.givenName} joining us on our special day?"
+			>
+				<RadioGroupOption
+					label="Yes"
+					bind:group={$form.guestResponses[i].acceptance}
+					name="acceptance[{i}]"
+					id="acceptance-{i}-yes"
+					value="yes"
+					required={$form.guestResponses[i].acceptance === 'yes'}
+				/>
+				<RadioGroupOption
+					label="No"
+					bind:group={$form.guestResponses[i].acceptance}
+					name="acceptance[{i}]"
+					id="acceptance-{i}-no"
+					value="no"
+					required={$form.guestResponses[i].acceptance === 'yes'}
+				/>
+			</RadioGroup>
+			{#if $form.guestResponses[i].acceptance === 'yes'}
+				<div class="w-full {$form.guestResponses[i].acceptance !== 'yes' ? 'toggle-hide' : ''}">
 					<RadioGroup
 						name="meal[{i}]"
 						legend="Please select {guest.givenName}'s dietary requirements"
@@ -227,9 +230,10 @@
 						required={$form.guestResponses[i].acceptance === 'yes'}
 						bind:value={$form.guestResponses[i].music}
 					/>
-				{/each}
-			</div>
-		{/if}
+				</div>
+			{/if}
+		{/each}
+
 		{#if $form.acceptance === 'no'}
 			<div>
 				<p>Sad!</p>

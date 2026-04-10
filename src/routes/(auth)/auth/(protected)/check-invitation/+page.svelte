@@ -4,6 +4,7 @@
 	import InputField from '$lib/components/form/InputField.svelte';
 	import PageLayout from '$lib/components/PageLayout.svelte';
 	import type { PageProps } from './$types';
+	import BurgerButton from '$lib/components/ui/buttons/BurgerButton.svelte';
 
 	let { data }: PageProps = $props();
 
@@ -16,6 +17,9 @@
 </svelte:head>
 
 <PageLayout rootLayout="auth" title="Check for your invitation!" pageLayout="centered">
+	<nav class="nav-back">
+		<a href="/">Go Back</a>
+	</nav>
 	<Form {enhance}>
 		<InputField
 			type="email"
@@ -28,3 +32,15 @@
 		/>
 	</Form>
 </PageLayout>
+
+<style>
+	.nav-back {
+		position: absolute;
+		left: 1rem;
+		top: 2rem;
+
+		a {
+			width: 100%;
+		}
+	}
+</style>

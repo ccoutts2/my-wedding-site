@@ -12,7 +12,7 @@
 	onMount(() => {
 		gsap.registerPlugin(ScrollTrigger);
 
-		gsap.set(title, { top: '15%' });
+		gsap.set(title, { top: '20%' });
 
 		tl = gsap
 			.timeline({
@@ -20,11 +20,11 @@
 					trigger: container,
 					start: 'top 10%',
 					end: 'bottom top',
-					scrub: 2
+					scrub: 4
 				}
 			})
 			.to(title, {
-				top: '70%'
+				top: '65%'
 			});
 
 		return () => {
@@ -74,7 +74,7 @@
 			/>
 		</div>
 	</section>
-	<section class="Gallery">
+	<section class="Gallery__images">
 		<div class="Grid">
 			<GridItem
 				src={assetsConfig[4].src}
@@ -102,7 +102,7 @@
 			/>
 		</div>
 	</section>
-	<section class="Gallery">
+	<section class="Gallery__images">
 		<div class="Grid">
 			<GridItem
 				src={assetsConfig[6].src}
@@ -141,17 +141,24 @@
 </main>
 
 <style lang="scss">
+	@use '$lib/styles/partials/breakpoints';
+
 	.Gallery {
 		position: relative;
 
 		&__images {
 			h2 {
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				font-size: clamp(1.15rem, 2.5vw, 3rem);
-				text-transform: uppercase;
+				display: none;
+
+				@include breakpoints.tablet {
+					display: block;
+					font-size: clamp(1.15rem, 2.5vw, 3rem);
+					left: 50%;
+					position: fixed;
+					text-transform: uppercase;
+					top: 50%;
+					transform: translate(-50%, -50%);
+				}
 			}
 		}
 		.Grid {
@@ -159,7 +166,7 @@
 			margin-top: 5rem;
 			grid-template-columns: repeat(12, 1fr);
 			gap: 0.5rem;
-			padding-inline: 1rem;
+			padding: 1rem 1rem 3rem;
 			width: 100%;
 		}
 	}

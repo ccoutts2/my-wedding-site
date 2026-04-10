@@ -27,7 +27,7 @@
 		color: variables.$color--foreground;
 		display: flex;
 		flex-direction: column;
-		min-height: 100dvh;
+		min-height: 100vh;
 		padding: 1rem;
 
 		h1 {
@@ -40,7 +40,7 @@
 			background-color: variables.$color--auth--background;
 			justify-content: center !important;
 			margin: 0 auto;
-			min-height: 100dvh;
+			min-height: 100vh;
 
 			h1 {
 				color: variables.$color--auth--foreground;

@@ -7,7 +7,7 @@
 
 	const { adminUser, user, page: url } = $derived(data);
 
-	let person = $state(user);
+	let person = $derived(user);
 
 	const onClick = (selectedPerson: any) => {
 		person = selectedPerson;
@@ -34,6 +34,13 @@
 				</li>
 				<li class="Overlay__navItem">
 					<NavLink href="/q&a" aria-current={url === '/q&a'} active={url === '/q&a'}>Q & A</NavLink>
+				</li>
+				<li class="Overlay__navItem">
+					<NavLink
+						href="/order-of-the-day"
+						aria-current={url === '/order-of-the-day'}
+						active={url === '/order-of-the-day'}>Order Of The Day</NavLink
+					>
 				</li>
 			</ul>
 		</nav>
@@ -80,8 +87,8 @@
 	@use '$lib/styles/partials/variables';
 
 	.logo {
-		width: 6.5rem;
-		height: 6.5rem;
+		width: 5rem;
+		height: 5rem;
 		position: absolute;
 		bottom: 1rem;
 		right: 1rem;
@@ -107,11 +114,11 @@
 		&__col {
 			display: flex;
 			flex-direction: column;
-			grid-column: span 5;
+			grid-column: span 4;
 			padding: 1rem;
 
 			&:first-of-type {
-				grid-column: span 2;
+				grid-column: span 3;
 			}
 
 			@include breakpoints.tablet {

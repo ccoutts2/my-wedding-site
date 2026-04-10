@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '$lib/styles/globals.css';
 	import { onNavigate } from '$app/navigation';
-	import { setContext } from 'svelte';
+	import { getContext, setContext } from 'svelte';
 	import { setPreloaderState } from '$lib/contexts/preloader.state.svelte.js';
 	import { setToastState } from '$lib/contexts/toast-state.svelte.js';
 	import favicon from '$lib/assets/favicon.svg';
@@ -36,6 +36,14 @@
 
 	const url = $derived(data.page);
 	const adminUser = $derived(data.adminUser);
+
+	$effect(() => {
+		if (overlayState.isMenuOpen) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = 'auto';
+		}
+	});
 </script>
 
 <svelte:head>

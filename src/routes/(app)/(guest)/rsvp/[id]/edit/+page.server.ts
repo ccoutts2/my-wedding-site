@@ -4,7 +4,7 @@ import { redirect, type Actions } from '@sveltejs/kit';
 import { z } from 'zod/v4';
 import { zod4 } from 'sveltekit-superforms/adapters';
 import prisma from '$lib/server/prisma';
-import type { PageServerLoad } from '../$types';
+import type { PageServerLoad } from './$types';
 
 const schema = z
 	.object({
@@ -154,14 +154,16 @@ export const actions = {
 
 			const validGuestIds = new Set(user.guest.map((g) => g.id));
 
+			const userIsAttending = form.data.acceptance === 'yes';
+
 			await prisma.user.update({
 				where: { email },
 				data: {
 					RSVP: true,
-					isAccepted: form.data.acceptance === 'yes',
-					diet: form.data.meal,
-					hasAllergies: form.data.allergies === 'yes',
-					allergiesDescription: form.data.allergiesDescription,
+					isAccepted: userIsAttending,
+					diet: userIsAttending ? form.data.meal : null,
+					hasAllergies: userIsAttending ? form.data.allergies === 'yes' : null,
+					allergiesDescription: userIsAttending ? form.data.allergiesDescription : null,
 					musicSelection: form.data.music
 				}
 			});
@@ -171,13 +173,15 @@ export const actions = {
 					return message(form, { status: 'error', text: 'Invalid guest.' }, { status: 403 });
 				}
 
+				const isGuestAttending = response.acceptance === 'yes';
+
 				await prisma.guest.update({
 					where: { id: response.id },
 					data: {
-						isAccepted: response.acceptance === 'yes',
-						diet: response.meal,
-						hasAllergies: response.allergies === 'yes',
-						allergiesDescription: response.allergiesDescription,
+						isAccepted: isGuestAttending,
+						diet: isGuestAttending ? response.meal : null,
+						hasAllergies: isGuestAttending ? response.allergies === 'yes' : null,
+						allergiesDescription: isGuestAttending ? response.allergiesDescription : null,
 						musicSelection: response.music
 					}
 				});

@@ -73,8 +73,9 @@
 		align-items: baseline;
 		display: flex;
 		gap: 2rem;
-		justify-content: flex-end;
+		justify-content: space-between;
 		padding: 1rem;
+		position: relative;
 
 		&__navList {
 			align-items: center;

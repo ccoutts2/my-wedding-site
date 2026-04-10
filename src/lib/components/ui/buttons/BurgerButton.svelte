@@ -29,7 +29,7 @@
 		justify-content: flex-end;
 		gap: 2rem;
 		min-height: 2.75rem;
-		min-width: 12.5rem;
+		min-width: 8.5rem;
 		position: relative;
 		transition: background-color 0.3s ease;
 		z-index: 1000;

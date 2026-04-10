@@ -3,12 +3,17 @@
 </script>
 
 <article class="UserResponseCard">
-	<h4>Answered:</h4>
-	<ul>
-		<li>Diet: {person.diet.toLowerCase()}</li>
-		<li>Allergies: {person.hasAllergies ? 'Yes' : 'No'}</li>
-		<li>Music Choice: {person.musicSelection}</li>
-	</ul>
+	{#if person.isAccepted}
+		<h4>Answered:</h4>
+		<ul>
+			<li>Diet: {person.diet ? person.diet.toLowerCase() : 'Not specified'}</li>
+			<li>Allergies: {person.hasAllergies ? 'Yes' : 'No'}</li>
+			<li>Music Choice: {person.musicSelection || 'Not specified'}</li>
+		</ul>
+	{:else}
+		<p>Changed your mind?</p>
+		<a href="/rsvp">RSVP</a>
+	{/if}
 </article>
 
 <style lang="scss">
