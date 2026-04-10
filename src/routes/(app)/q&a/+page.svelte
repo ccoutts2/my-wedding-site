@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>Aly and Chris | Q & A</title>
+	<title>Aly and Chris | Q &amp; A</title>
 	<meta
 		name="description"
 		content="Find answers to questions about Aly and Chris's wedding celebration."

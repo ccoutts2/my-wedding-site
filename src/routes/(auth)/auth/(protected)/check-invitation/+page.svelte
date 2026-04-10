@@ -33,14 +33,14 @@
 	</Form>
 </PageLayout>
 
-<style lang="scss">
+<style>
 	.nav-back {
 		position: absolute;
 		left: 1rem;
 		top: 2rem;
+	}
 
-		a {
-			width: 100%;
-		}
+	.nav-back a {
+		width: 100%;
 	}
 </style>

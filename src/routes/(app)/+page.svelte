@@ -17,6 +17,7 @@
 
 	onMount(() => {
 		if (timelineState.isInitialLoad && timelineState.tl) {
+			hero.style.willChange = 'transform, clip-path';
 			timelineState.tl
 				.from(
 					hero,
@@ -34,6 +35,7 @@
 					ease: 'power4.inOut',
 					onComplete: () => {
 						window.sessionStorage.setItem('preloader', 'true');
+						hero.style.willChange = 'auto';
 					}
 				});
 
@@ -182,8 +184,6 @@
 			clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 			position: relative;
 			width: 100%;
-			will-change: transform, clip-path;
-			backface-visibility: hidden;
 
 			@include breakpoints.laptop {
 				width: 50vw;
@@ -191,14 +191,11 @@
 		}
 
 		img {
-			backface-visibility: hidden;
 			height: 100%;
 			object-fit: cover;
 			position: absolute;
 			transform-origin: top center;
-			transform: translateZ(0) rotate(0.01deg);
 			width: 100%;
-			will-change: transform;
 		}
 	}
 </style>
