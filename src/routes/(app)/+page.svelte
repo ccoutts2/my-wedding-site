@@ -171,17 +171,19 @@
 		}
 
 		&__hero {
-			display: flex;
 			align-items: center;
+			display: flex;
 			justify-content: center;
 			width: 100%;
 		}
 
 		&__heroImgContainer {
 			aspect-ratio: 1.333333333333;
+			clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 			position: relative;
 			width: 100%;
-			clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+			will-change: transform, clip-path;
+			backface-visibility: hidden;
 
 			@include breakpoints.laptop {
 				width: 50vw;
@@ -189,11 +191,14 @@
 		}
 
 		img {
-			position: absolute;
+			backface-visibility: hidden;
 			height: 100%;
-			width: 100%;
 			object-fit: cover;
+			position: absolute;
 			transform-origin: top center;
+			transform: translateZ(0) rotate(0.01deg);
+			width: 100%;
+			will-change: transform;
 		}
 	}
 </style>

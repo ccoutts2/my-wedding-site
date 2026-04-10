@@ -4,10 +4,19 @@
 	import Subtitle from '$lib/components/Subtitle.svelte';
 </script>
 
+<svelte:head>
+	<title>Aly and Chris | Order Of The Day</title>
+	<meta
+		name="description"
+		content="This page details the days of the wedding celebration and timings of events for each day."
+	/>
+</svelte:head>
+
 <PageLayout title="Order of the Day">
 	<Section state="right-aligned">
+		<h2>What to look forward to!</h2>
 		<article class="Schedule">
-			<Subtitle as="h2">Friday</Subtitle>
+			<Subtitle as="h3">Friday</Subtitle>
 			<div class="Schedule__information">
 				<p>
 					We have organised an evening for people to get together the night before the aye do's.
@@ -22,7 +31,7 @@
 			</div>
 		</article>
 		<article class="Schedule">
-			<Subtitle as="h2">Saturday</Subtitle>
+			<Subtitle as="h3">Saturday</Subtitle>
 			<section class="Schedule__information">
 				<h3>Guest Arrival</h3>
 				<p class="Schedule__time"><time datetime="12:30">12.30pm</time></p>

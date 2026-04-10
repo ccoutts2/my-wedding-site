@@ -73,8 +73,7 @@
 				span={4}
 			/>
 		</div>
-	</section>
-	<section class="Gallery__images">
+
 		<div class="Grid">
 			<GridItem
 				src={assetsConfig[4].src}
@@ -101,8 +100,6 @@
 				span={5}
 			/>
 		</div>
-	</section>
-	<section class="Gallery__images">
 		<div class="Grid">
 			<GridItem
 				src={assetsConfig[6].src}

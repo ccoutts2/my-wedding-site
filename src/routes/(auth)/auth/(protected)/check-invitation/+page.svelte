@@ -33,7 +33,7 @@
 	</Form>
 </PageLayout>
 
-<style>
+<style lang="scss">
 	.nav-back {
 		position: absolute;
 		left: 1rem;

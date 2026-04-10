@@ -11,7 +11,7 @@
 			<li>Music Choice: {person.musicSelection || 'Not specified'}</li>
 		</ul>
 	{:else}
-		<p>Changed your mind?</p>
+		<h4>Changed your mind?</h4>
 		<a href="/rsvp">RSVP</a>
 	{/if}
 </article>

@@ -4,6 +4,14 @@
 	import Subtitle from '$lib/components/Subtitle.svelte';
 </script>
 
+<svelte:head>
+	<title>Aly and Chris | Q & A</title>
+	<meta
+		name="description"
+		content="Find answers to questions about Aly and Chris's wedding celebration."
+	/>
+</svelte:head>
+
 <PageLayout title="Q & A" pageLayout="centered">
 	<Section state="centered">
 		<div class="QandAContainer">

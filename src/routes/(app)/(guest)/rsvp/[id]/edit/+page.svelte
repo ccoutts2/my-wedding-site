@@ -60,7 +60,6 @@
 				name="acceptance"
 				id="acceptance-yes"
 				value="yes"
-				checked={data.user.isAccepted === true}
 			/>
 			<RadioGroupOption
 				label="No"
@@ -68,7 +67,6 @@
 				name="acceptance"
 				id="acceptance-no"
 				value="no"
-				checked={data.user.isAccepted === false}
 			/>
 		</RadioGroup>
 
