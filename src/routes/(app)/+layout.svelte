@@ -54,7 +54,9 @@
 <Preloader />
 <Header {adminUser} {url} />
 
-{@render children?.()}
+<div inert={overlayState.isMenuOpen}>
+	{@render children?.()}
 
-<Footer {data} />
+	<Footer {data} />
+</div>
 <Overlay {data} />

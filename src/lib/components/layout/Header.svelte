@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { getPreloaderState } from '$lib/contexts/preloader.state.svelte';
-	import { onMount } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	import BurgerButton from '../ui/buttons/BurgerButton.svelte';
 	import NavLink from '../navigation/NavLink.svelte';
+	import type { OverlayProps } from '$lib/types';
 
 	interface HeaderProps {
 		adminUser: boolean;
@@ -13,6 +14,7 @@
 	let { adminUser, url }: HeaderProps = $props();
 
 	const timelineState = getPreloaderState();
+	const overlayContext = getContext<OverlayProps>('overlay-ctx') ?? { isMenuOpen: false };
 
 	let header: HTMLHeadElement;
 
@@ -40,7 +42,7 @@
 <header class="Header" bind:this={header}>
 	<nav>
 		{#if adminUser}
-			<ul class="Header__navList">
+			<ul class="Header__navList" class:hidden={overlayContext.isMenuOpen}>
 				<li>
 					<NavLink
 						href="/admin/add-guests"
@@ -60,11 +62,12 @@
 				</li>
 			</ul>
 		{:else}
-			<span>
+			<span class:hidden={overlayContext.isMenuOpen}>
 				<NavLink href="/rsvp" aria-current={url === '/rsvp'} active={url === '/rsvp'}>RSVP</NavLink>
 			</span>
 		{/if}
 	</nav>
+
 	<BurgerButton />
 </header>
 
@@ -76,6 +79,7 @@
 		justify-content: space-between;
 		padding: 1rem;
 		position: relative;
+		z-index: 100;
 
 		&__navList {
 			align-items: center;
@@ -83,6 +87,11 @@
 			gap: 1rem;
 			list-style: none;
 			view-transition-name: header;
+
+			&.hidden {
+				opacity: 0;
+				pointer-events: none;
+			}
 		}
 	}
 </style>

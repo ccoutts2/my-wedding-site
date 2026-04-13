@@ -10,6 +10,8 @@
 	onMount(() => {
 		if (timelineState.isInitialLoad && timelineState.tl) {
 			if (!preloaderPlayed) {
+				document.body.style.overflow = 'hidden';
+				document.body.style.height = '100dvh';
 				timelineState.tl.set(preloaderContainer, { visibility: 'visible', opacity: 1 });
 
 				timelineState.tl
@@ -62,12 +64,11 @@
 		background-color: #e6c2bf;
 		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 		color: #33a69a;
-		height: 100vh;
 		inset: 0;
 		opacity: 1;
 		position: fixed;
 		visibility: visible;
-		width: 100%;
+		width: 100vw;
 		will-change: clip-path;
 		z-index: 99999;
 

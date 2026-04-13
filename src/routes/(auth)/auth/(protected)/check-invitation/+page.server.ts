@@ -45,7 +45,7 @@ export const actions = {
 					form,
 					{
 						status: 'error',
-						text: 'Invalid user. Please try again.'
+						text: 'Email not found. Please check the email address used for the email invite!'
 					},
 					{
 						status: 400

@@ -36,6 +36,8 @@
 					onComplete: () => {
 						window.sessionStorage.setItem('preloader', 'true');
 						hero.style.willChange = 'auto';
+						document.body.style.overflow = 'auto';
+						document.body.style.height = '';
 					}
 				});
 

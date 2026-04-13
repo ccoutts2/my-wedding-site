@@ -5,9 +5,13 @@ import { zod4 } from 'sveltekit-superforms/adapters';
 import { z } from 'zod/v4';
 import { ADMIN_PASSWORD, GUEST_PASSWORD } from '$env/static/private';
 
-const emailSchema = z.object({
-	password: z.string('Incorrect password. Please try again.').trim()
-});
+const emailSchema = z
+	.object({
+		password: z.string('Incorrect password. Please try again.').trim()
+	})
+	.refine((data) => data.password == GUEST_PASSWORD || data.password == ADMIN_PASSWORD, {
+		message: 'Password is incorrect.'
+	});
 
 export const load: PageServerLoad = async () => {
 	const form = await superValidate(zod4(emailSchema));
@@ -26,7 +30,7 @@ export const actions = {
 				form,
 				{
 					status: 'invalid',
-					text: 'Form was invalid. Please try again.'
+					text: 'Password was incorrect. Please try again.'
 				},
 				{
 					status: 400

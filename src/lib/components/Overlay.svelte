@@ -82,16 +82,17 @@
 	.Overlay {
 		background-color: #e6c2bf;
 		clip-path: inset(0% 0% 100% 0%);
-		height: 100vh;
-		left: 0;
+		inset: 0;
+		height: 100dvh;
 		position: fixed;
-		top: 0;
 		transition: clip-path 0.65s cubic-bezier(0.09, 0.75, 0.47, 1.01);
 		width: 100vw;
+		z-index: 50;
 
 		&.menu-open {
 			clip-path: inset(0% 0% 0% 0%);
 			overflow: auto;
+			overscroll-behavior: contain;
 		}
 
 		&__content {
@@ -120,10 +121,12 @@
 			height: 100%;
 			justify-content: center;
 			width: 100%;
+			padding-top: 5rem;
 
 			@include breakpoints.tablet {
 				grid-column: 7 / 13;
 				justify-content: space-between;
+				padding-top: 0;
 			}
 		}
 

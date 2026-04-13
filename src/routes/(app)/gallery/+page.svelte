@@ -143,6 +143,10 @@
 	.Gallery {
 		position: relative;
 
+		h1 {
+			padding-left: 1rem;
+		}
+
 		&__images {
 			h2 {
 				display: none;

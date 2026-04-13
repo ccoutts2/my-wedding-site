@@ -4,11 +4,10 @@
 	import InputField from '$lib/components/form/InputField.svelte';
 	import PageLayout from '$lib/components/PageLayout.svelte';
 	import type { PageProps } from './$types';
-	import BurgerButton from '$lib/components/ui/buttons/BurgerButton.svelte';
 
 	let { data }: PageProps = $props();
 
-	const { form, enhance, errors } = superForm(data.form);
+	const { form, enhance, errors, message } = superForm(data.form);
 </script>
 
 <svelte:head>
@@ -30,6 +29,9 @@
 			errors={$errors.email}
 			required
 		/>
+		{#if $message}
+			<span class="Error">{$message.text}</span>
+		{/if}
 	</Form>
 </PageLayout>
 

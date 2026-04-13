@@ -30,19 +30,24 @@
 				fieldName="password"
 				type={isPasswordVisible ? 'text' : 'password'}
 				bind:value={$form.password}
-				errors={$errors.password}
+				errors={$errors?._errors}
 				required
 			/>
-			<button class="Login__button" type="button" onclick={showPassword}>
-				<span>
-					{#if isPasswordVisible}
-						<EyeOff size={20} />
-					{:else}
-						<Eye size={20} />
-					{/if}
-				</span>
-				<span class="visually-hidden">{isPasswordVisible ? 'Hide password' : 'Show password'}</span>
-			</button>
+
+			<div>
+				<button class="Login__button" type="button" onclick={showPassword}>
+					<span>
+						{#if isPasswordVisible}
+							<EyeOff size={20} />
+						{:else}
+							<Eye size={20} />
+						{/if}
+					</span>
+					<span class="visually-hidden"
+						>{isPasswordVisible ? 'Hide password' : 'Show password'}</span
+					>
+				</button>
+			</div>
 		</div>
 	</Form>
 </PageLayout>
@@ -50,6 +55,7 @@
 <style lang="scss">
 	.Login {
 		align-items: center;
+		justify-content: center;
 		display: flex;
 		width: 100%;
 
@@ -59,7 +65,6 @@
 
 			span:first-of-type {
 				position: absolute;
-				top: 0.4rem;
 			}
 		}
 	}
