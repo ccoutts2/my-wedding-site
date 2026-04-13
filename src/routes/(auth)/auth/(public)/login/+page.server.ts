@@ -9,7 +9,7 @@ const emailSchema = z
 	.object({
 		password: z.string('Incorrect password. Please try again.').trim()
 	})
-	.refine((data) => data.password == GUEST_PASSWORD || data.password == ADMIN_PASSWORD, {
+	.refine((data) => data.password === GUEST_PASSWORD || data.password === ADMIN_PASSWORD, {
 		message: 'Password is incorrect.'
 	});
 

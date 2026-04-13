@@ -40,9 +40,9 @@
 </script>
 
 <header class="Header" bind:this={header}>
-	<nav>
+	<nav class:hidden={overlayContext.isMenuOpen}>
 		{#if adminUser}
-			<ul class="Header__navList" class:hidden={overlayContext.isMenuOpen}>
+			<ul class="Header__navList">
 				<li>
 					<NavLink
 						href="/admin/add-guests"
@@ -62,7 +62,7 @@
 				</li>
 			</ul>
 		{:else}
-			<span class:hidden={overlayContext.isMenuOpen}>
+			<span>
 				<NavLink href="/rsvp" aria-current={url === '/rsvp'} active={url === '/rsvp'}>RSVP</NavLink>
 			</span>
 		{/if}
@@ -81,17 +81,19 @@
 		position: relative;
 		z-index: 100;
 
+		nav {
+			&.hidden {
+				opacity: 0;
+				pointer-events: none;
+			}
+		}
+
 		&__navList {
 			align-items: center;
 			display: flex;
 			gap: 1rem;
 			list-style: none;
 			view-transition-name: header;
-
-			&.hidden {
-				opacity: 0;
-				pointer-events: none;
-			}
 		}
 	}
 </style>
