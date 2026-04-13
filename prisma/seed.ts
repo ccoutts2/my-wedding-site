@@ -2,8 +2,10 @@ import { PrismaClient } from '../src/generated/prisma/client.js';
 import { users, guests } from './generators';
 import { faker } from '@faker-js/faker';
 import { resetDatabase } from './generators/resetDatabase';
+import dotenv from 'dotenv';
 
 export const prisma = new PrismaClient();
+dotenv.config();
 
 async function createUsers() {
 	console.log('Createing users without guests');
@@ -47,7 +49,15 @@ async function createUsersWithGuests() {
 }
 
 const main = async () => {
-	console.log('\nCurrent environment is: ');
+	const isProduction = process.env.VERCEL_ENV === 'production';
+
+	console.log(`\nCurrent environment is: ${process.env.NODE_ENV}`);
+
+	if (isProduction) {
+		console.log('Seeding is restricted for the production branch.');
+		process.exit(1);
+	}
+
 	await resetDatabase();
 
 	await createUsers();

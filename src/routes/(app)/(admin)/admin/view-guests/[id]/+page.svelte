@@ -80,7 +80,7 @@
 		padding: 1rem;
 		position: fixed;
 		right: 0;
-		z-index: 10;
+		z-index: 100;
 
 		&__header {
 			align-items: center;
