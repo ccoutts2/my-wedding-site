@@ -10,14 +10,14 @@ const schema = z
 	.object({
 		acceptance: z.string().min(1, 'Please select an option.'),
 		meal: z.enum(DietaryOptions).optional(),
-		allergies: z.string().optional(),
+		allergies: z.string(),
 		allergiesDescription: z.string().optional(),
-		music: z.string().optional(),
+		music: z.string(),
 		guestResponses: z
 			.object({
 				id: z.number(),
-				meal: z.enum(DietaryOptions).optional(),
 				acceptance: z.string().min(1, 'Please select an option.'),
+				meal: z.enum(DietaryOptions).optional(),
 				allergies: z.string().optional(),
 				allergiesDescription: z.string().optional(),
 				music: z.string().optional()
@@ -26,17 +26,19 @@ const schema = z
 	})
 	.superRefine((data, ctx) => {
 		if (data.acceptance === 'yes') {
-			if (!data.meal) {
+			if (!data.meal || data.meal === undefined) {
 				ctx.addIssue({
 					code: 'custom',
+					minimum: 1,
 					message: 'Please select a meal option.',
 					path: ['meal']
 				});
 			}
 
-			if (!data.allergies) {
+			if (!data.allergies || data.allergies === '') {
 				ctx.addIssue({
 					code: 'custom',
+					minimum: 1,
 					message: 'Please select an option.',
 					path: ['allergies']
 				});
@@ -112,7 +114,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
 	guestResponses = additionalGuests.map((guest) => ({
 		id: guest.id,
 		acceptance: '',
-		meal: DietaryOptions.MEAT,
+		meal: undefined,
 		allergies: '',
 		allergiesDescription: '',
 		music: ''
@@ -138,7 +140,7 @@ export const actions = {
 		if (!form.valid) {
 			return message(form, {
 				status: 'invalid',
-				text: 'Form was invalid. Please check the form for errors.'
+				text: 'Form could not be sent. Please fill in necessary fields.'
 			});
 		}
 
@@ -157,14 +159,16 @@ export const actions = {
 			});
 
 			for (const response of form.data.guestResponses) {
+				const isGuestAttending = response.acceptance === 'yes';
+
 				await prisma.guest.update({
 					where: { id: response.id },
 					data: {
-						isAccepted: response.acceptance === 'yes',
-						diet: response.meal,
-						hasAllergies: response.allergies === 'yes',
-						allergiesDescription: response.allergiesDescription,
-						musicSelection: response.music
+						isAccepted: isGuestAttending,
+						diet: isGuestAttending ? response.meal : null,
+						hasAllergies: isGuestAttending ? response.allergies === 'yes' : null,
+						allergiesDescription: isGuestAttending ? response.allergiesDescription : null,
+						musicSelection: isGuestAttending ? response.music : null
 					}
 				});
 			}

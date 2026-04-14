@@ -8,7 +8,7 @@ export const prisma = new PrismaClient();
 dotenv.config();
 
 async function createUsers() {
-	console.log('Createing users without guests');
+	console.log('Creating users without guests');
 
 	for (let i = 0; i < 100; i++) {
 		const user = users();
@@ -24,11 +24,11 @@ async function createUsers() {
 }
 
 async function createUsersWithGuests() {
-	console.log('Createing users with guests');
-	const guestCount = faker.number.int({ min: 1, max: 4 });
+	console.log('Creating users with guests');
 
 	for (let i = 0; i < 8; i++) {
 		const userData = users();
+		const guestCount = faker.number.int({ min: 1, max: 4 });
 
 		const user = await prisma.user.create({
 			data: {
@@ -49,9 +49,12 @@ async function createUsersWithGuests() {
 }
 
 const main = async () => {
-	const isProduction = process.env.VERCEL_ENV === 'production';
+	const isProduction =
+		process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
 
-	console.log(`\nCurrent environment is: ${process.env.NODE_ENV}`);
+	console.log(
+		`\nChecking environment: VERCEL_ENV=${process.env.VERCEL_ENV}, NODE_ENV=${process.env.NODE_ENV}`
+	);
 
 	if (isProduction) {
 		console.log('Seeding is restricted for the production branch.');

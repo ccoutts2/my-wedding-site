@@ -1,10 +1,10 @@
-import prisma from '$lib/server/prisma';
-import type { PageServerLoad } from './$types';
+import { GuestType } from '../../../../../generated/prisma/enums';
 import { message, superValidate } from 'sveltekit-superforms';
 import { type Actions } from '@sveltejs/kit';
-import { zod4 } from 'sveltekit-superforms/adapters';
 import { z } from 'zod/v4';
-import { GuestType } from '../../../../../generated/prisma/enums';
+import { zod4 } from 'sveltekit-superforms/adapters';
+import prisma from '$lib/server/prisma';
+import type { PageServerLoad } from './$types';
 
 const schema = z.object({
 	givenName: z.string().trim().min(1, 'You must enter a valid name.'),
@@ -73,7 +73,7 @@ export const actions = {
 							userId: user.id,
 							givenName: guest.givenName,
 							familyName: guest.familyName,
-							type: user.type,
+							type: guest.type,
 							isAccepted: false
 						}))
 					});

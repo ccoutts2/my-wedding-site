@@ -119,7 +119,6 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
 		}))
 	};
 
-	// Pass the initialData to superValidate
 	const form = await superValidate(initialData, zod4(schema), {
 		errors: false
 	});

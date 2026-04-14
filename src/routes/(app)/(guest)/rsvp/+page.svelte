@@ -2,7 +2,6 @@
 	import { superForm } from 'sveltekit-superforms';
 	import type { PageProps } from './$types';
 	import { DietaryOptions } from '../../../../generated/prisma/enums';
-
 	import RadioGroup from '$lib/components/form/RadioGroup/RadioGroup.svelte';
 	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
 	import Form from '$lib/components/form/Form.svelte';
@@ -53,7 +52,14 @@
 	</section>
 
 	<Form {enhance}>
-		<RadioGroup name="acceptance" legend="Are you joining us on our special day?">
+		{#if $message}
+			<p class="Error">{$message.text}</p>
+		{/if}
+		<RadioGroup
+			name="acceptance"
+			legend="Are you joining us on our special day?"
+			errors={$errors.acceptance}
+		>
 			<RadioGroupOption
 				label="Yes"
 				bind:group={$form.acceptance}
@@ -74,7 +80,11 @@
 
 		{#if $form.acceptance === 'yes'}
 			<div class="w-full {$form.acceptance !== 'yes' ? 'toggle-hide' : ''}">
-				<RadioGroup name="meal" legend="Please select your dietary requirements">
+				<RadioGroup
+					name="meal"
+					legend="Please select your dietary requirements"
+					errors={$errors.meal}
+				>
 					<RadioGroupOption
 						label="Meat"
 						bind:group={$form.meal}
@@ -98,7 +108,7 @@
 					/>
 				</RadioGroup>
 
-				<RadioGroup name="allergies" legend="Do you have any allergies?">
+				<RadioGroup name="allergies" legend="Do you have any allergies?" errors={$errors.allergies}>
 					<RadioGroupOption
 						label="Yes"
 						bind:group={$form.allergies}
@@ -134,102 +144,101 @@
 					errors={$errors.music}
 					bind:value={$form.music}
 				/>
-
-				{#each data.additionalGuests as guest, i}
-					<RadioGroup
-						name="acceptance[{i}]"
-						legend="Is {guest.givenName} joining us on our special day?"
-					>
-						<RadioGroupOption
-							label="Yes"
-							bind:group={$form.guestResponses[i].acceptance}
-							name="acceptance[{i}]"
-							id="acceptance-{i}-yes"
-							value="yes"
-							required={$form.guestResponses[i].acceptance === 'yes'}
-						/>
-						<RadioGroupOption
-							label="No"
-							bind:group={$form.guestResponses[i].acceptance}
-							name="acceptance[{i}]"
-							id="acceptance-{i}-no"
-							value="no"
-							required={$form.guestResponses[i].acceptance === 'yes'}
-						/>
-					</RadioGroup>
-
-					<RadioGroup
-						name="meal[{i}]"
-						legend="Please select {guest.givenName}'s dietary requirements"
-					>
-						<RadioGroupOption
-							label="Meat"
-							name="meal[{i}]"
-							id="meal-{i}-meat"
-							required={$form.guestResponses[i].acceptance === 'yes'}
-							value={DietaryOptions.MEAT}
-							bind:group={$form.guestResponses[i].meal}
-						/>
-						<RadioGroupOption
-							label="Vegetarian"
-							name="meal[{i}]"
-							id="meal-{i}-vegetarian"
-							required={$form.guestResponses[i].acceptance === 'yes'}
-							value={DietaryOptions.VEGETARIAN}
-							bind:group={$form.guestResponses[i].meal}
-						/>
-						<RadioGroupOption
-							label="Vegan"
-							name="meal[{i}]"
-							id="meal-{i}-vegan"
-							required={$form.guestResponses[i].acceptance === 'yes'}
-							value={DietaryOptions.VEGAN}
-							bind:group={$form.guestResponses[i].meal}
-						/>
-					</RadioGroup>
-
-					<RadioGroup name="allergies[{i}]" legend="Does {guest.givenName} have allergies?">
-						<RadioGroupOption
-							label="Yes"
-							bind:group={$form.guestResponses[i].allergies}
-							required={$form.guestResponses[i].acceptance === 'yes'}
-							name="allergies[{i}]"
-							id="allergies-{i}-yes"
-							value="yes"
-						/>
-						<RadioGroupOption
-							label="No"
-							bind:group={$form.guestResponses[i].allergies}
-							required={$form.guestResponses[i].acceptance === 'yes'}
-							name="allergies[{i}]"
-							id="allergies-{i}-no"
-							value="no"
-						/>
-					</RadioGroup>
-
-					<InputField
-						type="textarea"
-						name="allergies[{i}]-description"
-						id="allergies-{i}-description"
-						fieldName="allergies-{i}-description"
-						label="Let us know if {guest.givenName} has any further info on their allergies or specific dietary requirements (optional)"
-						errors={$errors.guestResponses?.[i].allergiesDescription as string[] | undefined}
-						bind:value={$form.guestResponses[i].allergiesDescription}
-					/>
-
-					<InputField
-						type="text"
-						name="music[{i}]"
-						id="music-{i}"
-						fieldName="music-{i}"
-						label="Their music choice for the DJs?"
-						errors={$errors.guestResponses?.[i].music as string[] | undefined}
-						required={$form.guestResponses[i].acceptance === 'yes'}
-						bind:value={$form.guestResponses[i].music}
-					/>
-				{/each}
 			</div>
 		{/if}
+		{#each data.additionalGuests as guest, i}
+			<RadioGroup
+				name="acceptance[{i}]"
+				legend="Is {guest.givenName} joining us on our special day?"
+				errors={$errors.guestResponses?.[i]?.acceptance}
+			>
+				<RadioGroupOption
+					label="Yes"
+					bind:group={$form.guestResponses[i].acceptance}
+					name="acceptance[{i}]"
+					id="acceptance-{i}-yes"
+					value="yes"
+				/>
+				<RadioGroupOption
+					label="No"
+					bind:group={$form.guestResponses[i].acceptance}
+					name="acceptance[{i}]"
+					id="acceptance-{i}-no"
+					value="no"
+				/>
+			</RadioGroup>
+
+			{#if $form.guestResponses[i].acceptance === 'yes'}
+				<RadioGroup
+					name="meal[{i}]"
+					legend="Please select {guest.givenName}'s dietary requirements"
+					errors={$errors.guestResponses?.[i]?.meal}
+				>
+					<RadioGroupOption
+						label="Meat"
+						name="meal[{i}]"
+						id="meal-{i}-meat"
+						value={DietaryOptions.MEAT}
+						bind:group={$form.guestResponses[i].meal}
+					/>
+					<RadioGroupOption
+						label="Vegetarian"
+						name="meal[{i}]"
+						id="meal-{i}-vegetarian"
+						value={DietaryOptions.VEGETARIAN}
+						bind:group={$form.guestResponses[i].meal}
+					/>
+					<RadioGroupOption
+						label="Vegan"
+						name="meal[{i}]"
+						id="meal-{i}-vegan"
+						value={DietaryOptions.VEGAN}
+						bind:group={$form.guestResponses[i].meal}
+					/>
+				</RadioGroup>
+
+				<RadioGroup
+					name="allergies[{i}]"
+					legend="Does {guest.givenName} have allergies?"
+					errors={$errors.guestResponses?.[i]?.allergies}
+				>
+					<RadioGroupOption
+						label="Yes"
+						bind:group={$form.guestResponses[i].allergies}
+						name="allergies[{i}]"
+						id="allergies-{i}-yes"
+						value="yes"
+					/>
+					<RadioGroupOption
+						label="No"
+						bind:group={$form.guestResponses[i].allergies}
+						name="allergies[{i}]"
+						id="allergies-{i}-no"
+						value="no"
+					/>
+				</RadioGroup>
+
+				<InputField
+					type="textarea"
+					name="allergies[{i}]-description"
+					id="allergies-{i}-description"
+					fieldName="allergies-{i}-description"
+					label="Let us know if {guest.givenName} has any further info on their allergies or specific dietary requirements (optional)"
+					bind:value={$form.guestResponses[i].allergiesDescription}
+				/>
+
+				<InputField
+					type="text"
+					name="music[{i}]"
+					id="music-{i}"
+					fieldName="music-{i}"
+					label="Their music choice for the DJs?"
+					errors={$errors.guestResponses?.[i]?.music}
+					bind:value={$form.guestResponses[i].music}
+				/>
+			{/if}
+		{/each}
+
 		{#if $form.acceptance === 'no'}
 			<div>
 				<p>Sad!</p>

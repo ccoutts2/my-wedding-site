@@ -20,9 +20,9 @@
 	<legend class="RadioGroup__legend"> {legend} </legend>
 
 	{#if errors}
-		<div class="RadioGroup__error" id="{name}-error-message">
+		<span class="Error" id="{name}-error-message">
 			{errors}
-		</div>
+		</span>
 	{/if}
 
 	<div class="RadioGroup__options">
@@ -35,23 +35,14 @@
 
 	.RadioGroup {
 		border: none;
-		display: flex;
-		flex-direction: column;
-		padding-block: 0.5rem;
+		padding-block: 0.75rem;
 		width: 100%;
 
 		&__legend {
 			color: grey;
 			font-size: 0.825rem;
-			padding-block: 0.5rem 0.25rem;
+			padding-top: 0.75rem;
 			width: 100%;
-		}
-
-		&__error {
-			color: variables.$color--input--border-error;
-			font-size: 0.75rem;
-			margin-bottom: 0.25rem;
-			font-weight: 500;
 		}
 
 		&[data-has-error] &__options {

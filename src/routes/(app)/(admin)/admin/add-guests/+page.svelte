@@ -155,6 +155,23 @@
 									autocomplete="family-name"
 								/>
 
+								<RadioGroup name="type[{i}]" legend="Day or Night guest">
+									<RadioGroupOption
+										label="Day"
+										id="type-{i}-day"
+										name="type[{i}]"
+										bind:group={$form.additionalGuests[i].type}
+										value={GuestType.DAY}
+									/>
+									<RadioGroupOption
+										label="Night"
+										id="type-{i}-night"
+										name="type[{i}]"
+										bind:group={$form.additionalGuests[i].type}
+										value={GuestType.NIGHT}
+									/>
+								</RadioGroup>
+
 								<button
 									type="button"
 									class="AddGuestToggle__deleteButton"

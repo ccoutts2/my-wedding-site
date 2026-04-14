@@ -1,16 +1,16 @@
 <script lang="ts">
 	import '$lib/styles/globals.css';
-	import { onNavigate } from '$app/navigation';
 	import { getContext, setContext } from 'svelte';
+	import { onNavigate } from '$app/navigation';
 	import { setPreloaderState } from '$lib/contexts/preloader.state.svelte.js';
 	import { setToastState } from '$lib/contexts/toast-state.svelte.js';
 	import favicon from '$lib/assets/favicon.svg';
+	import Footer from '$lib/components/layout/Footer.svelte';
 	import Header from '$lib/components/layout/Header.svelte';
 	import Overlay from '$lib/components/Overlay.svelte';
 	import Preloader from '$lib/components/Preloader.svelte';
 	import Toaster from '$lib/components/ui/toast/Toaster.svelte';
 	import type { OverlayProps } from '$lib/types';
-	import Footer from '$lib/components/layout/Footer.svelte';
 
 	onNavigate((navigation) => {
 		if (document.startViewTransition && navigation.from?.route.id !== navigation.to?.route.id) {
