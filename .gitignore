@@ -22,4 +22,7 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-/prisma/src/generated/prisma
+# Prisma generated files (platform-specific binaries)
+src/generated/prisma/*.node
+src/generated/prisma/*.dylib.node
+src/generated/prisma/*.so.node
