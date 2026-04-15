@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms';
 	import type { PageProps } from './$types';
-	import { DietaryOptions } from '../../../../generated/prisma/enums';
+	import { DietaryOptions, GuestType } from '../../../../generated/prisma/enums';
 	import RadioGroup from '$lib/components/form/RadioGroup/RadioGroup.svelte';
 	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
 	import Form from '$lib/components/form/Form.svelte';
@@ -57,7 +57,7 @@
 		{/if}
 		<RadioGroup
 			name="acceptance"
-			legend="Are you joining us on our special day?"
+			legend={`Are you joining us ${data.user.type === GuestType.DAY ? 'on our special day' : 'for the evening'} ?`}
 			errors={$errors.acceptance}
 		>
 			<RadioGroupOption
@@ -149,7 +149,7 @@
 		{#each data.additionalGuests as guest, i}
 			<RadioGroup
 				name="acceptance[{i}]"
-				legend="Is {guest.givenName} joining us on our special day?"
+				legend={`Is ${guest.givenName} joining us ${guest.type === GuestType.DAY ? 'on our special day' : 'for the evening'} ?`}
 				errors={$errors.guestResponses?.[i]?.acceptance}
 			>
 				<RadioGroupOption
@@ -172,7 +172,7 @@
 				<RadioGroup
 					name="meal[{i}]"
 					legend="Please select {guest.givenName}'s dietary requirements"
-					errors={$errors.guestResponses?.[i]?.meal}
+					errors={$errors.guestResponses?.[i]?.meal as string[]}
 				>
 					<RadioGroupOption
 						label="Meat"
@@ -200,7 +200,7 @@
 				<RadioGroup
 					name="allergies[{i}]"
 					legend="Does {guest.givenName} have allergies?"
-					errors={$errors.guestResponses?.[i]?.allergies}
+					errors={$errors.guestResponses?.[i]?.allergies as string[]}
 				>
 					<RadioGroupOption
 						label="Yes"
@@ -233,7 +233,7 @@
 					id="music-{i}"
 					fieldName="music-{i}"
 					label="Their music choice for the DJs?"
-					errors={$errors.guestResponses?.[i]?.music}
+					errors={$errors.guestResponses?.[i]?.music as string[]}
 					bind:value={$form.guestResponses[i].music}
 				/>
 			{/if}

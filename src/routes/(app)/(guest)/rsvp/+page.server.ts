@@ -140,7 +140,7 @@ export const actions = {
 		if (!form.valid) {
 			return message(form, {
 				status: 'invalid',
-				text: 'Form could not be sent. Please fill in necessary fields.'
+				text: 'Form could not be sent. Please fill in the necessary fields.'
 			});
 		}
 

@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { DietaryOptions } from '../../../../../../generated/prisma/enums';
 	import { getToastState } from '$lib/contexts/toast-state.svelte';
+	import { GuestType } from '../../../../../../generated/prisma/enums';
 	import { superForm } from 'sveltekit-superforms';
 	import Form from '$lib/components/form/Form.svelte';
 	import InputField from '$lib/components/form/InputField.svelte';
 	import PageLayout from '$lib/components/PageLayout.svelte';
 	import RadioGroup from '$lib/components/form/RadioGroup/RadioGroup.svelte';
 	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
-	import type { PageProps } from './$types';
 	import Subtitle from '$lib/components/Subtitle.svelte';
+	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 
@@ -53,7 +54,10 @@
 	</section>
 
 	<Form {enhance}>
-		<RadioGroup name="acceptance" legend="Are you joining us on our special day?">
+		<RadioGroup
+			name="acceptance"
+			legend={`Are you joining us ${data.user.type === GuestType.DAY ? 'on our special day' : 'for the evening'} ?`}
+		>
 			<RadioGroupOption
 				label="Yes"
 				bind:group={$form.acceptance}
@@ -138,7 +142,7 @@
 		{#each data.user.guest as guest, i}
 			<RadioGroup
 				name="acceptance[{i}]"
-				legend="Is {guest.givenName} joining us on our special day?"
+				legend={`Is ${guest.givenName} joining us ${guest.type === GuestType.DAY ? 'on our special day' : 'for the evening'} ?`}
 			>
 				<RadioGroupOption
 					label="Yes"
