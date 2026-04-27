@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import { getPreloaderState } from '$lib/contexts/preloader.state.svelte';
 	import type { PageProps } from './$types';
+	import { formatDistanceToNowStrict } from 'date-fns';
 
 	let hero: HTMLElement;
 	const timelineState = getPreloaderState();
@@ -61,6 +62,12 @@
 		<h1>
 			Aly and Chris would love <span class="italic">you</span> to join them on their special day
 		</h1>
+		<span class="Home__date"
+			>{formatDistanceToNowStrict(new Date(2027, 2, 27), {
+				unit: 'day',
+				roundingMethod: 'ceil'
+			})} to go</span
+		>
 	</header>
 	<div class="Home__hero">
 		<figure class="Home__heroImgContainer" bind:this={hero}>
@@ -164,6 +171,7 @@
 		&__header {
 			align-items: center;
 			display: flex;
+			flex-direction: column;
 			justify-content: center;
 			padding-bottom: min(180rem, 15vh);
 			padding-inline: 1rem;
@@ -172,6 +180,11 @@
 			h1 {
 				font-size: clamp(1.25rem, 2.5vw, 4rem);
 			}
+		}
+
+		&__date {
+			font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+			padding-top: 2rem;
 		}
 
 		&__hero {
