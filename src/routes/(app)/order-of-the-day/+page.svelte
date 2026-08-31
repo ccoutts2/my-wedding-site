@@ -12,53 +12,49 @@
 	/>
 </svelte:head>
 
-<PageLayout title="Order of the Day">
+<PageLayout title="Order of Events">
 	<Section state="right-aligned">
 		<h2>What to look forward to!</h2>
 		<article class="Schedule">
 			<Subtitle as="h3">Friday</Subtitle>
 			<div class="Schedule__information">
-				<p>
-					We have organised an evening for people to get together the night before the aye do's.
-					Please come along to Indigo Yard and join us for food and drinks.
-				</p>
-				<dl>
-					<dt>When</dt>
-					<dd><time datetime="2027-03-07">26th March</time></dd>
-					<dt>Time</dt>
-					<dd><time datetime="18:00">6pm</time></dd>
-				</dl>
+				<p>Get together at the The Hoxton lobby bar.</p>
+				<p>TBC on timings.</p>
 			</div>
 		</article>
 		<article class="Schedule">
 			<Subtitle as="h3">Saturday</Subtitle>
 			<section class="Schedule__information">
 				<h3>Guest Arrival</h3>
-				<p class="Schedule__time"><time datetime="12:30">12.30pm</time></p>
+				<p class="Schedule__time"><time datetime="13:30">1.30pm</time></p>
 			</section>
 			<section class="Schedule__information">
-				<h3>Ceremony</h3>
-				<p class="Schedule__time"><time datetime="13:00">1pm</time></p>
+				<h3>We Do</h3>
+				<p class="Schedule__time"><time datetime="14:00">2pm</time></p>
 			</section>
 			<section class="Schedule__information">
-				<h3>Reception and Canapés</h3>
-				<p class="Schedule__time"><time datetime="13:00">1.45pm</time></p>
+				<h3>We Drink</h3>
+				<p class="Schedule__time"><time datetime="14:45">2.45pm</time></p>
 			</section>
 			<section class="Schedule__information">
-				<h3>Call to Dinner and Speeches</h3>
-				<p class="Schedule__time"><time datetime="16:00">4pm</time></p>
+				<h3>Call to Dinner</h3>
+				<p class="Schedule__time"><time datetime="16:30">4.30pm</time></p>
 			</section>
 			<section class="Schedule__information">
-				<h3>Dinner Service</h3>
-				<p class="Schedule__time"><time datetime="16:45">4.45pm</time></p>
+				<h3>We Eat</h3>
+				<p class="Schedule__time"><time datetime="17:00">5pm</time></p>
 			</section>
 			<section class="Schedule__information">
 				<h3>Evening Guest Arrival</h3>
-				<p class="Schedule__time"><time datetime="19:00">7pm</time></p>
+				<p class="Schedule__time"><time datetime="19:30">7.30pm</time></p>
 			</section>
 			<section class="Schedule__information">
-				<h3>Dancing!</h3>
-				<p class="Schedule__time"><time datetime="19:00">7.15pm</time></p>
+				<h3>We Party</h3>
+				<p class="Schedule__time"><time datetime="20:00">8pm</time></p>
+			</section>
+			<section class="Schedule__information">
+				<h3>Carriages</h3>
+				<p class="Schedule__time"><time datetime="24:00">12am</time></p>
 			</section>
 		</article>
 	</Section>

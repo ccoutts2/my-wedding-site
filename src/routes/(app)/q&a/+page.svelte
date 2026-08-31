@@ -16,13 +16,13 @@
 	<Section state="centered">
 		<div class="QandAContainer">
 			<Subtitle as="h2">When is the deadline to RSVP</Subtitle>
-			<p>Please RSVP by 27th November</p>
+			<p>Please RSVP by 31st November</p>
 		</div>
 		<div class="QandAContainer">
 			<Subtitle as="h2">Are kids welcome?</Subtitle>
 			<p>
-				As much as we would love to include your little ones, we unfortunately are only able to
-				accommodate nursing babies. Please reach out to us if this would apply to you :)
+				Our wedding is child free with the exception of family. We hope you understand and take the
+				opportunity to let your hair down!
 			</p>
 		</div>
 		<div class="QandAContainer">
@@ -34,7 +34,7 @@
 		</div>
 		<div class="QandAContainer">
 			<Subtitle as="h2">What should I wear?</Subtitle>
-			<p>Please see our Schedule for the dress code!</p>
+			<p>Please come in whatever you fancy, just make sure to bring your dancing shoes!</p>
 		</div>
 		<div class="QandAContainer">
 			<Subtitle as="h2">Can we take pictures/videos during the wedding?</Subtitle>
@@ -42,6 +42,10 @@
 				Yes! We would love for you to take photos and share them with us! However, we would kindly
 				request that you refrain from taking photos during the ceremony.
 			</p>
+		</div>
+		<div class="QandAContainer">
+			<Subtitle as="h2">If we have a problem on the day, who do we contact?</Subtitle>
+			<p>Sonja Tait, at the Hoxton Hotel on <a href="tel:+447570689042">07570689042</a></p>
 		</div>
 	</Section>
 </PageLayout>

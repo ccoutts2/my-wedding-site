@@ -1,4 +1,4 @@
-import { DietaryOptions } from '../../../../../../generated/prisma/enums';
+import { DietaryOptions, GuestType } from '../../../../../../generated/prisma/enums';
 import { message, superValidate } from 'sveltekit-superforms';
 import { redirect, type Actions } from '@sveltejs/kit';
 import { z } from 'zod/v4';
@@ -6,79 +6,62 @@ import { zod4 } from 'sveltekit-superforms/adapters';
 import prisma from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 
-const schema = z
-	.object({
-		acceptance: z.string().min(1, 'Please select an option.'),
-		meal: z.enum(DietaryOptions).optional(),
-		allergies: z.string().optional(),
-		allergiesDescription: z.string().optional(),
-		music: z.string().optional(),
-		guestResponses: z
-			.object({
-				id: z.number(),
-				meal: z.enum(DietaryOptions).optional(),
-				acceptance: z.string().min(1, 'Please select an option.'),
-				allergies: z.string().optional(),
-				allergiesDescription: z.string().optional(),
-				music: z.string().optional()
-			})
-			.array()
-	})
-	.superRefine((data, ctx) => {
-		if (data.acceptance === 'yes') {
-			if (!data.meal) {
-				ctx.addIssue({
-					code: 'custom',
-					message: 'Please select a meal option.',
-					path: ['meal']
-				});
-			}
-
-			if (!data.allergies) {
-				ctx.addIssue({
-					code: 'custom',
-					message: 'Please select an option.',
-					path: ['allergies']
-				});
-			}
-
-			if (!data.music) {
-				ctx.addIssue({
-					code: 'custom',
-					message: 'Please tell us!',
-					path: ['music']
-				});
-			}
-		}
-
-		data.guestResponses.map((guest, i) => {
-			if (guest.acceptance === 'yes') {
-				if (!guest.meal) {
+const buildSchema = (userType: GuestType, guestTypesById: Map<number, GuestType>) =>
+	z
+		.object({
+			acceptance: z.string().min(1, 'Please select an option.'),
+			meal: z.enum(DietaryOptions).optional(),
+			allergies: z.string().optional(),
+			allergiesDescription: z.string().optional(),
+			guestResponses: z
+				.object({
+					id: z.number(),
+					meal: z.enum(DietaryOptions).optional(),
+					acceptance: z.string().min(1, 'Please select an option.'),
+					allergies: z.string().optional(),
+					allergiesDescription: z.string().optional()
+				})
+				.array()
+		})
+		.superRefine((data, ctx) => {
+			if (data.acceptance === 'yes' && userType === GuestType.DAY) {
+				if (!data.meal) {
 					ctx.addIssue({
 						code: 'custom',
 						message: 'Please select a meal option.',
-						path: ['guestResponses', i, 'meal']
+						path: ['meal']
 					});
 				}
 
-				if (!guest.allergies) {
+				if (!data.allergies) {
 					ctx.addIssue({
 						code: 'custom',
 						message: 'Please select an option.',
-						path: ['guestResponses', i, 'allergies']
-					});
-				}
-
-				if (!guest.music) {
-					ctx.addIssue({
-						code: 'custom',
-						message: 'Please tell us!',
-						path: ['guestResponses', i, 'music']
+						path: ['allergies']
 					});
 				}
 			}
+
+			data.guestResponses.map((guest, i) => {
+				if (guest.acceptance === 'yes' && guestTypesById.get(guest.id) === GuestType.DAY) {
+					if (!guest.meal) {
+						ctx.addIssue({
+							code: 'custom',
+							message: 'Please select a meal option.',
+							path: ['guestResponses', i, 'meal']
+						});
+					}
+
+					if (!guest.allergies) {
+						ctx.addIssue({
+							code: 'custom',
+							message: 'Please select an option.',
+							path: ['guestResponses', i, 'allergies']
+						});
+					}
+				}
+			});
 		});
-	});
 
 export const load: PageServerLoad = async ({ cookies, params }) => {
 	const email = cookies.get('user_email');
@@ -107,17 +90,18 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
 		meal: user.diet ?? undefined,
 		allergies: user.hasAllergies === true ? 'yes' : user.hasAllergies === false ? 'no' : '',
 		allergiesDescription: user.allergiesDescription ?? '',
-		music: user.musicSelection ?? '',
 
 		guestResponses: user.guest.map((guest) => ({
 			id: guest.id,
 			acceptance: guest.isAccepted === true ? 'yes' : guest.isAccepted === false ? 'no' : '',
 			meal: guest.diet ?? undefined,
 			allergies: guest.hasAllergies === true ? 'yes' : guest.hasAllergies === false ? 'no' : '',
-			allergiesDescription: guest.allergiesDescription ?? '',
-			music: guest.musicSelection ?? ''
+			allergiesDescription: guest.allergiesDescription ?? ''
 		}))
 	};
+
+	const guestTypesById = new Map(user.guest.map((guest) => [guest.id, guest.type]));
+	const schema = buildSchema(user.type, guestTypesById);
 
 	const form = await superValidate(initialData, zod4(schema), {
 		errors: false
@@ -131,8 +115,21 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
 
 export const actions = {
 	default: async ({ request, cookies }) => {
-		const form = await superValidate(request, zod4(schema));
 		const email = cookies.get('user_email');
+
+		const user = await prisma.user.findUnique({
+			where: { email: email },
+			include: { guest: true }
+		});
+
+		if (!user) {
+			const form = await superValidate(request, zod4(buildSchema(GuestType.DAY, new Map())));
+			return message(form, { status: 'error', text: 'User not found.' }, { status: 404 });
+		}
+
+		const guestTypesById = new Map(user.guest.map((guest) => [guest.id, guest.type]));
+		const schema = buildSchema(user.type, guestTypesById);
+		const form = await superValidate(request, zod4(schema));
 
 		if (!form.valid) {
 			return message(form, {
@@ -142,15 +139,6 @@ export const actions = {
 		}
 
 		try {
-			const user = await prisma.user.findUnique({
-				where: { email: email },
-				include: { guest: true }
-			});
-
-			if (!user) {
-				return message(form, { status: 'error', text: 'User not found.' }, { status: 404 });
-			}
-
 			const validGuestIds = new Set(user.guest.map((g) => g.id));
 
 			const userIsAttending = form.data.acceptance === 'yes';
@@ -162,8 +150,7 @@ export const actions = {
 					isAccepted: userIsAttending,
 					diet: userIsAttending ? form.data.meal : null,
 					hasAllergies: userIsAttending ? form.data.allergies === 'yes' : null,
-					allergiesDescription: userIsAttending ? form.data.allergiesDescription : null,
-					musicSelection: form.data.music
+					allergiesDescription: userIsAttending ? form.data.allergiesDescription : null
 				}
 			});
 
@@ -180,8 +167,7 @@ export const actions = {
 						isAccepted: isGuestAttending,
 						diet: isGuestAttending ? response.meal : null,
 						hasAllergies: isGuestAttending ? response.allergies === 'yes' : null,
-						allergiesDescription: isGuestAttending ? response.allergiesDescription : null,
-						musicSelection: response.music
+						allergiesDescription: isGuestAttending ? response.allergiesDescription : null
 					}
 				});
 			}

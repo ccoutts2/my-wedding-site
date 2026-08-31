@@ -84,16 +84,20 @@
 		<Subtitle as="h2">When & Where</Subtitle>
 		<TextColumn>
 			<p>
-				We can't wait to welcome you to The Hoxton, Edinburgh. Nestled within a row of beautifully
-				restored Georgian townhouses, the celebrations will take place in the heart of the city's
-				historic West End.
+				We can't wait to welcome you to our favourite city, Edinburgh. The ceremony, dinner and
+				evening party will all take place at the Hoxton Hotel on <strong
+					><time datetime="2027-03-27T15:00">Saturday March 27th 2027</time></strong
+				>.
 			</p>
 			<p>
-				Located just a short stroll from Haymarket Station and the iconic Edinburgh Castle, the
-				hotel offers the perfect backdrop for our "I dos." Please join us on the The celebrations
-				will begin on
-				<strong><time datetime="2027-03-27T15:00">Saturday, March 27th, 2027</time></strong>
-				at 3:00 PM to celebrate with us.
+				If you wish, please join us in the hotel lobby bar on Friday 26th March for a little evening
+				get together (nothing wild!), timings TBC.
+			</p>
+
+			<p>
+				5-21 Grosvenor St <br />
+				Edinburgh <br />
+				EH12 5EF
 			</p>
 			<div class="Grid">
 				<GridItem
@@ -122,26 +126,20 @@
 		<Subtitle as="h2">Travel and Stay</Subtitle>
 		<TextColumn>
 			<p>
-				For anyone wishing to stay right in the heart of the action with us... The hotel is set
-				across 11 beautiful Georgian townhouses and features a buzzing lobby, an Italian restaurant
-				(Patatino), and even a small cinema.
+				The Hoxton is in the city’s West End, a 3 minute walk from Haymarket train station or a 5
+				minute train/tram Westbound from Edinburgh Waverley. The Haymarket tram stop around the
+				corner offers a 25 minute direct tram to Edinburgh airport main terminal.
 			</p>
 			<p>
-				We have secured a 10% discount for our wedding guests staying at the hotel. If you'd like to
-				stay at The Hoxton, please reach out to us directly. We will send over a unique discount
-				code for you to use when booking your room on the hotel website.
+				For anyone wishing to stay right in the heart of the action with us, the hotel features
+				comfortable and stylish rooms (some a little cosy!), bar and lobby, Italian restaurant, and
+				even a small cinema!
 			</p>
 			<p>
-				The Hoxton is located in Edinburgh's West End, making it incredibly easy to reach whether
-				you are traveling by train, plane, or tram.
-			</p>
-			<p>
-				The hotel is just a 3-minute walk from Haymarket Station. If you arrive at Edinburgh
-				Waverley, it's a quick 5-minute hop on any westbound train or tram.
-			</p>
-			<p>
-				The Haymarket Tram Stop is just around the corner, offering a direct 20-minute link from
-				Edinburgh Airport.
+				It is in the city centre and being a restored listed building, some may find that they would
+				like more space and peace and wish to stay elsewhere. Edinburgh is not short on
+				accommodation, however our wedding falls on Easter bank holiday so we recommend booking
+				soon.
 			</p>
 		</TextColumn>
 	</Section>

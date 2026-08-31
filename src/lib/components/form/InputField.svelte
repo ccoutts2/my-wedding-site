@@ -92,5 +92,11 @@
 				box-shadow: 0 0 0 2px rgba(variables.$color--input--border-error, 0.1);
 			}
 		}
+
+		:global([data-route-layout='auth']) & {
+			.Field__label {
+				color: variables.$color--auth--label;
+			}
+		}
 	}
 </style>

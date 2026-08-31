@@ -39,5 +39,10 @@
 		@include breakpoints.tablet {
 			max-width: 12.5rem;
 		}
+
+		:global([data-route-layout='auth']) & {
+			background-color: variables.$color--auth--foreground;
+			color: variables.$color--auth--background;
+		}
 	}
 </style>

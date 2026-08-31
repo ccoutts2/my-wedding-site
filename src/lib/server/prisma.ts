@@ -6,9 +6,9 @@ const globalForPrisma = globalThis as unknown as {
 	prisma: PrismaClient | undefined;
 };
 
-const adapter = new PrismaNeon({ connectionString: DATABASE_URL });
-
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({ adapter });
+export const prisma =
+	globalForPrisma.prisma ??
+	new PrismaClient({ adapter: new PrismaNeon({ connectionString: DATABASE_URL }) });
 
 globalForPrisma.prisma = prisma;
 

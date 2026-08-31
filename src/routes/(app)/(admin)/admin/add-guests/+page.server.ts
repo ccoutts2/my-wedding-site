@@ -4,6 +4,7 @@ import { type Actions } from '@sveltejs/kit';
 import { z } from 'zod/v4';
 import { zod4 } from 'sveltekit-superforms/adapters';
 import prisma from '$lib/server/prisma';
+import { Prisma } from '@prisma/client';
 import type { PageServerLoad } from './$types';
 
 const schema = z.object({
@@ -40,19 +41,6 @@ export const actions = {
 			});
 		}
 
-		const emailCheck = await prisma.user.findUnique({
-			where: {
-				email: form.data.email
-			}
-		});
-
-		if (emailCheck) {
-			return message(form, {
-				status: 'error',
-				text: 'Email is already registered. Please enter a different email. '
-			});
-		}
-
 		try {
 			await prisma.$transaction(async (tx) => {
 				const user = await tx.user.create({
@@ -81,6 +69,13 @@ export const actions = {
 			});
 		} catch (error) {
 			console.log(error);
+
+			if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+				return message(form, {
+					status: 'error',
+					text: 'Email is already registered. Please enter a different email.'
+				});
+			}
 
 			return message(
 				form,

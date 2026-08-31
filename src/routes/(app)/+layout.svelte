@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '$lib/styles/globals.css';
-	import { getContext, setContext } from 'svelte';
+	import { setContext } from 'svelte';
 	import { onNavigate } from '$app/navigation';
 	import { setPreloaderState } from '$lib/contexts/preloader.state.svelte.js';
 	import { setToastState } from '$lib/contexts/toast-state.svelte.js';

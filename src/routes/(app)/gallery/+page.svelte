@@ -56,12 +56,12 @@
 				span={4}
 			/>
 			<GridItem
-				src={assetsConfig[1].src}
-				alt={assetsConfig[1].alt}
-				width={assetsConfig[1].width}
-				height={assetsConfig[1].height}
-				col={8}
-				span={3}
+				src={assetsConfig[12].src}
+				alt={assetsConfig[12].alt}
+				width={assetsConfig[12].width}
+				height={assetsConfig[12].height}
+				col={7}
+				span={5}
 			/>
 
 			<GridItem
@@ -92,28 +92,28 @@
 				span={4}
 			/>
 			<GridItem
-				src={assetsConfig[3].src}
-				alt={assetsConfig[3].alt}
-				width={assetsConfig[3].width}
-				height={assetsConfig[3].height}
+				src={assetsConfig[21].src}
+				alt={assetsConfig[21].alt}
+				width={assetsConfig[21].width}
+				height={assetsConfig[21].height}
 				col={8}
 				span={5}
 			/>
 		</div>
 		<div class="Grid">
 			<GridItem
-				src={assetsConfig[6].src}
-				alt={assetsConfig[6].alt}
-				width={assetsConfig[6].width}
-				height={assetsConfig[6].height}
-				col={1}
+				src={assetsConfig[10].src}
+				alt={assetsConfig[10].alt}
+				width={assetsConfig[10].width}
+				height={assetsConfig[10].height}
+				col={10}
 				span={3}
 			/>
 			<GridItem
-				src={assetsConfig[7].src}
-				alt={assetsConfig[7].alt}
-				width={assetsConfig[7].width}
-				height={assetsConfig[7].height}
+				src={assetsConfig[20].src}
+				alt={assetsConfig[20].alt}
+				width={assetsConfig[20].width}
+				height={assetsConfig[20].height}
 				col={3}
 				span={4}
 			/>
@@ -123,7 +123,7 @@
 				width={assetsConfig[8].width}
 				height={assetsConfig[8].height}
 				col={6}
-				span={8}
+				span={4}
 			/>
 			<GridItem
 				src={assetsConfig[9].src}
@@ -132,6 +132,82 @@
 				height={assetsConfig[9].height}
 				col={9}
 				span={11}
+			/>
+		</div>
+		<div class="Grid">
+			<GridItem
+				src={assetsConfig[13].src}
+				alt={assetsConfig[13].alt}
+				width={assetsConfig[13].width}
+				height={assetsConfig[13].height}
+				col={1}
+				span={5}
+			/>
+			<GridItem
+				src={assetsConfig[14].src}
+				alt={assetsConfig[14].alt}
+				width={assetsConfig[14].width}
+				height={assetsConfig[14].height}
+				col={9}
+				span={3}
+			/>
+			<GridItem
+				src={assetsConfig[15].src}
+				alt={assetsConfig[15].alt}
+				width={assetsConfig[15].width}
+				height={assetsConfig[15].height}
+				col={2}
+				span={4}
+			/>
+			<GridItem
+				src={assetsConfig[19].src}
+				alt={assetsConfig[19].alt}
+				width={assetsConfig[19].width}
+				height={assetsConfig[19].height}
+				col={9}
+				span={11}
+			/>
+		</div>
+		<div class="Grid">
+			<GridItem
+				src={assetsConfig[22].src}
+				alt={assetsConfig[22].alt}
+				width={assetsConfig[22].width}
+				height={assetsConfig[22].height}
+				col={1}
+				span={5}
+			/>
+			<GridItem
+				src={assetsConfig[23].src}
+				alt={assetsConfig[23].alt}
+				width={assetsConfig[23].width}
+				height={assetsConfig[23].height}
+				col={8}
+				span={4}
+			/>
+			<GridItem
+				src={assetsConfig[25].src}
+				alt={assetsConfig[25].alt}
+				width={assetsConfig[25].width}
+				height={assetsConfig[25].height}
+				col={1}
+				span={4}
+			/>
+			<GridItem
+				src={assetsConfig[28].src}
+				alt={assetsConfig[28].alt}
+				width={assetsConfig[28].width}
+				height={assetsConfig[28].height}
+				col={9}
+				span={11}
+			/>
+			<GridItem
+				src={assetsConfig[29].src}
+				alt={assetsConfig[29].alt}
+				width={assetsConfig[29].width}
+				height={assetsConfig[29].height}
+				col={2}
+				span={4}
 			/>
 		</div>
 	</section>

@@ -74,7 +74,7 @@
 			/>
 		</RadioGroup>
 
-		{#if $form.acceptance === 'yes'}
+		{#if $form.acceptance === 'yes' && data.user.type === GuestType.DAY}
 			<div class="w-full {$form.acceptance !== 'yes' ? 'toggle-hide' : ''}">
 				<RadioGroup name="meal" legend="Please select your dietary requirements">
 					<RadioGroupOption
@@ -126,16 +126,6 @@
 					errors={$errors.allergiesDescription}
 					bind:value={$form.allergiesDescription}
 				/>
-
-				<InputField
-					type="text"
-					name="music"
-					id="music"
-					fieldName="music"
-					label="Music choice for the DJs?"
-					errors={$errors.music}
-					bind:value={$form.music}
-				/>
 			</div>
 		{/if}
 
@@ -161,7 +151,7 @@
 					required={$form.guestResponses[i].acceptance === 'yes'}
 				/>
 			</RadioGroup>
-			{#if $form.guestResponses[i].acceptance === 'yes'}
+			{#if $form.guestResponses[i].acceptance === 'yes' && guest.type === GuestType.DAY}
 				<div class="w-full {$form.guestResponses[i].acceptance !== 'yes' ? 'toggle-hide' : ''}">
 					<RadioGroup
 						name="meal[{i}]"
@@ -220,17 +210,6 @@
 						label="Let us know if {guest.givenName} has any further info on their allergies or specific dietary requirements (optional)"
 						errors={$errors.guestResponses?.[i]?.allergiesDescription as string[] | undefined}
 						bind:value={$form.guestResponses[i].allergiesDescription}
-					/>
-
-					<InputField
-						type="text"
-						name="music[{i}]"
-						id="music-{i}"
-						fieldName="music-{i}"
-						label="Their music choice for the DJs?"
-						errors={$errors.guestResponses?.[i]?.music as string[] | undefined}
-						required={$form.guestResponses[i].acceptance === 'yes'}
-						bind:value={$form.guestResponses[i].music}
 					/>
 				</div>
 			{/if}

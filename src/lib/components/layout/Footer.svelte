@@ -68,7 +68,7 @@
 					{/each}
 				{/if}
 			</ul>
-			<UserResponseCard {person} />
+			<UserResponseCard {person} footer={true} />
 		{:else}
 			<p>Please <a href="/rsvp">RSVP</a>.</p>
 		{/if}

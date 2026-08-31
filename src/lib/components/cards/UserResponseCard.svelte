@@ -1,14 +1,20 @@
 <script lang="ts">
-	let { person }: { person: any } = $props();
+	import { GuestType } from "../../../generated/prisma/enums";
+
+	let { person, footer = false }: { person: any, footer?: boolean } = $props();
 </script>
 
 <article class="UserResponseCard">
 	{#if person.isAccepted}
 		<h4>Answered:</h4>
 		<ul>
-			<li>Diet: {person.diet ? person.diet.toLowerCase() : 'Not specified'}</li>
-			<li>Allergies: {person.hasAllergies ? 'Yes' : 'No'}</li>
-			<li>Music Choice: {person.musicSelection || 'Not specified'}</li>
+			{#if footer}
+				<li>Coming: {person.isAccepted ? 'Yes' : 'No' }</li>
+			{/if}
+			{#if person.type === GuestType.DAY}
+				<li>Diet: {person.diet ? person.diet.toLowerCase() : 'Not specified'}</li>
+				<li>Allergies: {person.hasAllergies ? 'Yes' : 'No'}</li>
+			{/if}
 		</ul>
 	{:else}
 		<h4>Changed your mind?</h4>

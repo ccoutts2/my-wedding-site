@@ -1,5 +1,6 @@
 import type { PageServerLoad } from './$types';
 import prisma from '$lib/server/prisma';
+import { error } from '@sveltejs/kit';
 import { GuestType } from '../../../../../../../generated/prisma/enums';
 import { zod4 } from 'sveltekit-superforms/adapters';
 import { z } from 'zod/v4';
@@ -35,7 +36,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	});
 
 	if (!user) {
-		throw Error('User not found');
+		error(404, 'User not found');
 	}
 
 	const additionalGuestsData = user.guest.map((guest) => ({
@@ -117,6 +118,23 @@ export const actions = {
 		}
 
 		try {
+			const user = await prisma.user.findUnique({
+				where: { id: userId },
+				include: { guest: true }
+			});
+
+			if (!user) {
+				return message(form, { status: 'error', text: 'User not found.' }, { status: 404 });
+			}
+
+			const validGuestIds = new Set(user.guest.map((g) => g.id));
+
+			for (const guest of form.data.additionalGuests) {
+				if (!validGuestIds.has(guest.id)) {
+					return message(form, { status: 'error', text: 'Invalid guest.' }, { status: 403 });
+				}
+			}
+
 			for (const guest of form.data.additionalGuests) {
 				await prisma.guest.update({
 					where: {

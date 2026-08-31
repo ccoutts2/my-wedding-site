@@ -1,5 +1,5 @@
 import prisma from '$lib/server/prisma';
-import { redirect, type Actions } from '@sveltejs/kit';
+import { error, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { fail } from 'sveltekit-superforms';
 
@@ -16,7 +16,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	});
 
 	if (!user) {
-		throw Error('User not found');
+		error(404, 'User not found');
 	}
 
 	return {
@@ -53,7 +53,8 @@ export const actions = {
 		throw redirect(302, '/admin/view-guests');
 	},
 
-	deleteGuest: async ({ request }) => {
+	deleteGuest: async ({ request, params }) => {
+		const userId = params.id;
 		const formData = await request.formData();
 		const guestIdFromForm = formData.get('guestId');
 
@@ -64,6 +65,12 @@ export const actions = {
 		const guestId = parseInt(guestIdFromForm, 10);
 
 		try {
+			const guest = await prisma.guest.findUnique({ where: { id: guestId } });
+
+			if (!guest || guest.userId !== userId) {
+				return fail(403, { text: 'Guest does not belong to this user.' });
+			}
+
 			await prisma.guest.delete({
 				where: { id: guestId }
 			});
