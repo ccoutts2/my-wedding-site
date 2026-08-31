@@ -53,16 +53,6 @@
 					</li>
 				</ul>
 			</nav>
-
-			{#if user}
-				<section class="flex-col">
-					<Subtitle as="h3"
-						>You're {user.isAccepted ? 'coming' : 'not coming'}, {user.givenName}</Subtitle
-					>
-
-					<UserResponseCard person={user} />
-				</section>
-			{/if}
 		</div>
 
 		<GridItem
