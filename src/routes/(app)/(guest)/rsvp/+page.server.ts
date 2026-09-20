@@ -120,18 +120,28 @@ export const actions = {
 	default: async ({ request, cookies }) => {
 		const email = cookies.get('user_email');
 
-		const user = await prisma.user.findUnique({
-			where: { email },
-			include: { guest: true }
-		});
+		let user, form;
 
-		if (!user) {
-			const form = await superValidate(request, zod4(buildSchema()));
-			return message(form, { status: 'error', text: 'User not found.' }, { status: 404 });
+		try {
+			user = await prisma.user.findUnique({
+				where: { email },
+				include: { guest: true }
+			});
+
+			form = await superValidate(request, zod4(buildSchema()));
+		} catch (error) {
+			console.log(error);
+			const fallbackForm = await superValidate(zod4(buildSchema()));
+			return message(
+				fallbackForm,
+				{ status: 'error', text: 'Something went wrong. Please try again.' },
+				{ status: 500 }
+			);
 		}
 
-		const schema = buildSchema();
-		const form = await superValidate(request, zod4(schema));
+		if (!user) {
+			return message(form, { status: 'error', text: 'User not found.' }, { status: 404 });
+		}
 
 		if (!form.valid) {
 			return message(form, {
