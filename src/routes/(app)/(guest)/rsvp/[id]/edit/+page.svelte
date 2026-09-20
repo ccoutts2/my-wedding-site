@@ -10,6 +10,7 @@
 	import RadioGroupOption from '$lib/components/form/RadioGroup/RadioGroupOption.svelte';
 	import Subtitle from '$lib/components/Subtitle.svelte';
 	import type { PageProps } from './$types';
+	import { goto } from '$app/navigation';
 
 	let { data }: PageProps = $props();
 
@@ -20,10 +21,15 @@
 		dataType: 'json',
 		resetForm: false,
 		errorSelector: '[aria-invalid="true"]',
+		invalidateAll: false,
 		onUpdated({ form }) {
 			if (form.valid) {
 				if ($message?.text && $message?.status) {
 					toastState.add($message.status, $message.text, $message.status);
+
+					if ($message.status === 'success') {
+						goto('/');
+					}
 				}
 			}
 		}

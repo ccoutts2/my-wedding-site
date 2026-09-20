@@ -9,6 +9,7 @@
 	import InputField from '$lib/components/form/InputField.svelte';
 	import { getToastState } from '$lib/contexts/toast-state.svelte';
 	import Subtitle from '$lib/components/Subtitle.svelte';
+	import { goto } from '$app/navigation';
 
 	let { data }: PageProps = $props();
 
@@ -18,10 +19,15 @@
 		scrollToError: 'smooth',
 		dataType: 'json',
 		errorSelector: '[aria-invalid="true"]',
+		invalidateAll: false,
 		onUpdated({ form }) {
 			if (form.valid) {
 				if ($message?.text && $message?.status) {
 					toastState.add($message.status, $message.text, $message.status);
+
+					if ($message.status === 'success') {
+						goto('/');
+					}
 				}
 			}
 		}
@@ -39,7 +45,7 @@
 		{#if data.user.type === GuestType.DAY}
 			<p class="RSVP__text">Please use the form below to RSVP.</p>
 			{:else}
-			<p class="RSVP__text">Please use the form below to RSVP for the evening of our wedding.</p>
+			<p class="RSVP__text">Please use the form below to RSVP for the evening of our wedding, on Saturday 27th March 27 from 7.30pm onwards.</p>
 			<p class="RSVP__text">	We hope to see you on the dance floor! We'll welcome you with a cocktail to get the party going!</p>
 		{/if}
 		{#if data.user.hasGuests}
@@ -229,7 +235,7 @@
 		{#if $form.acceptance === 'no'}
 			<div>
 				<p>Sad!</p>
-				<p>If your plans change please fill in the form again. You have until the 31st November to RSVP.</p>
+				<p>If your plans change please fill in the form again. You have until the 30th November to RSVP.</p>
 			</div>
 		{/if}
 	</Form>

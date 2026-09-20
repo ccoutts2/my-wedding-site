@@ -36,6 +36,7 @@
 
 	const url = $derived(data.page);
 	const adminUser = $derived(data.adminUser);
+	const user = $derived(data.user);
 
 	$effect(() => {
 		if (overlayState.isMenuOpen) {
@@ -52,7 +53,7 @@
 
 <Toaster />
 <Preloader />
-<Header {adminUser} {url} />
+<Header {adminUser} {url} {user} />
 
 <div inert={overlayState.isMenuOpen}>
 	{@render children?.()}

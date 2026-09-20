@@ -8,6 +8,7 @@
 	import { getPreloaderState } from '$lib/contexts/preloader.state.svelte';
 	import type { PageProps } from './$types';
 	import { formatDistanceToNowStrict } from 'date-fns';
+	import { GuestType } from '@prisma/client';
 
 	let hero: HTMLElement;
 	const timelineState = getPreloaderState();
@@ -83,15 +84,22 @@
 	<Section state="right-aligned">
 		<Subtitle as="h2">When & Where</Subtitle>
 		<TextColumn>
-			<p>
-				We can't wait to welcome you to our favourite city, Edinburgh. The ceremony, dinner and
-				evening party will all take place at the Hoxton Hotel on <strong
-					><time datetime="2027-03-27T15:00">Saturday March 27th 2027</time></strong
-				>.
-			</p>
+			{#if !user || user.type === GuestType.DAY}
+				<p>
+					We can't wait to welcome you to our favourite city, Edinburgh. The ceremony, dinner and
+					evening party will all take place at the Hoxton Hotel on <strong
+						><time datetime="2027-03-27T15:00">Saturday March 27th 2027</time></strong
+					>.
+				</p>
+			{:else}
+				<p>
+					We can't wait to celebrate our wedding party with you from
+					<strong>7.30pm <time datetime="2027-03-27T19:30">Saturday March 27th 2027</time></strong> at the Hoxton Hotel.
+				</p>
+			{/if}
 			<p>
 				If you wish, please join us in the hotel lobby bar on Friday 26th March for a little evening
-				get together (nothing wild!), timings TBC.
+				get together (nothing wild!). Please check back for timings.
 			</p>
 
 			<p>
@@ -147,7 +155,7 @@
 		<Subtitle as="h2">Registry</Subtitle>
 		<TextColumn>
 			<p>Aly says your presence is the greatest gift...</p>
-			<p>But if you'd like to contribute towards our honeymoon, we'd be eternally greatful!</p>
+			<p>But if you'd like to contribute towards our honeymoon, we'd be super grateful!</p>
 		</TextColumn>
 	</Section>
 </main>

@@ -35,9 +35,17 @@
 						>
 					</li>
 					<li class="Overlay__navItem">
-						<NavLink href="/rsvp" aria-current={url === '/rsvp'} active={url === '/rsvp'}
-							>RSVP</NavLink
-						>
+						{#if user && user.RSVP}
+							<NavLink
+								href="/rsvp/{user.id}/edit"
+								aria-current={url === `/rsvp/${user.id}/edit`}
+								active={url === `/rsvp/${user.id}/edit`}>Edit RSVP</NavLink
+							>
+						{:else}
+							<NavLink href="/rsvp" aria-current={url === '/rsvp'} active={url === '/rsvp'}
+								>RSVP</NavLink
+							>
+						{/if}
 					</li>
 					<li class="Overlay__navItem">
 						<NavLink href="/q&a" aria-current={url === '/q&a'} active={url === '/q&a'}

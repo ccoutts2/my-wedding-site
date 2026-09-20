@@ -14,7 +14,7 @@
 <div
 	class="Toast"
 	data-status={toast.toastStatus}
-	transition:fly={{ y: -30, duration: 400 }}
+	transition:fly={{ y: 30, duration: 400 }}
 	role="status"
 >
 	<p class="Toast__title">{toast.title}</p>

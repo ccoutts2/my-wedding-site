@@ -16,7 +16,7 @@
 	<Section state="centered">
 		<div class="QandAContainer">
 			<Subtitle as="h2">When is the deadline to RSVP</Subtitle>
-			<p>Please RSVP by 31st November</p>
+			<p>Please RSVP by 30th November</p>
 		</div>
 		<div class="QandAContainer">
 			<Subtitle as="h2">Are kids welcome?</Subtitle>
@@ -45,7 +45,7 @@
 		</div>
 		<div class="QandAContainer">
 			<Subtitle as="h2">If we have a problem on the day, who do we contact?</Subtitle>
-			<p>Sonja Tait, at the Hoxton Hotel on <a href="tel:+447570689042">07570689042</a></p>
+			<p>Sonya Tait, at the Hoxton Hotel on <a href="tel:+447570689042">07570689042</a></p>
 		</div>
 	</Section>
 </PageLayout>

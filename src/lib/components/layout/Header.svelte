@@ -9,9 +9,11 @@
 		adminUser: boolean;
 
 		url: string;
+
+		user: { RSVP: boolean; id: string } | null | undefined;
 	}
 
-	let { adminUser, url }: HeaderProps = $props();
+	let { adminUser, url, user }: HeaderProps = $props();
 
 	const timelineState = getPreloaderState();
 	const overlayContext = getContext<OverlayProps>('overlay-ctx') ?? { isMenuOpen: false };
@@ -63,7 +65,17 @@
 			</ul>
 		{:else}
 			<span>
-				<NavLink href="/rsvp" aria-current={url === '/rsvp'} active={url === '/rsvp'}>RSVP</NavLink>
+				{#if user && user.RSVP}
+					<NavLink
+						href="/rsvp/{user.id}/edit"
+						aria-current={url === `/rsvp/${user.id}/edit`}
+						active={url === `/rsvp/${user.id}/edit`}>Edit RSVP</NavLink
+					>
+				{:else}
+					<NavLink href="/rsvp" aria-current={url === '/rsvp'} active={url === '/rsvp'}
+						>RSVP</NavLink
+					>
+				{/if}
 			</span>
 		{/if}
 	</nav>

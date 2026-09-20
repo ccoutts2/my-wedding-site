@@ -2,6 +2,12 @@
 	import PageLayout from '$lib/components/PageLayout.svelte';
 	import Section from '$lib/components/Section.svelte';
 	import Subtitle from '$lib/components/Subtitle.svelte';
+	import { GuestType } from '@prisma/client';
+	import type { PageProps } from './$types';
+
+	let { data }: PageProps = $props();
+
+	const isDayGuest = data.user?.type === GuestType.DAY;
 </script>
 
 <svelte:head>
@@ -16,38 +22,32 @@
 	<Section state="right-aligned">
 		<h2>What to look forward to!</h2>
 		<article class="Schedule">
-			<Subtitle as="h3">Friday</Subtitle>
+			<Subtitle as="h3">Friday, 26th March</Subtitle>
 			<div class="Schedule__information">
 				<p>Get together at the The Hoxton lobby bar.</p>
-				<p>TBC on timings.</p>
+				<p>Please check back for timings.</p>
 			</div>
 		</article>
 		<article class="Schedule">
-			<Subtitle as="h3">Saturday</Subtitle>
-			<section class="Schedule__information">
-				<h3>Guest Arrival</h3>
-				<p class="Schedule__time"><time datetime="13:30">1.30pm</time></p>
-			</section>
-			<section class="Schedule__information">
-				<h3>We Do</h3>
-				<p class="Schedule__time"><time datetime="14:00">2pm</time></p>
-			</section>
-			<section class="Schedule__information">
-				<h3>We Drink</h3>
-				<p class="Schedule__time"><time datetime="14:45">2.45pm</time></p>
-			</section>
-			<section class="Schedule__information">
-				<h3>Call to Dinner</h3>
-				<p class="Schedule__time"><time datetime="16:30">4.30pm</time></p>
-			</section>
-			<section class="Schedule__information">
-				<h3>We Eat</h3>
-				<p class="Schedule__time"><time datetime="17:00">5pm</time></p>
-			</section>
-			<section class="Schedule__information">
-				<h3>Evening Guest Arrival</h3>
-				<p class="Schedule__time"><time datetime="19:30">7.30pm</time></p>
-			</section>
+			<Subtitle as="h3">Saturday, 27th March</Subtitle>
+			{#if isDayGuest}
+				<section class="Schedule__information">
+					<h3>Guest Arrival</h3>
+					<p class="Schedule__time"><time datetime="13:30">1.30pm</time></p>
+				</section>
+				<section class="Schedule__information">
+					<h3>We Do</h3>
+					<p class="Schedule__time"><time datetime="14:00">2pm</time></p>
+				</section>
+				<section class="Schedule__information">
+					<h3>We Drink</h3>
+					<p class="Schedule__time"><time datetime="14:30">2.30pm</time></p>
+				</section>
+				<section class="Schedule__information">
+					<h3>We Eat</h3>
+					<p class="Schedule__time"><time datetime="17:00">5pm</time></p>
+				</section>
+			{/if}
 			<section class="Schedule__information">
 				<h3>We Party</h3>
 				<p class="Schedule__time"><time datetime="20:00">8pm</time></p>
