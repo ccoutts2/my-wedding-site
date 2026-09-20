@@ -30,32 +30,36 @@
 		</article>
 		<article class="Schedule">
 			<Subtitle as="h3">Saturday, 27th March</Subtitle>
-			{#if isDayGuest}
+			{#if !data.user}
+				<p>Please RSVP to see the order of the day for Saturday.</p>
+			{:else}
+				{#if isDayGuest}
+					<section class="Schedule__information">
+						<h3>Guest Arrival</h3>
+						<p class="Schedule__time"><time datetime="13:30">1.30pm</time></p>
+					</section>
+					<section class="Schedule__information">
+						<h3>We Do</h3>
+						<p class="Schedule__time"><time datetime="14:00">2pm</time></p>
+					</section>
+					<section class="Schedule__information">
+						<h3>We Drink</h3>
+						<p class="Schedule__time"><time datetime="14:30">2.30pm</time></p>
+					</section>
+					<section class="Schedule__information">
+						<h3>We Eat</h3>
+						<p class="Schedule__time"><time datetime="17:00">5pm</time></p>
+					</section>
+				{/if}
 				<section class="Schedule__information">
-					<h3>Guest Arrival</h3>
-					<p class="Schedule__time"><time datetime="13:30">1.30pm</time></p>
+					<h3>We Party</h3>
+					<p class="Schedule__time"><time datetime="20:00">8pm</time></p>
 				</section>
 				<section class="Schedule__information">
-					<h3>We Do</h3>
-					<p class="Schedule__time"><time datetime="14:00">2pm</time></p>
-				</section>
-				<section class="Schedule__information">
-					<h3>We Drink</h3>
-					<p class="Schedule__time"><time datetime="14:30">2.30pm</time></p>
-				</section>
-				<section class="Schedule__information">
-					<h3>We Eat</h3>
-					<p class="Schedule__time"><time datetime="17:00">5pm</time></p>
+					<h3>Carriages</h3>
+					<p class="Schedule__time"><time datetime="24:00">12am</time></p>
 				</section>
 			{/if}
-			<section class="Schedule__information">
-				<h3>We Party</h3>
-				<p class="Schedule__time"><time datetime="20:00">8pm</time></p>
-			</section>
-			<section class="Schedule__information">
-				<h3>Carriages</h3>
-				<p class="Schedule__time"><time datetime="24:00">12am</time></p>
-			</section>
 		</article>
 	</Section>
 </PageLayout>
