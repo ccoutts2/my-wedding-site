@@ -80,7 +80,7 @@
 			/>
 		</RadioGroup>
 
-		{#if $form.acceptance === 'yes' && data.user.type === GuestType.DAY}
+		{#if $form.acceptance === 'yes'}
 			<div class="w-full {$form.acceptance !== 'yes' ? 'toggle-hide' : ''}">
 				<RadioGroup name="meal" legend="Please select your dietary requirements">
 					<RadioGroupOption
@@ -157,7 +157,7 @@
 					required={$form.guestResponses[i].acceptance === 'yes'}
 				/>
 			</RadioGroup>
-			{#if $form.guestResponses[i].acceptance === 'yes' && guest.type === GuestType.DAY}
+			{#if $form.guestResponses[i].acceptance === 'yes'}
 				<div class="w-full {$form.guestResponses[i].acceptance !== 'yes' ? 'toggle-hide' : ''}">
 					<RadioGroup
 						name="meal[{i}]"

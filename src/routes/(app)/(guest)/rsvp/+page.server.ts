@@ -1,4 +1,4 @@
-import { DietaryOptions, GuestType } from '../../../../generated/prisma/enums';
+import { DietaryOptions } from '../../../../generated/prisma/enums';
 import { message, superValidate } from 'sveltekit-superforms';
 import { redirect, type Actions } from '@sveltejs/kit';
 import { z } from 'zod/v4';
@@ -6,7 +6,7 @@ import { zod4 } from 'sveltekit-superforms/adapters';
 import prisma from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 
-const buildSchema = (userType: GuestType, guestTypesById: Map<number, GuestType>) =>
+const buildSchema = () =>
 	z
 		.object({
 			acceptance: z.string().min(1, 'Please select an option.'),
@@ -24,7 +24,7 @@ const buildSchema = (userType: GuestType, guestTypesById: Map<number, GuestType>
 				.array()
 		})
 		.superRefine((data, ctx) => {
-			if (data.acceptance === 'yes' && userType === GuestType.DAY) {
+			if (data.acceptance === 'yes') {
 				if (!data.meal || data.meal === undefined) {
 					ctx.addIssue({
 						code: 'custom',
@@ -45,7 +45,7 @@ const buildSchema = (userType: GuestType, guestTypesById: Map<number, GuestType>
 			}
 
 			data.guestResponses.map((guest, i) => {
-				if (guest.acceptance === 'yes' && guestTypesById.get(guest.id) === GuestType.DAY) {
+				if (guest.acceptance === 'yes') {
 					if (!guest.meal) {
 						ctx.addIssue({
 							code: 'custom',
@@ -102,8 +102,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
 		allergiesDescription: ''
 	}));
 
-	const guestTypesById = new Map(additionalGuests.map((guest) => [guest.id, guest.type]));
-	const schema = buildSchema(user.type, guestTypesById);
+	const schema = buildSchema();
 
 	const form = await superValidate({ guestResponses }, zod4(schema), {
 		errors: false
@@ -127,12 +126,11 @@ export const actions = {
 		});
 
 		if (!user) {
-			const form = await superValidate(request, zod4(buildSchema(GuestType.DAY, new Map())));
+			const form = await superValidate(request, zod4(buildSchema()));
 			return message(form, { status: 'error', text: 'User not found.' }, { status: 404 });
 		}
 
-		const guestTypesById = new Map(user.guest.map((guest) => [guest.id, guest.type]));
-		const schema = buildSchema(user.type, guestTypesById);
+		const schema = buildSchema();
 		const form = await superValidate(request, zod4(schema));
 
 		if (!form.valid) {

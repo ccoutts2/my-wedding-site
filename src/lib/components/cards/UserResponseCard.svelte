@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { GuestType } from "../../../generated/prisma/enums";
-
 	let { person, footer = false }: { person: any, footer?: boolean } = $props();
 </script>
 
@@ -11,10 +9,8 @@
 			{#if footer}
 				<li>Coming: {person.isAccepted ? 'Yes' : 'No' }</li>
 			{/if}
-			{#if person.type === GuestType.DAY}
-				<li>Diet: {person.diet ? person.diet.toLowerCase() : 'Not specified'}</li>
-				<li>Allergies: {person.hasAllergies ? 'Yes' : 'No'}</li>
-			{/if}
+			<li>Diet: {person.diet ? person.diet.toLowerCase() : 'Not specified'}</li>
+			<li>Allergies: {person.hasAllergies ? 'Yes' : 'No'}</li>
 		</ul>
 	{:else}
 		<h4>Changed your mind?</h4>
