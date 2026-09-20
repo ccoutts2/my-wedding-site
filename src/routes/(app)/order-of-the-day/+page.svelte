@@ -2,7 +2,7 @@
 	import PageLayout from '$lib/components/PageLayout.svelte';
 	import Section from '$lib/components/Section.svelte';
 	import Subtitle from '$lib/components/Subtitle.svelte';
-	import { GuestType } from '@prisma/client';
+	import { GuestType } from '../../../generated/prisma/enums';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();

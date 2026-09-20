@@ -8,7 +8,7 @@
 	import { getPreloaderState } from '$lib/contexts/preloader.state.svelte';
 	import type { PageProps } from './$types';
 	import { formatDistanceToNowStrict } from 'date-fns';
-	import { GuestType } from '@prisma/client';
+	import { GuestType } from '../../generated/prisma/enums';
 
 	let hero: HTMLElement;
 	const timelineState = getPreloaderState();
