@@ -10,7 +10,7 @@ import type { PageServerLoad } from './$types';
 const schema = z.object({
 	givenName: z.string().trim().min(1, 'You must enter a valid name.'),
 	familyName: z.string().trim().min(1, 'You must enter a valid name.'),
-	email: z.string().trim().pipe(z.email()),
+	email: z.string().trim().toLowerCase().pipe(z.email()),
 	type: z.enum(GuestType),
 	hasGuests: z.string().min(1, 'You must select an option'),
 	additionalGuests: z

@@ -69,11 +69,11 @@ async function main() {
 			continue;
 		}
 
-		const emailKey = row.email.toLowerCase();
+		const emailKey = row.email.trim().toLowerCase();
 		const occurrence = (emailCounts.get(emailKey) ?? 0) + 1;
 		emailCounts.set(emailKey, occurrence);
 
-		let email = row.email;
+		let email = emailKey;
 		if (occurrence > 1) {
 			const [local, domain] = row.email.split('@');
 			email = `${local}+${occurrence}@${domain}`;
