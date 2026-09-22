@@ -42,6 +42,13 @@ export const load: LayoutServerLoad = async ({ url, setHeaders }) => {
 
 	const totalPages = Math.ceil(totalGuests / ITEMS_PER_PAGE);
 
+	const [acceptedUsers, acceptedPlusOnes] = await Promise.all([
+		prisma.user.count({ where: { isAccepted: true } }),
+		prisma.guest.count({ where: { isAccepted: true } })
+	]);
+
+	const totalAttending = acceptedUsers + acceptedPlusOnes;
+
 	const maxPage = Math.max(1, totalPages);
 
 	if (page < 1 || page > maxPage) {
@@ -70,6 +77,7 @@ export const load: LayoutServerLoad = async ({ url, setHeaders }) => {
 			orderBy,
 			ascending
 		},
-		totalGuests
+		totalGuests,
+		totalAttending
 	};
 };

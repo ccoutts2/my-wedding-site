@@ -21,6 +21,7 @@
 	const sorting: Sorting = $derived(data.sorting);
 
 	let totalGuests = $derived(data.totalGuests);
+	let totalAttending = $derived(data.totalAttending);
 	let totalPages = $derived(Math.ceil(totalGuests / ITEMS_PER_PAGE));
 	let currentPage = $derived(Number(page.url.searchParams.get('p')) || 1);
 
@@ -46,6 +47,10 @@
 </script>
 
 <main class="ViewGuestsLayout {isModalOpen ? 'show-modal' : ''}">
+	
+
+	<p class="TotalAttending">Total guests attending (including plus 1s): {totalAttending}</p>
+
 	<SearchInput {searchTerm} {handleInput} />
 
 	{#if data.users}
@@ -78,7 +83,7 @@
 						</TableHeaderCell>
 						<td>{RSVP ? 'Yes' : 'No'}</td>
 						<td>{isAccepted ? 'Yes' : 'No'}</td>
-						<td>{diet ? 'Yes' : 'No'}</td>
+						<td>{diet ?? '-'}</td>
 						<td>{hasAllergies ? 'Yes' : 'No'}</td>
 						<td>{type}</td>
 						<td>{hasGuests ? 'Yes' : 'No'}</td>
